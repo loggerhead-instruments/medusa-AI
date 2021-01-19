@@ -1,10 +1,10 @@
 Board Information Report
 Filename     : C:\w\medusa-AI\altium\medusa-AI.PcbDoc
-Date         : 1/18/2021
-Time         : 11:49:20 AM
+Date         : 1/19/2021
+Time         : 1:27:10 PM
 Time Elapsed : 00:00:00
 
 General
     Board Size, 6660milsx2660mils
-    Components on board, 73
+    Components on board, 72
 count : 2
