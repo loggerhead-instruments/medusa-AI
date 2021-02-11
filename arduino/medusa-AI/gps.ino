@@ -65,7 +65,7 @@ int gps(byte incomingByte){
        char *token;
             
         memcpy(&temp, &gpsStream, streamPos);
-        //Serial.println(temp);s
+        //Serial.println(temp);
         //testing with a known string 72 chars
         //strcpy(temp, "$GNRMC,134211.000,A,2715.5428,N,08228.7924,W,1.91,167.64,020816,43,W,A*62");  
         //Serial.println(temp);

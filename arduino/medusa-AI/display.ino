@@ -21,10 +21,10 @@ void cDisplay(){
     display.print(sigStrength);
   #endif
   
-  
-  display.setCursor(50,0);
-  display.print(voltage);
+  display.setCursor(70,0);
+  display.print(voltage,1);
   display.print("V");
+  display.setCursor(0,0);
 }
 
 void displaySettings(){

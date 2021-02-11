@@ -2,15 +2,13 @@
 // c 2020, David Mann
 
 // To do:
-
-// - display
 // - record audio
 // - get GPS
 // - switch to Pi
 // - transmit packet over Iridium
 // - measure power consumption
 // - measure waves with accelerometer
-
+// - if SD card fails, change to run noise level monitoring only, retry
 
 #include <Audio.h>  //this also includes SD.h from lines 89 & 90
 #include <analyze_fft256.h>
@@ -32,7 +30,7 @@
 #define codeVersion 20210210
 #define IRIDIUM_MODEM
 
-boolean sendIridium = 1;
+boolean sendIridium = 0;
 boolean useGPS = 1;
 static boolean printDiags = 1;  // 1: serial print diagnostics; 0: no diagnostics 2=verbose
 long rec_dur = 30; // seconds
@@ -55,8 +53,8 @@ int systemGain = 4; // SG in script file
 #define SD_POW 16
 #define SD_SWITCH 17
 
-#define SD_TEENSY HIGH
-#define SD_PI LOW
+#define SD_TEENSY LOW
+#define SD_PI HIGH
 
 AltSoftSerial gpsSerial;  // RX 20; Tx: 21
 
@@ -117,7 +115,7 @@ boolean audioFlag = 1;
 volatile boolean LEDSON = 1;
 boolean introPeriod=1;  //flag for introductory period; used for keeping LED on for a little while
 
-int update_rate = 20;  // rate (Hz) at which interrupt to read P/T sensors will run, so sensor_srate needs to <= update_rate
+int update_rate = 10;  // rate (Hz) at which interrupt to read P/T sensors will run, so sensor_srate needs to <= update_rate
 float sensor_srate = 10.0;
 float imu_srate = 10.0;
 volatile int updateSensorCounter = 0;
@@ -305,7 +303,7 @@ void setup() {
       display.println();
       display.println("SD error");
       display.display();
-      delay(400);
+      while(1);
       
     }
   sensorInit(); // initialize and test sensors; GPS and Iridium should be after this
@@ -329,15 +327,16 @@ void setup() {
 
 
   #ifdef IRIDIUM_MODEM
+  if(sendIridium){
     Serial1.begin(19200, SERIAL_8N1);  //Iridium
     modem.getSignalQuality(sigStrength); // update Iridium modem strength
     modem.setPowerProfile(IridiumSBD::DEFAULT_POWER_PROFILE);
     int result = modem.begin();
+  }
   #endif
   
   cDisplay();
-  display.println("IMU");
-  display.println();
+  display.setCursor(0,30);
   display.print("Lat: ");
   display.println(latitude);
   display.print("Lon: ");
@@ -347,7 +346,7 @@ void setup() {
   logFileHeader();
 
   #ifdef IRIDIUM_MODEM
-    modem.sleep();
+    if(sendIridium) modem.sleep();
   #endif
 
   digitalWrite(hydroPowPin, HIGH);
@@ -378,11 +377,10 @@ void setup() {
   
   AudioMemory(100);
   AudioInit(); // this calls Wire.begin() in control_sgtl5000.cpp
-  mode = 2;
+  mode = 0;
 
   // create first folder to hold data
   folderMonth = -1;  //set to -1 so when first file made will create directory
-  startSensors(); // start sampling of motion sensors
 }
 
 //
@@ -922,23 +920,20 @@ float readVoltage(){
 
 void sensorInit(){
   pinMode(hydroPowPin, OUTPUT);
-
+  digitalWrite(hydroPowPin, HIGH);
   pinMode(vSense, INPUT);
   analogReference(DEFAULT); 
 
   #ifdef IRIDIUM_MODEM
-  pinMode(iridiumAv, INPUT);
-  pinMode(iridiumRi, INPUT);
-  pinMode(iridiumSleep, OUTPUT);
-  digitalWrite(iridiumSleep, HIGH); // HIGH = enabled; LOW = sleeping
+    pinMode(iridiumAv, INPUT);
+    pinMode(iridiumRi, INPUT);
+    pinMode(iridiumSleep, OUTPUT);
+    digitalWrite(iridiumSleep, HIGH); // HIGH = enabled; LOW = sleeping
   #endif
 
   pinMode(gpsEnable, OUTPUT);
-  pinMode(infraRed, INPUT);
-
-  digitalWrite(hydroPowPin, LOW);
-
   digitalWrite(gpsEnable, HIGH);  // HIGH = enabled; LOW = Sleep
+  pinMode(infraRed, INPUT);
   cDisplay();
   display.display();
 }
