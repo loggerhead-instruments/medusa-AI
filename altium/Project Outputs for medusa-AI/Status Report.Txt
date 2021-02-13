@@ -1,0 +1,10 @@
+Output: Generates pick and place files
+Type  : Pick Place
+From  : Variant [[No Variations]] of Project [medusa-AI.PrjPCB]
+   Generated File[Pick Place for medusa-AI.csv]
+
+
+Files Generated   : 1
+Documents Printed : 0
+
+Finished Output Generation At 1:22:28 PM On 2/5/2021
