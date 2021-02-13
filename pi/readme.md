@@ -14,15 +14,15 @@ Pi   uSD
 13    2  
 
 
-sudo nano /boot/config.txt
+`sudo nano /boot/config.txt`
 
 add
-dtoverlay=sdio,poll-once=off
+`dtoverlay=sdio,poll-once=off`
 
 
 Need to create a mounting point (https://www.raspberrypi.org/documentation/configuration/external-storage.md)
-sudo mkdir /mnt/audio
-sudo mount /dev/mmcblk1p1 /mnt/audio
+    sudo mkdir /mnt/audio
+    sudo mount /dev/mmcblk1p1 /mnt/audio
 
 
 
@@ -31,16 +31,16 @@ You can modify the fstab file to define the location where the storage device wi
 
 ### Get the UUID of the disk partition:
 
-sudo blkid  
+`sudo blkid`  
 
 Find the disk partition from the list and note the UUID. For example, 5C24-1453.
 Open the fstab file using a command line editor such as nano:
 
-sudo nano /etc/fstab  
+`sudo nano /etc/fstab`  
 
 Add the following line in the fstab file:
 
-UUID=5C24-1453 /mnt/mydisk fstype defaults,auto,users,rw,nofail 0 0  
+`UUID=5C24-1453 /mnt/mydisk fstype defaults,auto,users,rw,nofail 0 0`
 
 
 Replace fstype with the type of your file system, which you found in step 2 of 'Mounting a storage device' above, for example: ntfs.
