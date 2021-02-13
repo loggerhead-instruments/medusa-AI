@@ -22,7 +22,8 @@ add
 
 Need to create a mounting point (https://www.raspberrypi.org/documentation/configuration/external-storage.md)
 
-`sudo mkdir /mnt/audio`
+`sudo mkdir /mnt/audio`  
+
 `sudo mount /dev/mmcblk1p1 /mnt/audio`
 
 
@@ -30,7 +31,7 @@ Need to create a mounting point (https://www.raspberrypi.org/documentation/confi
 ### Setting up automatic mounting
 You can modify the fstab file to define the location where the storage device will be automatically mounted when the Raspberry Pi starts up. In the fstab file, the disk partition is identified by the universally unique identifier (UUID).
 
-### Get the UUID of the disk partition:
+#### Get the UUID of the disk partition
 
 `sudo blkid`  
 
