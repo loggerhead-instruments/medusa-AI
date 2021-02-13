@@ -9,6 +9,8 @@
 // - measure power consumption
 // - measure waves with accelerometer
 // - if SD card fails, change to run noise level monitoring only, retry
+// - go through all fail scenarios and reboot contingency
+// - WDT
 
 #include <Audio.h>  //this also includes SD.h from lines 89 & 90
 #include <analyze_fft256.h>
@@ -31,14 +33,16 @@
 #define IRIDIUM_MODEM
 
 boolean sendIridium = 0;
-boolean useGPS = 1;
+boolean useGPS = 0;
 static boolean printDiags = 1;  // 1: serial print diagnostics; 0: no diagnostics 2=verbose
 long rec_dur = 30; // seconds
 long rec_int = 60;  // miminum is 60
 long accumulationInterval = 2 * 60 * 60; //seconds to accumulate results
-int moduloSeconds = 60; // round to nearest start time
+int moduloSeconds = 10; // round to nearest start time
 float hydroCal = -170;
 int systemGain = 4; // SG in script file
+long piTimeout = 600 ; // timeout Pi processing in seconds
+boolean cardFailed = 0; // if sd card fails, skip Pi processing
 
 // Pin Assignments
 #define hydroPowPin 8
@@ -52,6 +56,8 @@ int systemGain = 4; // SG in script file
 #define POW_5V 15
 #define SD_POW 16
 #define SD_SWITCH 17
+#define PI_STATUS A10
+#define PI_STATUS2 A11
 
 #define SD_TEENSY LOW
 #define SD_PI HIGH
@@ -264,6 +270,8 @@ void setup() {
   digitalWrite(SD_POW, HIGH);
   pinMode(SD_SWITCH, OUTPUT);
   digitalWrite(SD_SWITCH, SD_TEENSY); 
+  pinMode(PI_STATUS, INPUT);
+  pinMode(PI_STATUS2, INPUT);
 
   delay(500);
   Wire.begin();
@@ -491,6 +499,52 @@ void loop() {
         goodGPS = 0;
         if(introPeriod) displayOn();
 
+        // Process audio with Pi
+        digitalWrite(SD_SWITCH, SD_PI); // switch control to Pi
+        digitalWrite(SD_POW, LOW); // switch off power to microSD (Pi will use SD mode, so card needs to reset)
+        digitalWrite(POW_5V, HIGH); // power on Pi
+        delay(1000);
+        digitalWrite(SD_POW, HIGH); // power on microSD
+
+        // wait for Pi to boot; PI_STATUS will go high
+        time_t startPiTime = getTeensy3Time();
+        t = startPiTime;
+        int piProcessing = 0;
+        while((t - startPiTime < piTimeout) & (piProcessing < 100)){
+          t = getTeensy3Time();
+          piProcessing = analogRead(PI_STATUS);
+          Serial.println("PI_STATUS "); Serial.println(piProcessing);
+          delay(2000);
+        }
+
+        // wait for Pi to finish processing (PI_STATUS2 will go high) or timeout
+        startPiTime = getTeensy3Time();
+        t = startPiTime;
+        piProcessing = 0;
+        while((t - startPiTime < piTimeout) & (piProcessing < 100)){
+          t = getTeensy3Time();
+          piProcessing = analogRead(PI_STATUS2);
+          Serial.println("PI_STATUS2 "); Serial.println(piProcessing);
+          delay(2000);
+        }
+
+        digitalWrite(SD_POW, LOW); // switch off power to microSD (Pi will use SD mode, so card needs to reset)
+        digitalWrite(SD_SWITCH, SD_TEENSY); // switch control to Teensy
+        delay(1000);
+        digitalWrite(SD_POW, HIGH); // power on microSD
+        delay(100);
+
+        int sdAttempts = 0;
+        if (!(sd.begin(10)) & sdAttempts < 10) {
+          digitalWrite(SD_POW, LOW);
+          delay(1000);
+          digitalWrite(SD_POW, HIGH);
+          delay(1000);
+        }
+
+        if(sdAttempts>=10) cardFailed = 1;
+        
+
         #ifdef IRIDIUM_MODEM
           // IRIDIUM
           if(sendIridium){
@@ -503,6 +557,7 @@ void loop() {
           }
           //
         #endif
+        digitalWrite(POW_5V, LOW); // power off Pi and Iridium
         resetSignals();
         delay(1000); // time to read display
         displayOff();
