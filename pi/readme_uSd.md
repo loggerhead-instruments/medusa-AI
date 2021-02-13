@@ -1,7 +1,8 @@
-Connecting second microSD to Pi
+# Connecting second microSD to Pi
 
 Format card as FAT32
 
+### Connections
 Pi   uSD
 17    4
 20    6
