@@ -16,7 +16,15 @@ Pi   uSD
 
 `sudo nano /boot/config.txt`
 
-add
+add at top
+```
+[pi4]
+dtparam=mmchat_pi4
+[all]
+```
+
+**Not sure if this is necessary: ** 
+
 `dtoverlay=sdio,poll-once=off`
 
 
