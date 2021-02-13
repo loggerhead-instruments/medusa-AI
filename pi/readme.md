@@ -21,8 +21,9 @@ add
 
 
 Need to create a mounting point (https://www.raspberrypi.org/documentation/configuration/external-storage.md)
-    sudo mkdir /mnt/audio
-    sudo mount /dev/mmcblk1p1 /mnt/audio
+
+`sudo mkdir /mnt/audio`
+`sudo mount /dev/mmcblk1p1 /mnt/audio`
 
 
 
