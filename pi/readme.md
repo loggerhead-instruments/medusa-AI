@@ -16,15 +16,6 @@ Pi uSD
 
 `sudo nano /boot/config.txt`
 
-add at top
-
-```
-[pi4]
-dtparam=mmchat_pi4
-[all]
-```
-
-**Not sure if this is necessary: **
 
 `dtoverlay=sdio,poll-once=off`
 
@@ -32,9 +23,11 @@ Need to create a mounting point (https://www.raspberrypi.org/documentation/confi
 
 `sudo mkdir /mnt/audio`
 
+### We will do the following in the bash script
+
 `sudo mount /dev/mmcblk1p1 /mnt/audio`
 
-### Setting up automatic mounting
+### Setting up automatic mounting (not necessary if using bash script)
 
 You can modify the fstab file to define the location where the storage device will be automatically mounted when the Raspberry Pi starts up. In the fstab file, the disk partition is identified by the universally unique identifier (UUID).
 
