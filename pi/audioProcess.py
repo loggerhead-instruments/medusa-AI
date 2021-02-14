@@ -27,7 +27,7 @@ GPIO.output(statusPin2, 0)
 print("Processing")
 sleep(10)
 
-file1 = open("\mnt\audio\detections.txt", "w")
+file1 = open("/mnt/audio/detections.txt", "w")
 file1.write("w:10\n")
 file1.close()
 
