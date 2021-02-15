@@ -54,7 +54,11 @@ void makeDataPacket(){
 
 //  dataPacket += ";t:";
 //  dataPacket += String((int) temperature);
+
+  dataPacket += ";";
+  dataPacket += String(piPayload);
    Serial.println(dataPacket);
+
 }
 
 

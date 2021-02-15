@@ -2,15 +2,29 @@
 // c 2020, David Mann
 
 // To do:
-// - record audio
 // - get GPS
-// - switch to Pi
+// - show datapacket on display
 // - transmit packet over Iridium
 // - measure power consumption
 // - measure waves with accelerometer
 // - if SD card fails, change to run noise level monitoring only, retry
 // - go through all fail scenarios and reboot contingency
 // - WDT
+
+// Iridium ISU module needs to be configured for 3-wire (UART) operation
+// Baud 19200
+// Configuration is done using serial connection (e.g. FTDI board)
+// Connections: TX-TX, RX-RX, DTR-DTR, CTS-CTS, GND-SG (signal ground)
+// Can use Rockblock board with their USB cable and Serial Monitor of Arduino IDE set to Carriage return
+
+// AT&D0   (ignore DTR)
+// AT&K0   (ignore CTS)
+// AT&W0   (store active configuration to memory)
+// AT&Y0   (designate as default reset profile)
+
+// Commands must have a carriage return \r, not a line feed
+// "AT\r"
+
 
 #include <Audio.h>  //this also includes SD.h from lines 89 & 90
 #include <analyze_fft256.h>
@@ -36,13 +50,14 @@ boolean sendIridium = 0;
 boolean useGPS = 0;
 static boolean printDiags = 1;  // 1: serial print diagnostics; 0: no diagnostics 2=verbose
 long rec_dur = 30; // seconds
-long rec_int = 60;  // miminum is 60
+long rec_int = 270;  // miminum is time needed for audio processing
 long accumulationInterval = 2 * 60 * 60; //seconds to accumulate results
 int moduloSeconds = 10; // round to nearest start time
 float hydroCal = -170;
 int systemGain = 4; // SG in script file
 long piTimeout = 600 ; // timeout Pi processing in seconds
 boolean cardFailed = 0; // if sd card fails, skip Pi processing
+char piPayload[200];  // payload to send from Pi/Coral detector
 
 // Pin Assignments
 #define hydroPowPin 8
@@ -222,7 +237,7 @@ float meanBand[NBANDS]; // mean band valuesd
 int bandLow[NBANDS]; // band low frequencies
 int bandHigh[NBANDS];
 int nBins[NBANDS]; // number of FFT bins in each band
-String dataPacket; // data packed for Particle transmission after each file
+String dataPacket; // data packed for transmission after each file
 
 void setup() {
   read_myID();
@@ -263,7 +278,6 @@ void setup() {
   
   Serial.begin(baud);
 
-  
   pinMode(POW_5V, OUTPUT);
   digitalWrite(POW_5V, LOW);
   pinMode(SD_POW, OUTPUT);
@@ -474,130 +488,146 @@ void loop() {
       }
     }
   }
-  //
-  // End automated signal processing
-  //    
+ 
     if(buf_count >= nbufs_per_file){       // time to stop?
-      
       total_hour_recorded += (float) rec_dur / 3600.0;
       if(total_hour_recorded > 0.1) introPeriod = 0;  //LEDS on for first file
-      if(rec_int == 0){
-        if(printDiags > 0){
-          Serial.print("Audio Memory Max");
-          Serial.println(AudioMemoryUsageMax());
-          Serial.print("Current Time: ");
-          printTime(t);
-        }
-        frec.close();
-
-        FileInit();  // make a new file
-        buf_count = 0;
+      stopRecording();
+      goodGPS = 0;
+      if(introPeriod){
+        displayOn();
+        cDisplay();
+        display.println("Processing");
+        display.display();
       }
-      else
-      {
-        stopRecording();
-        goodGPS = 0;
-        if(introPeriod) displayOn();
 
-        // Process audio with Pi
-        digitalWrite(SD_SWITCH, SD_PI); // switch control to Pi
-        digitalWrite(SD_POW, LOW); // switch off power to microSD (Pi will use SD mode, so card needs to reset)
-        digitalWrite(POW_5V, HIGH); // power on Pi
+      //
+      // Process audio with Pi
+      //
+      digitalWrite(SD_SWITCH, SD_PI); // switch control to Pi
+      digitalWrite(SD_POW, LOW); // switch off power to microSD (Pi will use SD mode, so card needs to reset)
+      digitalWrite(POW_5V, HIGH); // power on Pi
+      delay(1000);
+      digitalWrite(SD_POW, HIGH); // power on microSD
+
+      // Pi pin values around 900 when booting
+      // value low 0-3
+      // value high 1014-1017
+      
+      // wait for Pi to boot
+      // PI_STATUS goes to 0-2 when Python program starts
+      time_t startPiTime = getTeensy3Time();
+      t = startPiTime;
+      int piStatus = analogRead(PI_STATUS);
+      Serial.println("PI_STATUS "); 
+      while((t - startPiTime < piTimeout) & (piStatus > 200)){
+        t = getTeensy3Time();
+        piStatus = analogRead(PI_STATUS);
+        Serial.println(piStatus);
+        delay(2000);
+      }
+
+      // wait for Pi to finish processing or timeout
+      // PI_STATUS2 around 1016-1017 during processing. 0-2 when done and Pi about to shut down.
+      startPiTime = getTeensy3Time();
+      t = startPiTime;
+      int piStatus2 = analogRead(PI_STATUS2);
+      Serial.println("PI_STATUS2 "); 
+      while((t - startPiTime < piTimeout) & (piStatus2 > 200)){
+        t = getTeensy3Time();
+        piStatus2 = analogRead(PI_STATUS2);
+        Serial.println(piStatus2);
+        delay(2000);
+      }
+
+      // wait for Pi to power down
+      // values will be 848 - 885 when Pi off
+      startPiTime = getTeensy3Time();
+      t = startPiTime;
+      Serial.print("Wait for PI to power down");
+      do{
+        piStatus = analogRead(PI_STATUS);
         delay(1000);
-        digitalWrite(SD_POW, HIGH); // power on microSD
+      }while((piStatus<200) | (piStatus>1000) & (t - startPiTime < piTimeout));
 
-        // wait for Pi to boot; PI_STATUS will go high
-        time_t startPiTime = getTeensy3Time();
-        t = startPiTime;
-        int piProcessing = 0;
-        while((t - startPiTime < piTimeout) & (piProcessing < 100)){
-          t = getTeensy3Time();
-          piProcessing = analogRead(PI_STATUS);
-          Serial.println("PI_STATUS "); Serial.println(piProcessing);
-          delay(2000);
-        }
+      digitalWrite(SD_POW, LOW); // switch off power to microSD (Pi will use SD mode, so card needs to reset)
+      digitalWrite(SD_SWITCH, SD_TEENSY); // switch control to Teensy
+      delay(1000);
+      digitalWrite(SD_POW, HIGH); // power on microSD
+      delay(100);
 
-        // wait for Pi to finish processing (PI_STATUS2 will go high) or timeout
-        startPiTime = getTeensy3Time();
-        t = startPiTime;
-        piProcessing = 0;
-        while((t - startPiTime < piTimeout) & (piProcessing < 100)){
-          t = getTeensy3Time();
-          piProcessing = analogRead(PI_STATUS2);
-          Serial.println("PI_STATUS2 "); Serial.println(piProcessing);
-          delay(2000);
-        }
-
-        digitalWrite(SD_POW, LOW); // switch off power to microSD (Pi will use SD mode, so card needs to reset)
-        digitalWrite(SD_SWITCH, SD_TEENSY); // switch control to Teensy
+      int sdAttempts = 0;
+      if (!(sd.begin(10)) & sdAttempts < 2000) {
+        digitalWrite(SD_POW, LOW);
         delay(1000);
-        digitalWrite(SD_POW, HIGH); // power on microSD
-        delay(100);
+        digitalWrite(SD_POW, HIGH);
+        delay(1000);
+      }
 
-        int sdAttempts = 0;
-        if (!(sd.begin(10)) & sdAttempts < 10) {
-          digitalWrite(SD_POW, LOW);
-          delay(1000);
-          digitalWrite(SD_POW, HIGH);
-          delay(1000);
+      if(sdAttempts>=10) cardFailed = 1;
+
+      // read detections file
+      if(!cardFailed) readDetections();
+
+      
+      makeDataPacket();
+      if(introPeriod) {
+        cDisplay();
+        display.println(dataPacket);
+        display.display();
+      }
+      
+      #ifdef IRIDIUM_MODEM
+        // IRIDIUM
+        if(sendIridium){
+          modem.begin();  // wake Iridium
+          modem.adjustSendReceiveTimeout(120);  // timeout in 120 seconds
+          if(introPeriod) displayOn();
+          int err = sendDataPacket();            
+          modem.sleep();
         }
-
-        if(sdAttempts>=10) cardFailed = 1;
-        
-
-        #ifdef IRIDIUM_MODEM
-          // IRIDIUM
-          if(sendIridium){
-            modem.begin();  // wake Iridium
-            modem.adjustSendReceiveTimeout(120);  // timeout in 120 seconds
-            if(introPeriod) displayOn();
-            makeDataPacket();
-            int err = sendDataPacket();            
-            modem.sleep();
+        //
+      #endif
+      digitalWrite(POW_5V, LOW); // power off Pi and Iridium
+      resetSignals();
+      delay(1000); // time to read display
+      displayOff();
+      
+      long ss = startTime - getTeensy3Time() - wakeahead;
+      if (ss<0) ss=0;
+      snooze_hour = floor(ss/3600);
+      ss -= snooze_hour * 3600;
+      snooze_minute = floor(ss/60);
+      ss -= snooze_minute * 60;
+      snooze_second = ss;
+      if((snooze_hour * 3600) + (snooze_minute * 60) + snooze_second >=15){
+          digitalWrite(hydroPowPin, LOW); //hydrophone off          
+          audio_power_down();
+          
+          if(printDiags > 0){
+            printTime(getTeensy3Time());
+            Serial.print("Snooze HH MM SS ");
+            Serial.print(snooze_hour);
+            Serial.print(snooze_minute);
+            Serial.println(snooze_second);
           }
-          //
-        #endif
-        digitalWrite(POW_5V, LOW); // power off Pi and Iridium
-        resetSignals();
-        delay(1000); // time to read display
-        displayOff();
-        
-        long ss = startTime - getTeensy3Time() - wakeahead;
-        if (ss<0) ss=0;
-        snooze_hour = floor(ss/3600);
-        ss -= snooze_hour * 3600;
-        snooze_minute = floor(ss/60);
-        ss -= snooze_minute * 60;
-        snooze_second = ss;
-        if((snooze_hour * 3600) + (snooze_minute * 60) + snooze_second >=15){
-            digitalWrite(hydroPowPin, LOW); //hydrophone off          
-            audio_power_down();
-            
-            if(printDiags > 0){
-              printTime(getTeensy3Time());
-              Serial.print("Snooze HH MM SS ");
-              Serial.print(snooze_hour);
-              Serial.print(snooze_minute);
-              Serial.println(snooze_second);
-            }
-            delay(100);
+          delay(100);
 
-            alarm.setRtcTimer(snooze_hour, snooze_minute, snooze_second);
-            Snooze.hibernate(config_teensy32);
-       
-            /// ... Sleeping ....
-            
-            // Waking up
-            
-           if(printDiags>0) printTime(getTeensy3Time());
-            digitalWrite(hydroPowPin, HIGH); // hydrophone on 
-            AudioInit();
-         }
-        if(introPeriod) displayOn();
-        mode = 2;
-        startSensors();
-        digitalWrite(gpsEnable, HIGH); // wake up to get GPS in standby mode
-      }
+          alarm.setRtcTimer(snooze_hour, snooze_minute, snooze_second);
+          Snooze.hibernate(config_teensy32);
+     
+          /// ... Sleeping ....
+          
+          // Waking up
+          
+         if(printDiags>0) printTime(getTeensy3Time());
+         digitalWrite(hydroPowPin, HIGH); // hydrophone on 
+         AudioInit();
+       }
+      if(introPeriod) displayOn();
+      mode = 0;
+      startSensors();
+      digitalWrite(gpsEnable, HIGH); // wake up to get GPS in standby mode
     }
   }
   asm("wfi"); // reduce power between interrupts
