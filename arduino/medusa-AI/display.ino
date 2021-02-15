@@ -14,13 +14,13 @@ void cDisplay(){
   display.clearDisplay();
   display.setTextColor(WHITE);
   display.setTextSize(1);
-  display.setCursor(55,0);
+  display.setCursor(65,0);
   #ifdef IRIDIUM_MODEM
     display.print("I:");
     display.print(sigStrength);
   #endif
   
-  display.setCursor(80,0);
+  display.setCursor(90,0);
   display.print(voltage,1);
   display.print("V");
   display.setCursor(0,0);
