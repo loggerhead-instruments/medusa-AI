@@ -497,7 +497,7 @@ void loop() {
       if(introPeriod){
         displayOn();
         cDisplay();
-        display.println("Processing");
+        display.println("Booting");
         display.display();
       }
 
@@ -527,6 +527,13 @@ void loop() {
         delay(2000);
       }
 
+      if(introPeriod){
+        displayOn();
+        cDisplay();
+        display.println("Processing");
+        display.display();
+      }
+
       // wait for Pi to finish processing or timeout
       // PI_STATUS2 around 1016-1017 during processing. 0-2 when done and Pi about to shut down.
       startPiTime = getTeensy3Time();
@@ -538,6 +545,14 @@ void loop() {
         piStatus2 = analogRead(PI_STATUS2);
         Serial.println(piStatus2);
         delay(2000);
+      }
+
+      
+      if(introPeriod){
+        displayOn();
+        cDisplay();
+        display.println("Wait on Pi");
+        display.display();
       }
 
       // wait for Pi to power down
@@ -573,6 +588,8 @@ void loop() {
       makeDataPacket();
       if(introPeriod) {
         cDisplay();
+        display.println("Payload");
+        display.println();
         display.println(dataPacket);
         display.display();
       }
