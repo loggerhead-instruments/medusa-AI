@@ -2,13 +2,12 @@
 // c 2020, David Mann
 
 // To do:
-// - get GPS
-// - show datapacket on display
-// - transmit packet over Iridium
+// - remote: start recording, stop, Pi download mode (so can SSH in and see card), reboot
+// - get GPS from Tile
+// - transmit packet over Tile
 // - measure power consumption
 // - measure waves with accelerometer
-// - if SD card fails, change to run noise level monitoring only, retry
-// - go through all fail scenarios and reboot contingency
+// - go through all fail scenarios and reboot contingency, including low battery power
 // - WDT
 
 // Iridium ISU module needs to be configured for 3-wire (UART) operation
@@ -49,8 +48,8 @@
 boolean sendIridium = 0;
 boolean useGPS = 0;
 static boolean printDiags = 1;  // 1: serial print diagnostics; 0: no diagnostics 2=verbose
-long rec_dur = 30; // seconds
-long rec_int = 270;  // miminum is time needed for audio processing
+long rec_dur = 60 * 50; // seconds
+long rec_int = 300;  // miminum is time needed for audio processing
 long accumulationInterval = 2 * 60 * 60; //seconds to accumulate results
 int moduloSeconds = 10; // round to nearest start time
 float hydroCal = -170;
