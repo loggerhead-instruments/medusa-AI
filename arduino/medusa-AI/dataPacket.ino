@@ -25,6 +25,9 @@ void makeDataPacket(){
   
   // 31 Bytes:   dateTime,duration,lat,long
   dataPacket = "";
+  #ifdef SWARM_MODEM
+    dataPacket = "$TD \"";
+  #endif
   dataPacket += packetTime;
   dataPacket += ";";
   dataPacket += rec_dur;
@@ -49,16 +52,27 @@ void makeDataPacket(){
       dataPacket += ";";
    }
 
-  dataPacket += ";v:";
+  dataPacket += "v:";
   dataPacket += String(voltage, 1);
 
 //  dataPacket += ";t:";
 //  dataPacket += String((int) temperature);
 
-  dataPacket += ";";
-  dataPacket += String(piPayload);
+  #ifdef PI_PROCESSING
+    dataPacket += ";";
+    dataPacket += String(piPayload);
+  #endif
+  #ifdef SWARM_MODEM
+    dataPacket += "\"";
+    uint8_t checksum = nmeaChecksum(&dataPacket[0], dataPacket.length());
+    dataPacket += "*";
+    dataPacket += String(checksum, HEX);
+    Serial.print("Checksum "); Serial.println(checksum, HEX);
+    Serial.print("Swarm ");
+  #endif
+    
    Serial.println(dataPacket);
-
+   delay(10000);
 }
 
 
@@ -71,6 +85,13 @@ int sendDataPacket(){
     display.println(dataPacket);
     display.display();
   }
+
+  #ifdef SWARM_MODEM
+    Serial1.print(dataPacket);
+    Serial1.flush();
+    return 1;
+  #endif
+    
 
   #ifdef IRIDIUM_MODEM
     err = modem.sendSBDText(&dataPacket[0]);
@@ -112,4 +133,14 @@ void resetSignals(){
     meanBand[i] = 0;
   }
   fftCount = 0;
+}
+
+uint8_t nmeaChecksum(const char *sz, size_t len){
+  size_t i = 0;
+  uint8_t cs;
+  if(sz[0]=='$') i++;
+  for(cs = 0; (i<len)&& sz[i]; i++){
+    cs ^=((uint8_t) sz[i]);
+  }
+  return cs;
 }

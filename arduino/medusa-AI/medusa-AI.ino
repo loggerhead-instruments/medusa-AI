@@ -2,9 +2,11 @@
 // c 2020, David Mann
 
 // To do:
-// - remote: start recording, stop, Pi download mode (so can SSH in and see card), reboot
-// - get GPS from Tile
 // - transmit packet over Tile
+// - get GPS from Tile
+
+
+// - remote: start recording, stop, Pi download mode (so can SSH in and see card), reboot
 // - measure power consumption
 // - measure waves with accelerometer
 // - go through all fail scenarios and reboot contingency, including low battery power
@@ -43,13 +45,16 @@
 // Dev settings
 //
 #define codeVersion 20210210
-#define IRIDIUM_MODEM
+// #define IRIDIUM_MODEM
+#define SWARM_MODEM
+//#define PI_PROCESSING
 
-boolean sendIridium = 0;
+boolean sendSatellite = 0;
 boolean useGPS = 0;
 static boolean printDiags = 1;  // 1: serial print diagnostics; 0: no diagnostics 2=verbose
-long rec_dur = 60 * 50; // seconds
-long rec_int = 300;  // miminum is time needed for audio processing
+long rec_dur = 10; // seconds
+long rec_int = 60;
+//long rec_int = 3600 - rec_dur;  // miminum is time needed for audio processing
 long accumulationInterval = 2 * 60 * 60; //seconds to accumulate results
 int moduloSeconds = 10; // round to nearest start time
 float hydroCal = -170;
@@ -80,8 +85,8 @@ AltSoftSerial gpsSerial;  // RX 20; Tx: 21
 
 #ifdef IRIDIUM_MODEM
   IridiumSBD modem(Serial1, iridiumSleep);
-  int sigStrength;
 #endif
+int sigStrength;
 
 #define CPU_RESTART_ADDR (uint32_t *)0xE000ED0C
 #define CPU_RESTART_VAL 0x5FA0004
@@ -348,7 +353,7 @@ void setup() {
 
 
   #ifdef IRIDIUM_MODEM
-  if(sendIridium){
+  if(sendSatellite){
     Serial1.begin(19200, SERIAL_8N1);  //Iridium
     modem.getSignalQuality(sigStrength); // update Iridium modem strength
     modem.setPowerProfile(IridiumSBD::DEFAULT_POWER_PROFILE);
@@ -367,7 +372,7 @@ void setup() {
   logFileHeader();
 
   #ifdef IRIDIUM_MODEM
-    if(sendIridium) modem.sleep();
+    if(sendSatellite) modem.sleep();
   #endif
 
   digitalWrite(hydroPowPin, HIGH);
@@ -503,66 +508,68 @@ void loop() {
       //
       // Process audio with Pi
       //
-      digitalWrite(SD_SWITCH, SD_PI); // switch control to Pi
-      digitalWrite(SD_POW, LOW); // switch off power to microSD (Pi will use SD mode, so card needs to reset)
-      digitalWrite(POW_5V, HIGH); // power on Pi
-      delay(1000);
-      digitalWrite(SD_POW, HIGH); // power on microSD
-
-      // Pi pin values around 900 when booting
-      // value low 0-3
-      // value high 1014-1017
-      
-      // wait for Pi to boot
-      // PI_STATUS goes to 0-2 when Python program starts
-      time_t startPiTime = getTeensy3Time();
-      t = startPiTime;
-      int piStatus = analogRead(PI_STATUS);
-      Serial.println("PI_STATUS "); 
-      while((t - startPiTime < piTimeout) & (piStatus > 200)){
-        t = getTeensy3Time();
-        piStatus = analogRead(PI_STATUS);
-        Serial.println(piStatus);
-        delay(2000);
-      }
-
-      if(introPeriod){
-        displayOn();
-        cDisplay();
-        display.println("Processing");
-        display.display();
-      }
-
-      // wait for Pi to finish processing or timeout
-      // PI_STATUS2 around 1016-1017 during processing. 0-2 when done and Pi about to shut down.
-      startPiTime = getTeensy3Time();
-      t = startPiTime;
-      int piStatus2 = analogRead(PI_STATUS2);
-      Serial.println("PI_STATUS2 "); 
-      while((t - startPiTime < piTimeout) & (piStatus2 > 200)){
-        t = getTeensy3Time();
-        piStatus2 = analogRead(PI_STATUS2);
-        Serial.println(piStatus2);
-        delay(2000);
-      }
-
-      
-      if(introPeriod){
-        displayOn();
-        cDisplay();
-        display.println("Wait on Pi");
-        display.display();
-      }
-
-      // wait for Pi to power down
-      // values will be 848 - 885 when Pi off
-      startPiTime = getTeensy3Time();
-      t = startPiTime;
-      Serial.print("Wait for PI to power down");
-      do{
-        piStatus = analogRead(PI_STATUS);
+      #ifdef PI_PROCESSING
+        digitalWrite(SD_SWITCH, SD_PI); // switch control to Pi
+        digitalWrite(SD_POW, LOW); // switch off power to microSD (Pi will use SD mode, so card needs to reset)
+        digitalWrite(POW_5V, HIGH); // power on Pi
         delay(1000);
-      }while((piStatus<200) | (piStatus>1000) & (t - startPiTime < piTimeout));
+        digitalWrite(SD_POW, HIGH); // power on microSD
+  
+        // Pi pin values around 900 when booting
+        // value low 0-3
+        // value high 1014-1017
+        
+        // wait for Pi to boot
+        // PI_STATUS goes to 0-2 when Python program starts
+        time_t startPiTime = getTeensy3Time();
+        t = startPiTime;
+        int piStatus = analogRead(PI_STATUS);
+        Serial.println("PI_STATUS "); 
+        while((t - startPiTime < piTimeout) & (piStatus > 200)){
+          t = getTeensy3Time();
+          piStatus = analogRead(PI_STATUS);
+          Serial.println(piStatus);
+          delay(2000);
+        }
+  
+        if(introPeriod){
+          displayOn();
+          cDisplay();
+          display.println("Processing");
+          display.display();
+        }
+  
+        // wait for Pi to finish processing or timeout
+        // PI_STATUS2 around 1016-1017 during processing. 0-2 when done and Pi about to shut down.
+        startPiTime = getTeensy3Time();
+        t = startPiTime;
+        int piStatus2 = analogRead(PI_STATUS2);
+        Serial.println("PI_STATUS2 "); 
+        while((t - startPiTime < piTimeout) & (piStatus2 > 200)){
+          t = getTeensy3Time();
+          piStatus2 = analogRead(PI_STATUS2);
+          Serial.println(piStatus2);
+          delay(2000);
+        }
+  
+        
+        if(introPeriod){
+          displayOn();
+          cDisplay();
+          display.println("Wait on Pi");
+          display.display();
+        }
+  
+        // wait for Pi to power down
+        // values will be 848 - 885 when Pi off
+        startPiTime = getTeensy3Time();
+        t = startPiTime;
+        Serial.print("Wait for PI to power down");
+        do{
+          piStatus = analogRead(PI_STATUS);
+          delay(1000);
+        }while((piStatus<200) | (piStatus>1000) & (t - startPiTime < piTimeout));
+      #endif
 
       digitalWrite(SD_POW, LOW); // switch off power to microSD (Pi will use SD mode, so card needs to reset)
       digitalWrite(SD_SWITCH, SD_TEENSY); // switch control to Teensy
@@ -595,7 +602,7 @@ void loop() {
       
       #ifdef IRIDIUM_MODEM
         // IRIDIUM
-        if(sendIridium){
+        if(sendSatellite){
           modem.begin();  // wake Iridium
           modem.adjustSendReceiveTimeout(120);  // timeout in 120 seconds
           if(introPeriod) displayOn();
@@ -604,7 +611,19 @@ void loop() {
         }
         //
       #endif
+
       digitalWrite(POW_5V, LOW); // power off Pi and Iridium
+
+      #ifdef SWARM_MODEM
+        // SWARM
+        if(sendSatellite){
+          if(introPeriod) displayOn();
+          int err = sendDataPacket();            
+        }
+        //
+      #endif
+      
+      
       resetSignals();
       delay(1000); // time to read display
       displayOff();
