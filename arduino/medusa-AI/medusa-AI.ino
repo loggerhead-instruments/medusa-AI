@@ -334,9 +334,6 @@ void setup() {
   sensorInit(); // initialize and test sensors; GPS and Iridium should be after this
 
 
-  
-
-
   #ifdef IRIDIUM_MODEM
   if(sendSatellite){
     Serial1.begin(19200, SERIAL_8N1);  //Iridium
@@ -350,7 +347,7 @@ void setup() {
     Serial.println("SWARM Get GPS");
     Serial1.begin(115200, SERIAL_8N1);
     delay(1000);
-    while(1){
+    while(!goodGPS){
       delay(1000);
       pollTile(); // print tile messages 
       Serial1.println("$DT @*70");  // get dt
@@ -360,6 +357,7 @@ void setup() {
       delay(100);
       pollTile(); // print tile messages
     }
+    setTeensyTime(gpsHour, gpsMinute, gpsSecond, gpsDay, gpsMonth, gpsYear);
   #endif
 
   
@@ -376,9 +374,10 @@ void setup() {
         delay(2000);
       }
     }
+    setTeensyTime(gpsHour, gpsMinute, gpsSecond, gpsDay, gpsMonth, gpsYear + 2000);
   }
 
-  setTeensyTime(gpsHour, gpsMinute, gpsSecond, gpsDay, gpsMonth, gpsYear + 2000);
+  
   
   cDisplay();
   display.setCursor(0,30);
@@ -451,8 +450,18 @@ void loop() {
   if(mode == 0)
   {
     delay(100);
+    goodGPS = 0;
     #ifdef SWARM_MODEM
-      pollTile(); // print tile messages 
+      if(!goodGPS){
+        pollTile(); // print tile messages 
+        Serial1.println("$DT @*70");  // get dt
+        delay(200);
+        pollTile();
+        Serial1.println("$GN @*69");
+        delay(200);
+        pollTile(); // print tile messages
+      }
+    setTeensyTime(gpsHour, gpsMinute, gpsSecond, gpsDay, gpsMonth, gpsYear);
     #endif
     if(useGPS){
       if(!goodGPS){
@@ -501,9 +510,6 @@ void loop() {
   // Record mode
   if (mode == 1) {
     continueRecording();  // download data 
-    #ifdef SWARM_MODEM
-      pollTile(); // print tile messages 
-    #endif
 
   //
   // Automated signal processing
@@ -643,7 +649,9 @@ void loop() {
         // SWARM
         if(sendSatellite){
           if(introPeriod) displayOn();
-          int err = sendDataPacket();            
+          int err = sendDataPacket();  
+          delay(100);
+          pollTile();          
         }
         //
       #endif
@@ -1199,16 +1207,16 @@ void parseTile(byte incomingByte){
             
         memcpy(&temp, &gpsStream[4], streamPos - 4);
         // 27.2594,-82.4798,-3,0,2*1f
-        Serial.print("GPS String extracted:"); Serial.println(temp);
+//        Serial.print("GPS String extracted:"); Serial.println(temp);
         sscanf(temp, "%f,%f,%f,%f,%f*%2hhx",&rmcLat, &rmcLon, &tileAlt, &tileCourse, &tileSpeed, &rmcChecksum);
-        Serial.print("Lat:"); Serial.println(rmcLat);
-        Serial.print("Lon:"); Serial.println(rmcLon);
-        Serial.print("Checksum:");
-        Serial.println(rmcChecksum, HEX);     
+//        Serial.print("Lat:"); Serial.println(rmcLat);
+//        Serial.print("Lon:"); Serial.println(rmcLon);
+//        Serial.print("Checksum:");
+//        Serial.println(rmcChecksum, HEX);     
 
         memcpy(&temp, &gpsStream[1], streamPos - 5);
-        Serial.print("Calculated Checksum: ");
-        Serial.println(nmeaChecksum(&temp[0], streamPos-5), HEX);     
+//        Serial.print("Calculated Checksum: ");
+//        Serial.println(nmeaChecksum(&temp[0], streamPos-5), HEX);     
 
         if(nmeaChecksum(&temp[0], streamPos-5) == rmcChecksum){
            latitude = rmcLat;

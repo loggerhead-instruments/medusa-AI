@@ -85,12 +85,7 @@ int sendDataPacket(){
   }
 
   #ifdef SWARM_MODEM
-    Serial1.print(dataPacket);
-    Serial1.flush();
-    delay(1000);
-    while(Serial1.available()){
-      Serial.write(Serial1.read());
-    }
+    Serial1.println(dataPacket);
     return 1;
   #endif
     
