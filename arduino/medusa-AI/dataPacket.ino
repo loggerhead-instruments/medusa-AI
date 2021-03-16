@@ -67,12 +67,10 @@ void makeDataPacket(){
     uint8_t checksum = nmeaChecksum(&dataPacket[0], dataPacket.length());
     dataPacket += "*";
     dataPacket += String(checksum, HEX);
-    Serial.print("Checksum "); Serial.println(checksum, HEX);
     Serial.print("Swarm ");
   #endif
     
    Serial.println(dataPacket);
-   delay(10000);
 }
 
 
@@ -89,6 +87,10 @@ int sendDataPacket(){
   #ifdef SWARM_MODEM
     Serial1.print(dataPacket);
     Serial1.flush();
+    delay(1000);
+    while(Serial1.available()){
+      Serial.write(Serial1.read());
+    }
     return 1;
   #endif
     

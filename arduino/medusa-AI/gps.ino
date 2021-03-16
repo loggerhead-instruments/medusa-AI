@@ -13,9 +13,9 @@
 // turn off output
 #define PMTK_SET_NMEA_OUTPUT_OFF "$PMTK314,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0*28"
 
-#define maxChar 256
-char gpsStream[maxChar];
-int streamPos;
+//#define maxChar 256
+//char gpsStream[maxChar];
+//int streamPos;
 volatile boolean endGpsLog;
 
 

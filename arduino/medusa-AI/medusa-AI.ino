@@ -49,12 +49,11 @@
 #define SWARM_MODEM
 //#define PI_PROCESSING
 
-boolean sendSatellite = 0;
+boolean sendSatellite = 1;
 boolean useGPS = 0;
 static boolean printDiags = 1;  // 1: serial print diagnostics; 0: no diagnostics 2=verbose
 long rec_dur = 10; // seconds
-long rec_int = 60;
-//long rec_int = 3600 - rec_dur;  // miminum is time needed for audio processing
+long rec_int = 3600 - rec_dur;  // miminum is time needed for audio processing
 long accumulationInterval = 2 * 60 * 60; //seconds to accumulate results
 int moduloSeconds = 10; // round to nearest start time
 float hydroCal = -170;
@@ -270,10 +269,10 @@ void setup() {
   bandLow[7] = bandHigh[6]; // 1376
   bandHigh[7] = (int) 2000 / binwidth;
   
-  bandLow[8] = (int) bandHigh[4];
+  bandLow[8] = (int) bandHigh[7];
   bandHigh[8] = (int) 5000 / binwidth;
   
-  bandLow[9] = bandHigh[5];
+  bandLow[9] = bandHigh[8];
   bandHigh[9] = (int) 20000 / binwidth;
   
   for(int i=0; i<NBANDS; i++){
@@ -333,6 +332,36 @@ void setup() {
       
     }
   sensorInit(); // initialize and test sensors; GPS and Iridium should be after this
+
+
+  
+
+
+  #ifdef IRIDIUM_MODEM
+  if(sendSatellite){
+    Serial1.begin(19200, SERIAL_8N1);  //Iridium
+    modem.getSignalQuality(sigStrength); // update Iridium modem strength
+    modem.setPowerProfile(IridiumSBD::DEFAULT_POWER_PROFILE);
+    int result = modem.begin();
+  }
+  #endif
+
+  #ifdef SWARM_MODEM
+    Serial.println("SWARM Get GPS");
+    Serial1.begin(115200, SERIAL_8N1);
+    delay(1000);
+    while(1){
+      delay(1000);
+      pollTile(); // print tile messages 
+      Serial1.println("$DT @*70");  // get dt
+      delay(100);
+      pollTile();
+      Serial1.println("$GN @*69");
+      delay(100);
+      pollTile(); // print tile messages
+    }
+  #endif
+
   
   if(useGPS){
     while(!goodGPS){
@@ -350,16 +379,6 @@ void setup() {
   }
 
   setTeensyTime(gpsHour, gpsMinute, gpsSecond, gpsDay, gpsMonth, gpsYear + 2000);
-
-
-  #ifdef IRIDIUM_MODEM
-  if(sendSatellite){
-    Serial1.begin(19200, SERIAL_8N1);  //Iridium
-    modem.getSignalQuality(sigStrength); // update Iridium modem strength
-    modem.setPowerProfile(IridiumSBD::DEFAULT_POWER_PROFILE);
-    int result = modem.begin();
-  }
-  #endif
   
   cDisplay();
   display.setCursor(0,30);
@@ -432,6 +451,9 @@ void loop() {
   if(mode == 0)
   {
     delay(100);
+    #ifdef SWARM_MODEM
+      pollTile(); // print tile messages 
+    #endif
     if(useGPS){
       if(!goodGPS){
         gpsTimeOutThreshold = 20000;//give 20 seconds to read
@@ -478,7 +500,10 @@ void loop() {
 
   // Record mode
   if (mode == 1) {
-    continueRecording();  // download data  
+    continueRecording();  // download data 
+    #ifdef SWARM_MODEM
+      pollTile(); // print tile messages 
+    #endif
 
   //
   // Automated signal processing
@@ -1112,4 +1137,91 @@ void startSensors(){
 
 void stopSensors(){
   slaveTimer.end();
+}
+
+void pollTile(){
+//  $DT 20210316170104,V*4c
+//  $GN 27.2594,-82.4798,-3,0,2*1f
+
+  while(Serial1.available()){
+    byte incomingByte = Serial1.read();
+    parseTile(incomingByte);
+    Serial.write(incomingByte);
+  }
+}
+
+
+#define maxChar 256
+char gpsStream[maxChar];
+int streamPos;
+
+void parseTile(byte incomingByte){
+  char rmcDate[25];
+  // check for start of new message
+  // if a $, start it at Pos 0, and continue until next G
+  if(incomingByte=='$') {
+    Serial.print("String position:");
+    Serial.println(streamPos);
+    Serial.println(gpsStream);
+    //process last message
+    if(streamPos > 10){
+      float rmcLat; //          
+      float rmcLon; //           
+      float tileAlt;
+      float tileCourse;
+      float tileSpeed;
+      uint8_t rmcChecksum; 
+
+      // $DT 20210316170059,V*45
+      if(gpsStream[1]=='D' & gpsStream[2]=='T'){
+       char temp[streamPos + 1];
+       const char s[2] = ",";
+       char *token;
+            
+        memcpy(&temp, &gpsStream[4], 14);
+        Serial.print("Date string extracted:"); Serial.println(temp);
+        sscanf(temp, "%4i%2i%2i%2i%2i%2i", &gpsYear, &gpsMonth, &gpsDay, &gpsHour, &gpsMinute, &gpsSecond);
+//        Serial.println(rmcDate);
+//        Serial.print("Day-Month-Year:");
+//        Serial.print(gpsDay); Serial.print("-");
+//        Serial.print(gpsMonth);  Serial.print("-");
+//        Serial.print(gpsYear);
+//        Serial.print(" ");
+//        Serial.print(gpsHour); Serial.print(":");
+//        Serial.print(gpsMinute); Serial.print(":");
+//        Serial.println(gpsHour);
+      }
+
+      if(gpsStream[1]=='G' & gpsStream[2]=='N'){
+       char temp[streamPos + 1];
+       const char s[2] = ",";
+       char *token;
+            
+        memcpy(&temp, &gpsStream[4], streamPos - 4);
+        // 27.2594,-82.4798,-3,0,2*1f
+        Serial.print("GPS String extracted:"); Serial.println(temp);
+        sscanf(temp, "%f,%f,%f,%f,%f*%2hhx",&rmcLat, &rmcLon, &tileAlt, &tileCourse, &tileSpeed, &rmcChecksum);
+        Serial.print("Lat:"); Serial.println(rmcLat);
+        Serial.print("Lon:"); Serial.println(rmcLon);
+        Serial.print("Checksum:");
+        Serial.println(rmcChecksum, HEX);     
+
+        memcpy(&temp, &gpsStream[1], streamPos - 5);
+        Serial.print("Calculated Checksum: ");
+        Serial.println(nmeaChecksum(&temp[0], streamPos-5), HEX);     
+
+        if(nmeaChecksum(&temp[0], streamPos-5) == rmcChecksum){
+           latitude = rmcLat;
+           longitude = rmcLon;
+           goodGPS = 1;
+           Serial.println("valid GPS recvd");
+        }
+      }
+    }
+    // start new message here
+    streamPos = 0;
+  }
+  gpsStream[streamPos] = incomingByte;
+  streamPos++;
+  if(streamPos >= maxChar) streamPos = 0;
 }
