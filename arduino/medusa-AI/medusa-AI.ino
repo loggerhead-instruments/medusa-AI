@@ -1,11 +1,7 @@
 // Loggerhead Instruments
-// c 2020, David Mann
+// c 2021, David Mann
 
 // To do:
-// - transmit packet over Tile
-// - get GPS from Tile
-
-
 // - remote: start recording, stop, Pi download mode (so can SSH in and see card), reboot
 // - measure power consumption
 // - measure waves with accelerometer
@@ -44,17 +40,17 @@
 // 
 // Dev settings
 //
-#define codeVersion 20210210
+#define codeVersion 20210321
 // #define IRIDIUM_MODEM
 #define SWARM_MODEM
-//#define PI_PROCESSING
+#define PI_PROCESSING
 
 boolean sendSatellite = 1;
 boolean useGPS = 0;
 static boolean printDiags = 1;  // 1: serial print diagnostics; 0: no diagnostics 2=verbose
-long rec_dur = 10; // seconds
-long rec_int = 3600 - rec_dur;  // miminum is time needed for audio processing
-long accumulationInterval = 2 * 60 * 60; //seconds to accumulate results
+long rec_dur = 3000; // seconds
+long rec_int = 600;  // miminum is time needed for audio processing
+
 int moduloSeconds = 10; // round to nearest start time
 float hydroCal = -170;
 int systemGain = 4; // SG in script file
@@ -156,7 +152,7 @@ int snooze_minute;
 int snooze_second;
 volatile long buf_count;
 float total_hour_recorded = 0.0;
-long nbufs_per_file;
+unsigned long nbufs_per_file;
 boolean settingsChanged = 0;
 
 uint16_t file_count;
@@ -345,6 +341,8 @@ void setup() {
 
   #ifdef SWARM_MODEM
     Serial.println("SWARM Get GPS");
+    display.println("Get Swarm GPS");
+    display.display();
     Serial1.begin(115200, SERIAL_8N1);
     delay(1000);
     while(!goodGPS){
@@ -506,7 +504,6 @@ void loop() {
     }
   }
 
-
   // Record mode
   if (mode == 1) {
     continueRecording();  // download data 
@@ -583,7 +580,6 @@ void loop() {
           delay(2000);
         }
   
-        
         if(introPeriod){
           displayOn();
           cDisplay();
@@ -592,14 +588,16 @@ void loop() {
         }
   
         // wait for Pi to power down
-        // values will be 848 - 885 when Pi off
+        // values will be 100 when Pi off
         startPiTime = getTeensy3Time();
         t = startPiTime;
-        Serial.print("Wait for PI to power down");
+        Serial.println("Wait for PI to power down");
         do{
           piStatus = analogRead(PI_STATUS);
           delay(1000);
-        }while((piStatus<200) | (piStatus>1000) & (t - startPiTime < piTimeout));
+          Serial.print("Pi Status:"); Serial.println(piStatus);
+          t = getTeensy3Time();
+        }while((piStatus<20) | (piStatus>1000) & (t - startPiTime < piTimeout));
       #endif
 
       digitalWrite(SD_POW, LOW); // switch off power to microSD (Pi will use SD mode, so card needs to reset)
@@ -614,13 +612,13 @@ void loop() {
         delay(1000);
         digitalWrite(SD_POW, HIGH);
         delay(1000);
+        Serial.println("SD restart failed");
       }
 
       if(sdAttempts>=10) cardFailed = 1;
 
       // read detections file
       if(!cardFailed) readDetections();
-
       
       makeDataPacket();
       if(introPeriod) {
@@ -648,6 +646,7 @@ void loop() {
       #ifdef SWARM_MODEM
         // SWARM
         if(sendSatellite){
+          Serial.println("Send SWARM Data Packet");
           if(introPeriod) displayOn();
           int err = sendDataPacket();  
           delay(100);
@@ -695,7 +694,7 @@ void loop() {
       if(introPeriod) displayOn();
       mode = 0;
       startSensors();
-      digitalWrite(gpsEnable, HIGH); // wake up to get GPS in standby mode
+      if(useGPS) digitalWrite(gpsEnable, HIGH); // wake up to get GPS in standby mode
     }
   }
   asm("wfi"); // reduce power between interrupts
