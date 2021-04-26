@@ -46,9 +46,9 @@
 #define PI_PROCESSING
 
 boolean sendSatellite = 1;
-boolean useGPS = 0;
+boolean useGPS = 0;  // Tile has it's own GPS, this is Ublox separate GPS module
 static boolean printDiags = 1;  // 1: serial print diagnostics; 0: no diagnostics 2=verbose
-long rec_dur = 3000; // seconds
+long rec_dur = 30; // 3000 seconds = 50 minutes
 long rec_int = 600;  // miminum is time needed for audio processing
 
 int moduloSeconds = 10; // round to nearest start time
@@ -61,9 +61,15 @@ char piPayload[200];  // payload to send from Pi/Coral detector
 // Pin Assignments
 #define hydroPowPin 8
 #define vSense A14
+
+
 #define iridiumAv 2 // High when Iridium network available 
 #define iridiumRi 3 // Ring Indicator: active low; inactive high
 #define iridiumSleep 4 // Sleep active low
+
+#define TILE_ENABLE 3
+#define TILE1 2
+
 #define gpsEnable 5
 #define infraRed 6
 
@@ -286,6 +292,9 @@ void setup() {
   pinMode(PI_STATUS, INPUT);
   pinMode(PI_STATUS2, INPUT);
 
+  pinMode(TILE_ENABLE, OUTPUT);
+  digitalWrite(TILE_ENABLE, HIGH);
+
   delay(500);
   Wire.begin();
  // Wire.begin(I2C_MASTER, 0x00, I2C_PINS_18_19, I2C_PULLUP_EXT, I2C_RATE_400);
@@ -448,7 +457,6 @@ void loop() {
   if(mode == 0)
   {
     delay(100);
-    goodGPS = 0;
     #ifdef SWARM_MODEM
       if(!goodGPS){
         pollTile(); // print tile messages 
@@ -649,14 +657,17 @@ void loop() {
           Serial.println("Send SWARM Data Packet");
           if(introPeriod) displayOn();
           int err = sendDataPacket();  
-          delay(100);
-          pollTile();          
+          delay(1000);
+          pollTile();      
+          delay(1000);
+          pollTile();      
         }
         //
       #endif
       
       
       resetSignals();
+      goodGPS = 0;
       delay(1000); // time to read display
       displayOff();
       

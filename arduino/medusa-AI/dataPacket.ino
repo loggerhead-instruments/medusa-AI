@@ -61,6 +61,7 @@ void makeDataPacket(){
   #ifdef PI_PROCESSING
     dataPacket += ";";
     dataPacket += String(piPayload);
+    dataPacket.trim(); // remove /n
   #endif
   #ifdef SWARM_MODEM
     dataPacket += "\"";
