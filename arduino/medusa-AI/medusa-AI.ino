@@ -48,7 +48,7 @@
 boolean sendSatellite = 1;
 boolean useGPS = 0;  // Tile has it's own GPS, this is Ublox separate GPS module
 static boolean printDiags = 1;  // 1: serial print diagnostics; 0: no diagnostics 2=verbose
-long rec_dur = 30; // 3000 seconds = 50 minutes
+long rec_dur = 3000; // 3000 seconds = 50 minutes
 long rec_int = 600;  // miminum is time needed for audio processing
 
 int moduloSeconds = 10; // round to nearest start time
