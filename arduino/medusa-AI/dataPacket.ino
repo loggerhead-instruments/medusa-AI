@@ -67,6 +67,7 @@ void makeDataPacket(){
     dataPacket += "\"";
     uint8_t checksum = nmeaChecksum(&dataPacket[0], dataPacket.length());
     dataPacket += "*";
+    if(checksum<10) dataPacket += "0";
     dataPacket += String(checksum, HEX);
     Serial.print("Swarm ");
   #endif
