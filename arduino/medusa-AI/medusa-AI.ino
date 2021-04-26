@@ -466,19 +466,22 @@ void loop() {
         Serial1.println("$GN @*69");
         delay(200);
         pollTile(); // print tile messages
+
+        if(goodGPS) setTeensyTime(gpsHour, gpsMinute, gpsSecond, gpsDay, gpsMonth, gpsYear);
       }
-    setTeensyTime(gpsHour, gpsMinute, gpsSecond, gpsDay, gpsMonth, gpsYear);
+    
     #endif
     if(useGPS){
       if(!goodGPS){
         gpsTimeOutThreshold = 20000;//give 20 seconds to read
         gpsGetTimeLatLon();  
+        if(goodGPS) setTeensyTime(gpsHour, gpsMinute, gpsSecond, gpsDay, gpsMonth, gpsYear);
       }
       else{
         digitalWrite(gpsEnable, LOW); // turn off once have good GPS
       }
     }
-      
+
     if(introPeriod){
       cDisplay();
       displaySettings();
