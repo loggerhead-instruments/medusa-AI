@@ -1,0 +1,10 @@
+Board Information Report
+Filename     : C:\w\medusa-AI\altium\Tile-carrier\Tile-carrier.PcbDoc
+Date         : 4/6/2021
+Time         : 3:24:38 PM
+Time Elapsed : 00:00:00
+
+General
+    Board Size, 1510.03milsx2470.03mils
+    Components on board, 3
+count : 2

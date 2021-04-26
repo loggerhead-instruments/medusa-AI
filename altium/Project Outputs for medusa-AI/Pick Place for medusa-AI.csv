@@ -1,58 +1,76 @@
-Designator,Comment,Footprint,Center-X(mm),Center-Y(mm),Rotation,Description
-C10,0.01uF,402,-24.0594,-54.124,270,Ceramic Chip Capacitor - Standard
-C14,0.01uF,402,-2.2154,-39.904,90,Ceramic Chip Capacitor - Standard
-C5,0.01uF,402,-19.8684,-47.143,270,Ceramic Chip Capacitor - Standard
-C23,0.1 uF,402,-153.0914,-44.73,270,Ceramic Chip Capacitor - Standard
-C24,0.1 uF,402,-139.1214,-37.999,180,Ceramic Chip Capacitor - Standard
-C25,0.1 uF,402,-153.0914,-48.032,90,Ceramic Chip Capacitor - Standard
-C1,0.1uF,402,-39.2994,-15.52,180,Ceramic Chip Capacitor - Standard
-C11,0.1uF,402,-12.3904,-47.397,180,Ceramic Chip Capacitor - Standard
-C13,0.1uF,402,-4.2474,-40.031,90,Ceramic Chip Capacitor - Standard
-C19,0.1uF,402,-46.0304,-20.854,270,Ceramic Chip Capacitor - Standard
-C2,0.1uF,402,-11.7404,-38.634,180,Ceramic Chip Capacitor - Standard
-C3,0.1uF,402,-17.9634,-47.016,270,Ceramic Chip Capacitor - Standard
-C39,0.1uF,402,-29.5204,-47.397,270,Ceramic Chip Capacitor - Standard
-C6,0.1uF,402,-15.0424,-44.095,270,Ceramic Chip Capacitor - Standard
-C7,0.1uF,402,-22.1544,-54.128,270,Ceramic Chip Capacitor - Standard
-C9,0.1uF,402,-6.1524,-43.968,270,Ceramic Chip Capacitor - Standard
-C26,0402 Ferrite,402,-130.9934,-45.492,360,Ceramic Chip Capacitor - Standard
-C27,0402 Ferrite,402,-130.9934,-47.397,360,Ceramic Chip Capacitor - Standard
-C15,1.0uF,402,-6.1524,-51.461,90,Ceramic Chip Capacitor - Standard
-C16,1.0uF,402,-6.0254,-34.57,360,Ceramic Chip Capacitor - Standard
-C17,1.0uF,402,-13.0104,-34.443,180,Ceramic Chip Capacitor - Standard
-C18,1.0uF,402,-15.6774,-51.715,90,Ceramic Chip Capacitor - Standard
-C21,1.0uF,402,-50.3484,-24.664,180,Ceramic Chip Capacitor - Standard
-C28,1.0uF,402,-83.3684,-51.715,360,Ceramic Chip Capacitor - Standard
-C29,1.0uF,402,-90.9884,-51.715,180,Ceramic Chip Capacitor - Standard
-C30,1.0uF,402,-35.4894,-36.221,180,Ceramic Chip Capacitor - Standard
-C31,1.0uF,402,-27.4884,-36.221,360,Ceramic Chip Capacitor - Standard
-R1,100k,3-0603,-57.8414,-56.16,0,"Precision Thick Film Chip Resistor, 10 Ohm to 1M Ohm Range, 1% and 0.5% Tolerance, 0603 Size, 0.063 W"
-R2,100k,3-0603,-61.5244,-56.16,0,"Precision Thick Film Chip Resistor, 10 Ohm to 1M Ohm Range, 1% and 0.5% Tolerance, 0603 Size, 0.063 W"
-R3,100k,3-0603,-60.1274,-41.809,0,"Precision Thick Film Chip Resistor, 10 Ohm to 1M Ohm Range, 1% and 0.5% Tolerance, 0603 Size, 0.063 W"
-R4,100k,3-0603,-60.1274,-43.333,180,"Precision Thick Film Chip Resistor, 10 Ohm to 1M Ohm Range, 1% and 0.5% Tolerance, 0603 Size, 0.063 W"
-C20,100nF,402,-52.8884,-23.521,270,Ceramic Chip Capacitor - Standard
-C22,100nF,402,-47.9354,-22.378,270,Ceramic Chip Capacitor - Standard
-C32,10nF,402,-90.9884,-49.683,360,Ceramic Chip Capacitor - Standard
-C33,10nF,402,-27.7424,-38.126,180,Ceramic Chip Capacitor - Standard
-C38,10uF,Tant0805,-31.0444,-47.397,90,
-C12,1uF,402,-4.1204,-47.397,270,Ceramic Chip Capacitor - Standard
-C4,1uF,402,-18.3444,-39.904,180,Ceramic Chip Capacitor - Standard
-C8,1uF,402,-22.1544,-46.25,90,Ceramic Chip Capacitor - Standard
-C35,2.2uF,402,-67.2394,-51.08,90,Ceramic Chip Capacitor - Standard
-L1,6.8uH,Inductor_-_duplicate,-45.5984,-47.725,180,Sumida Inductor
-D1,638-PT1921BL41TR8,Phototransistor,-75.2404,-23.775,90,Phototransistor
-U7,ADXL343,ADXL345,-42.9369,-22.143,0,
-C36,C0603,603,-54.0314,-48.413,270,Ceramic Chip Capacitor - Standard
-U8,LIS3MDL,LGA-12,-50.2594,-22.382,0,magnetometer
-U10,LP3985IM5-3.3,MF05A_N,-87.1784,-50.699,180,"Micropower, 150mA Low-Noise Ultra Low-Dropout CMOS Voltage Regulator"
-U11,LP3985IM5-3.3,MF05A_N,-31.4254,-37.237,360,"Micropower, 150mA Low-Noise Ultra Low-Dropout CMOS Voltage Regulator"
-U2,LP3985IM5-3.3,MF05A_N,-18.9134,-43.136,270,"Micropower, 150mA Low-Noise Ultra Low-Dropout CMOS Voltage Regulator"
-U4,LP3985IM5-3.3,MF05A_N,-23.1704,-50.191,270,"Micropower, 150mA Low-Noise Ultra Low-Dropout CMOS Voltage Regulator"
-U5,LP3985IM5-3.3,MF05A_N,-3.2314,-43.714,90,"Micropower, 150mA Low-Noise Ultra Low-Dropout CMOS Voltage Regulator"
-U1,MAX4996ETG+,QFN40P350X350X80-25N,-37.6484,-11.964,270,3 Circuit IC Switch 2:2 4Ohm 24-TQFN (4x4)
-P2,microSD-Molex,microSD_Molex_hinged,-28.6314,-23.902,270,
-U9,SAM-M8Q,GPS_SAM-MQ8,-142.0424,-47.401,0,
-U3,SGTL5000,QFN32,-10.3634,-43.166,0,SGTL5000
-C34,T495X227K010ATE050,X,-71.4304,-48.54,90,"Solid Tantalum Chip Capacitor, Standard T495 Series - Low ESR, Surge Robust"
-U6,TLV70018DCKR,TI-DCK5_V,-9.5814,-33.681,180,"Single Output LDO, 200 mA, Fixed 1.8 V Output, 2 to 5.5 V Input, with Low IQ, 5-pin SC70 (DCK), -40 to 125 degC, Green (RoHS & no Sb/Br)"
-U12,TPS61032,TPS6103x,-59.2384,-50.064,180,Boost converter
+Designator,Comment,Layer,Footprint,Center-X(mm),Center-Y(mm),Rotation,Description
+C1,0.1uF,TopLayer,402,-38.5374,43.662,180,Ceramic Chip Capacitor - Standard
+C10,0.01uF,TopLayer,402,-0.867,5.1506,360,Ceramic Chip Capacitor - Standard
+C11,0.1uF,TopLayer,402,-7.594,16.8196,270,Ceramic Chip Capacitor - Standard
+C12,1uF,TopLayer,402,-7.594,25.0896,360,Ceramic Chip Capacitor - Standard
+C13,0.1uF,TopLayer,402,-14.96,24.9626,180,Ceramic Chip Capacitor - Standard
+C14,0.01uF,TopLayer,402,-15.087,26.9946,180,Ceramic Chip Capacitor - Standard
+C15,1.0uF,TopLayer,402,-3.53,23.0576,180,Ceramic Chip Capacitor - Standard
+C16,1.0uF,TopLayer,402,-20.421,23.1846,90,Ceramic Chip Capacitor - Standard
+C17,1.0uF,TopLayer,402,-20.548,16.1996,270,Ceramic Chip Capacitor - Standard
+C18,1.0uF,TopLayer,402,-3.429,19.812,180,Ceramic Chip Capacitor - Standard
+C19,0.1uF,TopLayer,402,-45.2684,38.328,270,Ceramic Chip Capacitor - Standard
+C2,0.1uF,TopLayer,402,-16.357,17.4696,270,Ceramic Chip Capacitor - Standard
+C20,100nF,TopLayer,402,-52.1264,35.661,270,Ceramic Chip Capacitor - Standard
+C21,1.0uF,TopLayer,402,-49.5864,34.518,180,Ceramic Chip Capacitor - Standard
+C22,100nF,TopLayer,402,-47.1734,36.804,270,Ceramic Chip Capacitor - Standard
+C23,C0603,TopLayer,603,-84.455,58.674,270,Ceramic Chip Capacitor - Standard
+C24,1.0uF,TopLayer,402,-85.979,58.42,90,Ceramic Chip Capacitor - Standard
+C25,C0603,TopLayer,603,-92.456,56.515,90,Ceramic Chip Capacitor - Standard
+C26,C0603,TopLayer,402,-93.853,56.642,270,Ceramic Chip Capacitor - Standard
+C28,1.0uF,TopLayer,402,-82.6064,7.467,360,Ceramic Chip Capacitor - Standard
+C29,1.0uF,TopLayer,402,-90.2264,7.467,180,Ceramic Chip Capacitor - Standard
+C3,0.1uF,TopLayer,402,-7.975,11.2466,360,Ceramic Chip Capacitor - Standard
+C30,1.0uF,TopLayer,402,-34.7274,22.961,180,Ceramic Chip Capacitor - Standard
+C31,1.0uF,TopLayer,402,-26.7264,22.961,360,Ceramic Chip Capacitor - Standard
+C32,10nF,TopLayer,402,-90.2264,9.499,360,Ceramic Chip Capacitor - Standard
+C33,10nF,TopLayer,402,-26.9804,21.056,180,Ceramic Chip Capacitor - Standard
+C34,T495X227K010ATE050,TopLayer,X,-70.6684,10.642,90,"Solid Tantalum Chip Capacitor, Standard T495 Series - Low ESR, Surge Robust"
+C35,2.2uF,TopLayer,402,-66.4774,8.102,90,Ceramic Chip Capacitor - Standard
+C36,C0603,TopLayer,603,-53.2694,10.769,270,Ceramic Chip Capacitor - Standard
+C38,10uF,TopLayer,Tant0805,-30.2824,11.785,90,
+C39,0.1uF,TopLayer,402,-28.7584,11.785,270,Ceramic Chip Capacitor - Standard
+C4,1uF,TopLayer,402,-15.087,10.8656,270,Ceramic Chip Capacitor - Standard
+C5,0.01uF,TopLayer,402,-7.848,9.3416,360,Ceramic Chip Capacitor - Standard
+C6,0.1uF,TopLayer,402,-10.896,14.1676,360,Ceramic Chip Capacitor - Standard
+C7,0.1uF,TopLayer,402,-0.863,7.0556,360,Ceramic Chip Capacitor - Standard
+C8,1uF,TopLayer,402,-8.741,7.0556,180,Ceramic Chip Capacitor - Standard
+C9,0.1uF,TopLayer,402,-11.023,23.0576,360,Ceramic Chip Capacitor - Standard
+L1,6.8uH,TopLayer,Inductor_-_duplicate,-44.8364,11.457,180,Sumida Inductor
+P1,Header 20X2,TopLayer,HDR2X20,-25.3294,56.235,360,"Header, 20-Pin, Dual row"
+P10,Header 5,TopLayer,HDR1X5,-112.776,12.192,270,"Header, 5-Pin"
+P11,BAT,TopLayer,HDR1X2,11.938,8.001,270,"Header, 2-Pin"
+P12,BAT,TopLayer,HDR1X2,11.938,15.367,270,"Header, 2-Pin"
+P13,HYDROPHONE,TopLayer,HDR1X3,13.716,34.163,270,"Header, 3-Pin"
+P14,GND Tie,TopLayer,HDR1X2,-7.0414,32.74,90,"Header, 2-Pin"
+P15,HYDROPHONE,TopLayer,HDR1X3,13.843,24.257,270,"Header, 3-Pin"
+P16,UltraCap,TopLayer,HDR1X2,-76.0024,12.42,90,"Header, 2-Pin"
+P17,IR,TopLayer,HDR1X3,-115.824,15.113,90,"Header, 3-Pin"
+P18,IR,TopLayer,HDR1X3,-115.824,6.604,270,"Header, 3-Pin"
+P19,Header 7,TopLayer,HDR1X7,-128.905,27.813,360,"Header, 7-Pin"
+P2,microSD-Molex,TopLayer,microSD_Molex_hinged,-27.8694,35.28,270,
+P20,Header 6,TopLayer,HDR1X6,-117.221,61.849,180,"Header, 6-Pin"
+P3,Teensy3.x,TopLayer,Teensy3.x,-63.9374,37.566,180,
+P4,Battery _2mm,TopLayer,HDR_2x1_2mm,17.526,8.152,180,Charging Connector
+P5,Iridiuim9603,TopLayer,Iridium9603,-99.5614,43.062,90,
+P6,Battery _2mm,TopLayer,HDR_2x1_2mm,17.399,15.518,180,Charging Connector
+P7,Iridium,TopLayer,HDR1X7,-78.6694,39.217,270,"Header, 7-Pin"
+P8,Header 4,TopLayer,HDR1X4,-98.933,22.479,360,"Header, 4-Pin"
+P9,switch,TopLayer,HDR1X3,-33.8384,10.515,90,"Header, 3-Pin"
+R1,100k,TopLayer,3-0603,-57.0794,3.022,0,"Precision Thick Film Chip Resistor, 10 Ohm to 1M Ohm Range, 1% and 0.5% Tolerance, 0603 Size, 0.063 W"
+R2,100k,TopLayer,3-0603,-60.7624,3.022,0,"Precision Thick Film Chip Resistor, 10 Ohm to 1M Ohm Range, 1% and 0.5% Tolerance, 0603 Size, 0.063 W"
+R3,100k,TopLayer,3-0603,-59.3654,17.373,0,"Precision Thick Film Chip Resistor, 10 Ohm to 1M Ohm Range, 1% and 0.5% Tolerance, 0603 Size, 0.063 W"
+R4,100k,TopLayer,3-0603,-59.3654,15.849,180,"Precision Thick Film Chip Resistor, 10 Ohm to 1M Ohm Range, 1% and 0.5% Tolerance, 0603 Size, 0.063 W"
+R5,20k,TopLayer,3-0603,-84.836,55.372,360,"Precision Thick Film Chip Resistor, 10 Ohm to 1M Ohm Range, 1% and 0.5% Tolerance, 0603 Size, 0.063 W"
+U,LD39200PU33R,TopLayer,SON95P300X300X100-7N,-88.9,56.388,360,Linear Voltage Regulator IC 1 Output 2A 6-DFN _3x3_
+U1,MAX4996ETG+,TopLayer,QFN40P350X350X80-25N,-36.8864,47.218,270,3 Circuit IC Switch 2:2 4Ohm 24-TQFN (4x4)
+U10,LP3985IM5-3.3,TopLayer,MF05A_N,-86.4164,8.483,180,"Micropower, 150mA Low-Noise Ultra Low-Dropout CMOS Voltage Regulator"
+U11,LP3985IM5-3.3,TopLayer,MF05A_N,-30.6634,21.945,360,"Micropower, 150mA Low-Noise Ultra Low-Dropout CMOS Voltage Regulator"
+U12,TPS61032,TopLayer,TPS6103x,-58.4764,9.118,180,Boost converter
+U2,LP3985IM5-3.3,TopLayer,MF05A_N,-11.855,10.2966,360,"Micropower, 150mA Low-Noise Ultra Low-Dropout CMOS Voltage Regulator"
+U3,SGTL5000,TopLayer,QFN32,-11.825,18.8466,90,SGTL5000
+U4,LP3985IM5-3.3,TopLayer,MF05A_N,-4.8,6.0396,360,"Micropower, 150mA Low-Noise Ultra Low-Dropout CMOS Voltage Regulator"
+U5,LP3985IM5-3.3,TopLayer,MF05A_N,-11.277,25.9786,180,"Micropower, 150mA Low-Noise Ultra Low-Dropout CMOS Voltage Regulator"
+U6,TLV70018DCKR,TopLayer,TI-DCK5_V,-21.31,19.6286,270,"Single Output LDO, 200 mA, Fixed 1.8 V Output, 2 to 5.5 V Input, with Low IQ, 5-pin SC70 (DCK), -40 to 125 degC, Green (RoHS & no Sb/Br)"
+U7,ADXL343,TopLayer,ADXL345,-42.1749,37.039,0,
+U8,LIS3MDL,TopLayer,LGA-12,-49.4974,36.8,0,magnetometer

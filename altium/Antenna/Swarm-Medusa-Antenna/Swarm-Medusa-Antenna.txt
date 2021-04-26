@@ -1,0 +1,10 @@
+Board Information Report
+Filename     : C:\w\medusa-AI\altium\Antenna\Swarm-Medusa-Antenna\Swarm-Medusa-Antenna.PcbDoc
+Date         : 4/6/2021
+Time         : 3:24:02 PM
+Time Elapsed : 00:00:00
+
+General
+    Board Size, 3500milsx3500mils
+    Components on board, 8
+count : 2
