@@ -23,6 +23,9 @@ void cDisplay(){
   display.setCursor(90,0);
   display.print(voltage,1);
   display.print("V");
+
+  display.setCursor(90,9);
+  display.print(rssi);
   display.setCursor(0,0);
 }
 

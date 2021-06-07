@@ -45,6 +45,7 @@
 #define SWARM_MODEM
 #define PI_PROCESSING
 
+int runMode = 1; // 0 = dev mode (power on Pi and give microSD access); 1 = deployment mode
 boolean sendSatellite = 1;
 boolean useGPS = 0;  // Tile has it's own GPS, this is Ublox separate GPS module
 static boolean printDiags = 1;  // 1: serial print diagnostics; 0: no diagnostics 2=verbose
@@ -54,7 +55,7 @@ long rec_int = 600;  // miminum is time needed for audio processing
 int moduloSeconds = 10; // round to nearest start time
 float hydroCal = -170;
 int systemGain = 4; // SG in script file
-long piTimeout = 600 ; // timeout Pi processing in seconds
+long piTimeout = 300 ; // timeout Pi processing in seconds
 boolean cardFailed = 0; // if sd card fails, skip Pi processing
 char piPayload[200];  // payload to send from Pi/Coral detector
 
@@ -83,6 +84,10 @@ char piPayload[200];  // payload to send from Pi/Coral detector
 #define SD_PI HIGH
 
 AltSoftSerial gpsSerial;  // RX 20; Tx: 21
+#define maxChar 256
+char gpsStream[maxChar];
+int streamPos;
+int rssi;
 
 #ifdef IRIDIUM_MODEM
   IridiumSBD modem(Serial1, iridiumSleep);
@@ -282,6 +287,7 @@ void setup() {
   }
   
   Serial.begin(baud);
+  delay(5000);
 
   pinMode(POW_5V, OUTPUT);
   digitalWrite(POW_5V, LOW);
@@ -323,6 +329,18 @@ void setup() {
   cDisplay();
   display.display();
 
+  // Check if runMode = 0 for Pi dev
+  if (runMode == 0){
+    digitalWrite(SD_POW, LOW); // switch off power to microSD (Pi will use SD mode, so card needs to reset)
+    digitalWrite(SD_SWITCH, SD_PI); // switch control to Pi
+    digitalWrite(POW_5V, HIGH); // power on Pi
+    delay(1000);
+    digitalWrite(SD_POW, HIGH); // power on microSD
+    display.println("Pi Dev Mode");
+    display.display();
+    while(1);
+    
+  }
   // Initialize the SD card
   SPI.setMOSI(7);
   SPI.setSCK(14);
@@ -349,19 +367,50 @@ void setup() {
   #endif
 
   #ifdef SWARM_MODEM
+    Serial1.begin(115200, SERIAL_8N1);
+    pollTile();
+    delay(2000);
+    pollTile();
+//    // get number of unsent messages
+//    Serial1.println("$MT C=U*12");
+//    delay(2000);
+//    pollTile();
+//
+////    // get most recent receive test message
+//    Serial1.println("$RT @*66");
+//    delay(1000);
+//    pollTile();
+//
+//    // get RSSI every 10 seconds  
+      Serial1.println("$RT 10*27");
+      delay(1000);
+      pollTile();
+    // turn off RSSI
+    //    Serial1.println("$RT 0*16");
+    
     Serial.println("SWARM Get GPS");
+    cDisplay();
     display.println("Get Swarm GPS");
     display.display();
-    Serial1.begin(115200, SERIAL_8N1);
-    delay(1000);
+//
+//    Serial1.println("$GN 30*2a"); // GPS message every 30 s
+//    delay(1000);
+//    pollTile();
+//    Serial1.println("$DT 30*33"); // Datetime every 30s
+//    delay(1000);
+//    pollTile();
     while(!goodGPS){
+      cDisplay();
       delay(1000);
       pollTile(); // print tile messages 
+
+      // The DT and GN messages are not being acknowledged any more
       Serial1.println("$DT @*70");  // get dt
-      delay(100);
+      delay(1000);
+      cDisplay();
       pollTile();
       Serial1.println("$GN @*69");
-      delay(100);
+      delay(1000);
       pollTile(); // print tile messages
     }
     setTeensyTime(gpsHour, gpsMinute, gpsSecond, gpsDay, gpsMonth, gpsYear);
@@ -442,6 +491,7 @@ int recLoopCount;  //for debugging when does not start record
 
 void loop() {
   t = getTeensy3Time();
+  
 
   // record sensors mode
   if(mode==2){
@@ -507,7 +557,7 @@ void loop() {
       Serial.print("Next Start:");
       printTime(startTime);
 
-      displayOff();
+      // displayOff();
 
       mode = 1;
       startRecording();
@@ -530,6 +580,14 @@ void loop() {
         meanBand[n] += (fft256_1.read(i) / nBins[n]); // accumulate across band
       }
     }
+    
+    cDisplay();
+    pollTile();
+    display.print("Buffs:");
+    display.println(buf_count);
+    display.println(nbufs_per_file);
+    displayClock(BOTTOM, t);
+    display.display();
   }
  
     if(buf_count >= nbufs_per_file){       // time to stop?
@@ -672,7 +730,7 @@ void loop() {
       resetSignals();
       goodGPS = 0;
       delay(1000); // time to read display
-      displayOff();
+      // displayOff();
       
       long ss = startTime - getTeensy3Time() - wakeahead;
       if (ss<0) ss=0;
@@ -1158,91 +1216,4 @@ void startSensors(){
 
 void stopSensors(){
   slaveTimer.end();
-}
-
-void pollTile(){
-//  $DT 20210316170104,V*4c
-//  $GN 27.2594,-82.4798,-3,0,2*1f
-
-  while(Serial1.available()){
-    byte incomingByte = Serial1.read();
-    parseTile(incomingByte);
-    Serial.write(incomingByte);
-  }
-}
-
-
-#define maxChar 256
-char gpsStream[maxChar];
-int streamPos;
-
-void parseTile(byte incomingByte){
-  char rmcDate[25];
-  // check for start of new message
-  // if a $, start it at Pos 0, and continue until next G
-  if(incomingByte=='$') {
-    Serial.print("String position:");
-    Serial.println(streamPos);
-    Serial.println(gpsStream);
-    //process last message
-    if(streamPos > 10){
-      float rmcLat; //          
-      float rmcLon; //           
-      float tileAlt;
-      float tileCourse;
-      float tileSpeed;
-      uint8_t rmcChecksum; 
-
-      // $DT 20210316170059,V*45
-      if(gpsStream[1]=='D' & gpsStream[2]=='T'){
-       char temp[streamPos + 1];
-       const char s[2] = ",";
-       char *token;
-            
-        memcpy(&temp, &gpsStream[4], 14);
-        Serial.print("Date string extracted:"); Serial.println(temp);
-        sscanf(temp, "%4i%2i%2i%2i%2i%2i", &gpsYear, &gpsMonth, &gpsDay, &gpsHour, &gpsMinute, &gpsSecond);
-//        Serial.println(rmcDate);
-//        Serial.print("Day-Month-Year:");
-//        Serial.print(gpsDay); Serial.print("-");
-//        Serial.print(gpsMonth);  Serial.print("-");
-//        Serial.print(gpsYear);
-//        Serial.print(" ");
-//        Serial.print(gpsHour); Serial.print(":");
-//        Serial.print(gpsMinute); Serial.print(":");
-//        Serial.println(gpsHour);
-      }
-
-      if(gpsStream[1]=='G' & gpsStream[2]=='N'){
-       char temp[streamPos + 1];
-       const char s[2] = ",";
-       char *token;
-            
-        memcpy(&temp, &gpsStream[4], streamPos - 4);
-        // 27.2594,-82.4798,-3,0,2*1f
-//        Serial.print("GPS String extracted:"); Serial.println(temp);
-        sscanf(temp, "%f,%f,%f,%f,%f*%2hhx",&rmcLat, &rmcLon, &tileAlt, &tileCourse, &tileSpeed, &rmcChecksum);
-//        Serial.print("Lat:"); Serial.println(rmcLat);
-//        Serial.print("Lon:"); Serial.println(rmcLon);
-//        Serial.print("Checksum:");
-//        Serial.println(rmcChecksum, HEX);     
-
-        memcpy(&temp, &gpsStream[1], streamPos - 5);
-//        Serial.print("Calculated Checksum: ");
-//        Serial.println(nmeaChecksum(&temp[0], streamPos-5), HEX);     
-
-        if(nmeaChecksum(&temp[0], streamPos-5) == rmcChecksum){
-           latitude = rmcLat;
-           longitude = rmcLon;
-           goodGPS = 1;
-           Serial.println("valid GPS recvd");
-        }
-      }
-    }
-    // start new message here
-    streamPos = 0;
-  }
-  gpsStream[streamPos] = incomingByte;
-  streamPos++;
-  if(streamPos >= maxChar) streamPos = 0;
 }
