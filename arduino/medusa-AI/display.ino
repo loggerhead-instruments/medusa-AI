@@ -27,6 +27,7 @@ void cDisplay(){
   display.setCursor(90,9);
   display.print(rssi);
   display.setCursor(0,0);
+  display.display();
 }
 
 void displaySettings(){

@@ -87,7 +87,7 @@ AltSoftSerial gpsSerial;  // RX 20; Tx: 21
 #define maxChar 256
 char gpsStream[maxChar];
 int streamPos;
-int rssi;
+volatile int rssi;
 
 #ifdef IRIDIUM_MODEM
   IridiumSBD modem(Serial1, iridiumSleep);
@@ -403,11 +403,9 @@ void setup() {
       cDisplay();
       delay(1000);
       pollTile(); // print tile messages 
-
-      // The DT and GN messages are not being acknowledged any more
+      // The DT and GN messages are not acknowledged until data to report
       Serial1.println("$DT @*70");  // get dt
       delay(1000);
-      cDisplay();
       pollTile();
       Serial1.println("$GN @*69");
       delay(1000);
