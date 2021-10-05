@@ -1,10 +1,10 @@
 Board Information Report
 Filename     : C:\w\medusa-AI\altium\medusaCharger\medusaCharger.PcbDoc
-Date         : 10/4/2021
-Time         : 5:44:51 PM
+Date         : 10/5/2021
+Time         : 11:43:07 AM
 Time Elapsed : 00:00:00
 
 General
-    Board Size, 2940milsx1670mils
+    Board Size, 2520milsx1670mils
     Components on board, 41
 count : 2
