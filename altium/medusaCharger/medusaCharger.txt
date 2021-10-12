@@ -1,7 +1,7 @@
 Board Information Report
 Filename     : C:\w\medusa-AI\altium\medusaCharger\medusaCharger.PcbDoc
-Date         : 10/5/2021
-Time         : 11:43:07 AM
+Date         : 10/12/2021
+Time         : 10:48:17 AM
 Time Elapsed : 00:00:00
 
 General
