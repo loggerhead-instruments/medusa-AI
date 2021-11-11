@@ -5,7 +5,9 @@
 // - remote: start recording, stop, Pi download mode (so can SSH in and see card), reboot
 // - measure power consumption
 // - measure waves with accelerometer
-// - go through all fail scenarios and reboot contingency, including low battery power
+// - fail scenarios and reboot contingency
+//    - card fails to initialize: skip recording to card and only send band level data. Reboot after one recording.
+//    - battery runs low: 3.4-3.6 stop recording to microSD, but analyze band level data; <3.4 sleep everything and try to send lat/lon once per hour
 // - WDT
 
 // Iridium ISU module needs to be configured for 3-wire (UART) operation
@@ -36,11 +38,11 @@
 #include <TimerOne.h>
 #include <AltSoftSerial.h>
 #include "IridiumSBD.h"
-
+#include <IRremote.h>
 // 
 // Dev settings
 //
-#define codeVersion 20210321
+#define codeVersion 20211101
 // #define IRIDIUM_MODEM
 #define SWARM_MODEM
 #define PI_PROCESSING
@@ -49,7 +51,7 @@ int runMode = 1; // 0 = dev mode (power on Pi and give microSD access); 1 = depl
 boolean sendSatellite = 1;
 boolean useGPS = 0;  // Tile has it's own GPS, this is Ublox separate GPS module
 static boolean printDiags = 1;  // 1: serial print diagnostics; 0: no diagnostics 2=verbose
-long rec_dur = 3000; // 3000 seconds = 50 minutes
+long rec_dur = 600; // 3000 seconds = 50 minutes
 long rec_int = 600;  // miminum is time needed for audio processing
 
 int moduloSeconds = 10; // round to nearest start time
@@ -72,7 +74,7 @@ char piPayload[200];  // payload to send from Pi/Coral detector
 #define TILE1 2
 
 #define gpsEnable 5
-#define infraRed 6
+#define RECV_PIN 6
 
 #define POW_5V 15
 #define SD_POW 16
@@ -249,6 +251,26 @@ int bandHigh[NBANDS];
 int nBins[NBANDS]; // number of FFT bins in each band
 String dataPacket; // data packed for transmission after each file
 
+//------------------------------------------------------------
+//Codes for Infrared Remote Control
+//COM-14865 https://www.sparkfun.com/products/14865
+//Note: Comment out this section if you are using this w/ the older remote.
+
+IRrecv irrecv(RECV_PIN);
+decode_results results;
+
+#define POWER 0x00FF629D
+#define A 0x00FF22DD
+#define B 0x00FF02FD
+#define C 0x00FFC23D
+#define UP 0x00FF9867
+#define DOWN 0x00FF38C7
+#define LEFT 0x00FF30CF
+#define RIGHT 0x00FF7A85
+#define SELECT 0x00FF18E7
+
+//------------------------------------------------------------
+
 void setup() {
   read_myID();
 
@@ -327,6 +349,7 @@ void setup() {
   readVoltage();
   displayOn();
   cDisplay();
+  display.println("Medusa AI");
   display.display();
 
   // Check if runMode = 0 for Pi dev
@@ -346,13 +369,10 @@ void setup() {
   SPI.setSCK(14);
   if (!(sd.begin(10))) {
     // stop here if no SD card, but print a message
-    Serial.println("Unable to access the SD card");
-      cDisplay();
-      display.println();
+      Serial.println("Unable to access the SD card");
       display.println("SD error");
       display.display();
       while(1);
-      
     }
   sensorInit(); // initialize and test sensors; GPS and Iridium should be after this
 
@@ -390,6 +410,7 @@ void setup() {
     
     Serial.println("SWARM Get GPS");
     cDisplay();
+    display.println("Medusa AI");
     display.println("Get Swarm GPS");
     display.display();
 //
@@ -400,7 +421,6 @@ void setup() {
 //    delay(1000);
 //    pollTile();
     while(!goodGPS){
-      cDisplay();
       delay(1000);
       pollTile(); // print tile messages 
       // The DT and GN messages are not acknowledged until data to report
@@ -431,9 +451,8 @@ void setup() {
     setTeensyTime(gpsHour, gpsMinute, gpsSecond, gpsDay, gpsMonth, gpsYear + 2000);
   }
 
-  
-  
   cDisplay();
+  display.println("Medusa AI");
   display.setCursor(0,30);
   display.print("Lat: ");
   display.println(latitude);
@@ -448,7 +467,6 @@ void setup() {
   #endif
 
   digitalWrite(hydroPowPin, HIGH);
-
   setSyncProvider(getTeensy3Time); //use Teensy RTC to keep time
   
 // ULONG newtime;
@@ -490,7 +508,6 @@ int recLoopCount;  //for debugging when does not start record
 void loop() {
   t = getTeensy3Time();
   
-
   // record sensors mode
   if(mode==2){
     if(bufferImuFull){
@@ -554,22 +571,19 @@ void loop() {
       printTime(stopTime);
       Serial.print("Next Start:");
       printTime(startTime);
-
-      // displayOff();
+      displayOff();
 
       mode = 1;
       startRecording();
       digitalWrite(gpsEnable, LOW);
     }
-  }
+  }  // Mode = 0
 
   // Record mode
   if (mode == 1) {
     continueRecording();  // download data 
 
-  //
   // Automated signal processing
-  //
   if(fft256_1.available()){
     // calculate band level noise
     fftCount += 1;  // counter to divide meanBand by before sending
@@ -578,14 +592,14 @@ void loop() {
         meanBand[n] += (fft256_1.read(i) / nBins[n]); // accumulate across band
       }
     }
-    
-    cDisplay();
-    pollTile();
-    display.print("Buffs:");
-    display.println(buf_count);
-    display.println(nbufs_per_file);
-    displayClock(BOTTOM, t);
-    display.display();
+//    Debugging Tile signal strength
+//    cDisplay();
+//    pollTile();
+//    display.print("Buffs:");
+//    display.println(buf_count);
+//    display.println(nbufs_per_file);
+//    displayClock(BOTTOM, t);
+//    display.display();
   }
  
     if(buf_count >= nbufs_per_file){       // time to stop?
@@ -626,11 +640,14 @@ void loop() {
           Serial.println(piStatus);
           delay(2000);
         }
+        boolean piTimedOut = 0;
+        if (t - startPiTime > piTimeout) piTimedOut = 1;
   
         if(introPeriod){
           displayOn();
           cDisplay();
           display.println("Processing");
+          if(piTimedOut) display.println("Pi timeout");
           display.display();
         }
   
@@ -640,17 +657,19 @@ void loop() {
         t = startPiTime;
         int piStatus2 = analogRead(PI_STATUS2);
         Serial.println("PI_STATUS2 "); 
-        while((t - startPiTime < piTimeout) & (piStatus2 > 200)){
+        while((t - startPiTime < piTimeout) & (piStatus2 > 200) & (piTimedOut == 0)){
           t = getTeensy3Time();
           piStatus2 = analogRead(PI_STATUS2);
           Serial.println(piStatus2);
           delay(2000);
         }
+        if (t - startPiTime > piTimeout) piTimedOut = 1;
   
         if(introPeriod){
           displayOn();
           cDisplay();
           display.println("Wait on Pi");
+          if(piTimedOut) display.println("Pi timeout");
           display.display();
         }
   
@@ -664,7 +683,7 @@ void loop() {
           delay(1000);
           Serial.print("Pi Status:"); Serial.println(piStatus);
           t = getTeensy3Time();
-        }while((piStatus<20) | (piStatus>1000) & (t - startPiTime < piTimeout));
+        }while((piStatus<20) | (piStatus>1000) & (t - startPiTime < piTimeout)  & (piTimedOut == 0));
       #endif
 
       digitalWrite(SD_POW, LOW); // switch off power to microSD (Pi will use SD mode, so card needs to reset)
@@ -712,9 +731,9 @@ void loop() {
 
       #ifdef SWARM_MODEM
         // SWARM
+        
         if(sendSatellite){
           Serial.println("Send SWARM Data Packet");
-          if(introPeriod) displayOn();
           int err = sendDataPacket();  
           delay(1000);
           pollTile();      
@@ -724,11 +743,14 @@ void loop() {
         //
       #endif
       
-      
       resetSignals();
       goodGPS = 0;
-      delay(1000); // time to read display
-      // displayOff();
+      if(introPeriod){
+        cDisplay();
+        display.println("Going to sleep");
+        display.display();
+      }
+      delay(5000); // time to read display
       
       long ss = startTime - getTeensy3Time() - wakeahead;
       if (ss<0) ss=0;
@@ -749,7 +771,7 @@ void loop() {
             Serial.println(snooze_second);
           }
           delay(100);
-
+          displayOff();
           alarm.setRtcTimer(snooze_hour, snooze_minute, snooze_second);
           Snooze.hibernate(config_teensy32);
      
@@ -760,13 +782,15 @@ void loop() {
          if(printDiags>0) printTime(getTeensy3Time());
          digitalWrite(hydroPowPin, HIGH); // hydrophone on 
          AudioInit();
+         // clear Serial buffer
+         Serial1.clear();
        }
       if(introPeriod) displayOn();
       mode = 0;
       startSensors();
       if(useGPS) digitalWrite(gpsEnable, HIGH); // wake up to get GPS in standby mode
     }
-  }
+  } // Mode = 1
   asm("wfi"); // reduce power between interrupts
 }
 
@@ -1155,7 +1179,7 @@ void sensorInit(){
 
   pinMode(gpsEnable, OUTPUT);
   digitalWrite(gpsEnable, HIGH);  // HIGH = enabled; LOW = Sleep
-  pinMode(infraRed, INPUT);
+  pinMode(RECV_PIN, INPUT);
   cDisplay();
   display.display();
 }
