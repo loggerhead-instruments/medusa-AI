@@ -1,0 +1,7 @@
+#map { height: 100%; width: 100% ; }
+.leaflet-popup-content {
+    max-width: 500px;
+    width: 500px;
+    height: 200px;
+    overflow-y: scroll;
+}

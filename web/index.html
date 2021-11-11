@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+  <head>
+    <title>Loggerhead Earth</title>
+
+	<link rel="stylesheet" href="https://unpkg.com/leaflet@1.3.4/dist/leaflet.css"
+	   integrity="sha512-puBpdR0798OZvTTbP4A8Ix/l+A4dHDD0DGqYW6RQ+9jxkRFclaxxQb/SJAWZfWAkuyeQUytO7+7N4QKrDh+drA=="
+	   crossorigin=""/>
+
+
+<link rel="apple-touch-icon" sizes="57x57" href="https://s3.amazonaws.com/earth.loggerhead.com/images/apple-icon-57x57.png">
+<link rel="apple-touch-icon" sizes="60x60" href="https://s3.amazonaws.com/earth.loggerhead.com/images/apple-icon-60x60.png">
+<link rel="apple-touch-icon" sizes="72x72" href="https://s3.amazonaws.com/earth.loggerhead.com/images/apple-icon-72x72.png">
+<link rel="apple-touch-icon" sizes="76x76" href="https://s3.amazonaws.com/earth.loggerhead.com/images/apple-icon-76x76.png">
+<link rel="apple-touch-icon" sizes="114x114" href="https://s3.amazonaws.com/earth.loggerhead.com/images/apple-icon-114x114.png">
+<link rel="apple-touch-icon" sizes="120x120" href="https://s3.amazonaws.com/earth.loggerhead.com/images/apple-icon-120x120.png">
+<link rel="apple-touch-icon" sizes="144x144" href="https://s3.amazonaws.com/earth.loggerhead.com/images/apple-icon-144x144.png">
+<link rel="apple-touch-icon" sizes="152x152" href="https://s3.amazonaws.com/earth.loggerhead.com/images/apple-icon-152x152.png">
+<link rel="apple-touch-icon" sizes="180x180" href="https://s3.amazonaws.com/earth.loggerhead.com/images/apple-icon-180x180.png">
+<link rel="icon" type="image/png" sizes="192x192"  href="https://s3.amazonaws.com/earth.loggerhead.com/images/android-icon-192x192.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://s3.amazonaws.com/earth.loggerhead.com/images/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="96x96" href="https://s3.amazonaws.com/earth.loggerhead.com/images/favicon-96x96.png">
+<link rel="icon" type="image/png" sizes="16x16" href="https://s3.amazonaws.com/earth.loggerhead.com/images/favicon-16x16.png">
+<link rel="manifest" href="https://s3.amazonaws.com/earth.loggerhead.com/images/manifest.json">
+<meta name="msapplication-TileColor" content="#ffffff">
+<meta name="msapplication-TileImage" content="https://s3.amazonaws.com/earth.loggerhead.com/images/ms-icon-144x144.png">
+<meta name="theme-color" content="#ffffff">
+  
+  <!-- Make sure you put this AFTER Leaflet's CSS -->
+    <!-- Load Leaflet from CDN -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.4.0/dist/leaflet.css"
+    integrity="sha512-puBpdR0798OZvTTbP4A8Ix/l+A4dHDD0DGqYW6RQ+9jxkRFclaxxQb/SJAWZfWAkuyeQUytO7+7N4QKrDh+drA=="
+    crossorigin=""/>
+    <script src="https://unpkg.com/leaflet@1.4.0/dist/leaflet.js"
+    integrity="sha512-QVftwZFqvtRNi0ZyCtsznlKSWOStnDORoefr1enyq5mVL4tmKB3S/EnC3rRJcxCPavG10IcrVGSmPh6Qw5lwrg=="
+    crossorigin=""></script>
+
+
+    <!-- Load Esri Leaflet from CDN -->
+    <script src="https://unpkg.com/esri-leaflet@2.2.3/dist/esri-leaflet.js"
+    integrity="sha512-YZ6b5bXRVwipfqul5krehD9qlbJzc6KOGXYsDjU9HHXW2gK57xmWl2gU6nAegiErAqFXhygKIsWPKbjLPXVb2g=="
+    crossorigin=""></script>
+    
+	<link rel="stylesheet" href="medusa.css">
+    <script src="https://d3js.org/d3.v5.min.js"></script>
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+
+    <style>
+        body {
+            padding: 0;
+            margin: 0;
+        }
+        html, body, #map {
+            height: 500px;
+            width: 100%;
+        }
+    </style>
+  </head>
+  <body>
+    <div id="map"></div>
+    <div id="plot" style="max-width:100%;height:500px;"></div>
+    <div id="plot2" style="max-width:100%;height:400px;"></div>
+    <div id="latlon"></div>
+    <script src='medusa.js'></script>
+  </body>
+</html>
