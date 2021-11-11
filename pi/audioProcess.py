@@ -15,22 +15,23 @@ import soundfile as sf
 import tflite_runtime.interpreter as tflite
 import time
 
-cfg = {'inwav_dir': '/home/pi/medusa/3hour',
+cfg = {'inwav_dir': '/mnt/audio',
 'outwav_dir':'/mnt/audio/outwavs',
-'save_specs': False,
+'save_specs': True,
 'MODEL_PATH': '/home/pi/medusa/model/mnv2-singlegpu-epoch200-128batchsmallspec_postquant_float32inout_edgetpu_16.tflite'}
 
 samplerate = 44100
 chunk_seconds = 1.0
 chunk_length = int(samplerate*chunk_seconds)
+minute_length = int(44100*60)
 whistle_counter = 0
 
 if __name__ == "__main__":
 
     print("audioProcess")
 
-    statusPin = 24;
-    statusPin2 = 26;
+    statusPin = 24
+    statusPin2 = 26
 
 
     GPIO.setmode(GPIO.BOARD)
@@ -57,6 +58,11 @@ if __name__ == "__main__":
                 # Check if file has content
                 if os.path.getsize(file.path):
                     data, samplerate = sf.read(file, dtype='float32')
+
+                    first_minute_path = Path(cfg['outwav_dir']+'/'+file.name[:-4]+'~minute'+'.wav')
+                    with sf.SoundFile(first_minute_path, mode='x', samplerate=44100,
+                    channels=1, subtype='PCM_16') as audio_file:
+                        audio_file.write(data[:minute_length])
             
                     number_of_chunks = math.ceil(len(data) / float(chunk_length))
                     my_list = [data[i * chunk_length:(i + 1) * chunk_length] for i in range(int(number_of_chunks))]
@@ -88,6 +94,8 @@ if __name__ == "__main__":
                                     with sf.SoundFile(audio_file_path, mode='x', samplerate=44100,
                                     channels=1, subtype='PCM_16') as audio_file:
                                         audio_file.write(chunk)
+                    
+                    Path(file.path).unlink()
                         
                 else:
                     print("ERROR: FILE SIZE 0 BYTES. SKIPPING...")
@@ -113,3 +121,4 @@ if __name__ == "__main__":
 
     # call("sudo nohup shutdown -h now", shell=True)
     exit()
+
