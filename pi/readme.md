@@ -78,8 +78,8 @@ sudo pip3 install numba==0.54.1
 sudo pip3 install librosa
 sudo apt-get install libsndfile1
 sudo mkdir /mnt/audio
-pip3 uninstall numpy
-pip3 install numpy==1.20.3
+sudo pip3 uninstall numpy
+sudo pip3 install numpy==1.20.3
 
 modify rc.local to run bash on startup
 ```
