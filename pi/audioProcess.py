@@ -30,6 +30,11 @@ if __name__ == "__main__":
 
     statusPin = 24
     statusPin2 = 26
+
+    
+    GPIO.setmode(GPIO.BOARD)
+    GPIO.setup(statusPin, GPIO.OUT)
+    GPIO.setup(statusPin2, GPIO.OUT)
     GPIO.output(statusPin, 1)
     GPIO.output(statusPin2, 0)
 
