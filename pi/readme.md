@@ -55,3 +55,31 @@ Check that you can see disk after reboot:
 If the filesystem type is FAT or NTFS, add ,umask=000 immediately after nofail - this will allow all users full read/write access to every file on the storage device.
 
 Now that you have set an entry in fstab, you can start up your Raspberry Pi with or without the storage device attached. Before you unplug the device you must either shut down the Pi, or manually unmount it using the steps in 'Unmounting a storage device' below.
+
+Steps used in lateset tests:
+
+```
+sudo nano /boot/config.txt
+dtoverlay=sdio,poll-once=off
+
+sudo mkdir /mnt/audio
+
+sudo apt-get install python3-numpy python3-scipy
+echo "deb https://packages.cloud.google.com/apt coral-edgetpu-stable main" | sudo tee /etc/apt/sources.list.d/coral-edgetpu.list
+curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add -
+sudo apt-get update
+sudo apt-get install python3-tflite-runtime
+sudo apt-get install libedgetpu1-std
+
+sudo apt-get install llvm
+LLVM_CONFIG=/user/bin/llvm-config sudo pip3 install llvmlite==0.37.0
+sudo apt-get install libatlas3-base
+sudo pip3 install numba==0.54.1
+sudo pip3 install librosa
+sudo apt-get install libsndfile1
+sudo mkdir /mnt/audio
+pip3 uninstall numpy
+pip3 install numpy==1.20.3
+
+modify rc.local to run bash on startup
+```
