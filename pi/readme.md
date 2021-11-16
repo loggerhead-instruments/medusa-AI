@@ -68,6 +68,8 @@ sudo apt-get update
 sudo apt-get upgrade
 sudo apt-get install rpi.gpio
 sudo apt-get install python3-numpy python3-scipy
+sudo apt install python3-pip
+sudo pip3 install --upgrade pip
 echo "deb https://packages.cloud.google.com/apt coral-edgetpu-stable main" | sudo tee /etc/apt/sources.list.d/coral-edgetpu.list
 curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add -
 sudo apt-get update
