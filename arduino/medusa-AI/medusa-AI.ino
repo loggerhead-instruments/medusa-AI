@@ -435,9 +435,10 @@ void setup() {
     setTeensyTime(gpsHour, gpsMinute, gpsSecond, gpsDay, gpsMonth, gpsYear);
 
       // show RSSI for a while
-      for(int rssiLoop=0; rssiLoop<300; rssiLoop++){
+      for(int rssiLoop=0; rssiLoop<180; rssiLoop++){
         cDisplay();
         pollTile();
+        readVoltage();
         delay(1000);
       }
 
