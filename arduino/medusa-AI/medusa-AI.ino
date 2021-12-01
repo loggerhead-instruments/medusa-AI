@@ -1,13 +1,16 @@
 // Loggerhead Instruments
 // c 2021, David Mann
 
+// compile 72 MHz fastest
+
 // To do:
 // - remote: start recording, stop, Pi download mode (so can SSH in and see card), reboot
 // - measure power consumption
 // - measure waves with accelerometer
 // - fail scenarios and reboot contingency
 //    - card fails to initialize: skip recording to card and only send band level data. Reboot after one recording.
-//    - battery runs low: 3.4-3.6 stop recording to microSD, but analyze band level data; <3.4 sleep everything and try to send lat/lon once per hour
+//    - battery runs low: 
+//      <3.4 sleep Teensy and Swarm modem
 // - WDT
 
 // Iridium ISU module needs to be configured for 3-wire (UART) operation
@@ -51,7 +54,7 @@ int runMode = 1; // 0 = dev mode (power on Pi and give microSD access); 1 = depl
 boolean sendSatellite = 1;
 boolean useGPS = 0;  // Tile has it's own GPS, this is Ublox separate GPS module
 static boolean printDiags = 1;  // 1: serial print diagnostics; 0: no diagnostics 2=verbose
-long rec_dur = 600; // 3000 seconds = 50 minutes
+long rec_dur = 3000; // 3000 seconds = 50 minutes
 long rec_int = 600;  // miminum is time needed for audio processing
 
 int moduloSeconds = 10; // round to nearest start time
@@ -170,8 +173,6 @@ boolean settingsChanged = 0;
 
 uint16_t file_count;
 char filename[25];
-char dirname[8];
-int folderMonth;
 //SnoozeBlock snooze_config;
 SnoozeAlarm alarm;
 SnoozeAudio snooze_audio;
@@ -432,6 +433,14 @@ void setup() {
       pollTile(); // print tile messages
     }
     setTeensyTime(gpsHour, gpsMinute, gpsSecond, gpsDay, gpsMonth, gpsYear);
+
+      // show RSSI for a while
+      for(int rssiLoop=0; rssiLoop<300; rssiLoop++){
+        cDisplay();
+        pollTile();
+        delay(1000);
+      }
+
   #endif
 
   
@@ -495,8 +504,6 @@ void setup() {
   AudioInit(); // this calls Wire.begin() in control_sgtl5000.cpp
   mode = 0;
 
-  // create first folder to hold data
-  folderMonth = -1;  //set to -1 so when first file made will create directory
 }
 
 //
@@ -522,6 +529,25 @@ void loop() {
   if(mode == 0)
   {
     delay(100);
+    
+    // if voltage too low sleep until gets to good voltage
+    bool sleepFlag = 0;
+    while(readVoltage()<3.4){
+      displayOff();
+      Serial1.println("$SL S=300*62"); // sleep Swarm 5 minutes
+      sleepFlag = 1;
+      alarm.setRtcTimer(0, 5, 0); // sleep Teensy 5 minutes
+      delay(10);
+      Snooze.sleep(config_teensy32);
+      delay(5000); // give time for Swarm to wake up
+    }
+
+    // had been asleep because of low voltage
+    if(sleepFlag==1){
+      t = getTeensy3Time();
+      if(startTime < t) startTime = t + 300; // new next startTime will be current time plus 300 seconds
+    }
+    
     #ifdef SWARM_MODEM
       if(!goodGPS){
         pollTile(); // print tile messages 
@@ -872,7 +898,7 @@ void setupDataStructures(void){
 
 void logFileHeader(){
   if(File logFile = sd.open("LOG.CSV",  O_CREAT | O_APPEND | O_WRITE)){
-      logFile.println("filename,ID,version,gain (dB),Voltage,mBar Offset,Latitude,Longitude,GPS status");
+      logFile.println("filename,ID,version,gain (dB),Voltage,mBar Offset,Latitude,Longitude,GPS status,RSSI");
       logFile.close();
   }
 
@@ -932,18 +958,11 @@ void calcSensorStats(){
 void FileInit()
 {
    t = getTeensy3Time();
-   if (folderMonth != month(t)){
-    if(printDiags > 0) Serial.println("New Folder");
-    folderMonth = month(t);
-    sprintf(dirname, "%04d-%02d", year(t), folderMonth);
-    SdFile::dateTimeCallback(file_date_time);
-    sd.mkdir(dirname);
-   }
 
    // only audio save as wav file, otherwise save as AMX file
    
    // open file 
-   sprintf(filename,"%s/%02d%02d%02d%02d.wav", dirname, day(t), hour(t), minute(t), second(t));  //filename is DDHHMM
+   sprintf(filename,"%02d%02d%02d%02d.wav", day(t), hour(t), minute(t), second(t));  //filename is DDHHMM
 
    // log file
    SdFile::dateTimeCallback(file_date_time);
@@ -974,6 +993,9 @@ void FileInit()
 
       logFile.print(',');
       logFile.print(goodGPS);
+
+      logFile.print(',');
+      logFile.print(rssi);
       
       logFile.println();
       

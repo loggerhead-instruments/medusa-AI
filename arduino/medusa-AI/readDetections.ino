@@ -9,7 +9,6 @@ boolean readDetections()
     File file;
   #endif
 
-  // Read card setup.txt file to set date and time, recording interval
   sd.chdir(); // only to be sure to star from root
   file=sd.open("detections.txt");
   if(file)
