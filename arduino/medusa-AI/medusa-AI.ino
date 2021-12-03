@@ -4,7 +4,6 @@
 // compile 72 MHz fastest
 
 // To do:
-// - remote: start recording, stop, Pi download mode (so can SSH in and see card), reboot
 // - measure power consumption
 // - measure waves with accelerometer
 // - fail scenarios and reboot contingency
@@ -41,18 +40,17 @@
 #include <TimerOne.h>
 #include <AltSoftSerial.h>
 #include "IridiumSBD.h"
-#include <IRremote.h>
 // 
 // Dev settings
 //
 #define codeVersion 20211101
-// #define IRIDIUM_MODEM
-#define SWARM_MODEM
+#define IRIDIUM_MODEM
+// #define SWARM_MODEM
 #define PI_PROCESSING
 
 int runMode = 1; // 0 = dev mode (power on Pi and give microSD access); 1 = deployment mode
 boolean sendSatellite = 1;
-boolean useGPS = 0;  // Tile has it's own GPS, this is Ublox separate GPS module
+boolean useGPS = 1;  // Tile has it's own GPS, this is Ublox or Adafruit separate GPS module
 static boolean printDiags = 1;  // 1: serial print diagnostics; 0: no diagnostics 2=verbose
 long rec_dur = 3000; // 3000 seconds = 50 minutes
 long rec_int = 600;  // miminum is time needed for audio processing
@@ -252,26 +250,6 @@ int bandHigh[NBANDS];
 int nBins[NBANDS]; // number of FFT bins in each band
 String dataPacket; // data packed for transmission after each file
 
-//------------------------------------------------------------
-//Codes for Infrared Remote Control
-//COM-14865 https://www.sparkfun.com/products/14865
-//Note: Comment out this section if you are using this w/ the older remote.
-
-IRrecv irrecv(RECV_PIN);
-decode_results results;
-
-#define POWER 0x00FF629D
-#define A 0x00FF22DD
-#define B 0x00FF02FD
-#define C 0x00FFC23D
-#define UP 0x00FF9867
-#define DOWN 0x00FF38C7
-#define LEFT 0x00FF30CF
-#define RIGHT 0x00FF7A85
-#define SELECT 0x00FF18E7
-
-//------------------------------------------------------------
-
 void setup() {
   read_myID();
 
@@ -378,15 +356,6 @@ void setup() {
   sensorInit(); // initialize and test sensors; GPS and Iridium should be after this
 
 
-  #ifdef IRIDIUM_MODEM
-  if(sendSatellite){
-    Serial1.begin(19200, SERIAL_8N1);  //Iridium
-    modem.getSignalQuality(sigStrength); // update Iridium modem strength
-    modem.setPowerProfile(IridiumSBD::DEFAULT_POWER_PROFILE);
-    int result = modem.begin();
-  }
-  #endif
-
   #ifdef SWARM_MODEM
     Serial1.begin(115200, SERIAL_8N1);
     pollTile();
@@ -441,7 +410,6 @@ void setup() {
         readVoltage();
         delay(1000);
       }
-
   #endif
 
   
@@ -463,6 +431,30 @@ void setup() {
 
   cDisplay();
   display.println("Medusa AI");
+  #ifdef IRIDIUM_MODEM
+    display.println("Initialize modem");
+  #endif
+  display.setCursor(0,30);
+  display.print("Lat: ");
+  display.println(latitude);
+  display.print("Lon: ");
+  display.print(longitude);
+  display.display();
+
+  #ifdef IRIDIUM_MODEM
+  if(sendSatellite){
+    digitalWrite(POW_5V, HIGH); // power on Pi and Iridium
+    delay(1000);
+    Serial1.begin(19200, SERIAL_8N1);  //Iridium
+    modem.getSignalQuality(sigStrength); // update Iridium modem strength
+    modem.setPowerProfile(IridiumSBD::DEFAULT_POWER_PROFILE);
+    int result = modem.begin();
+    digitalWrite(POW_5V, LOW); // power down iridium and pi
+  }
+  #endif
+
+  cDisplay();
+  display.println("Medusa AI");
   display.setCursor(0,30);
   display.print("Lat: ");
   display.println(latitude);
@@ -471,11 +463,7 @@ void setup() {
   display.display();
 
   logFileHeader();
-
-  #ifdef IRIDIUM_MODEM
-    if(sendSatellite) modem.sleep();
-  #endif
-
+  
   digitalWrite(hydroPowPin, HIGH);
   setSyncProvider(getTeensy3Time); //use Teensy RTC to keep time
   
@@ -741,9 +729,9 @@ void loop() {
         display.println(dataPacket);
         display.display();
       }
-      
+
+      // IRIDIUM
       #ifdef IRIDIUM_MODEM
-        // IRIDIUM
         if(sendSatellite){
           modem.begin();  // wake Iridium
           modem.adjustSendReceiveTimeout(120);  // timeout in 120 seconds
@@ -756,9 +744,8 @@ void loop() {
 
       digitalWrite(POW_5V, LOW); // power off Pi and Iridium
 
-      #ifdef SWARM_MODEM
-        // SWARM
-        
+      // SWARM
+      #ifdef SWARM_MODEM  
         if(sendSatellite){
           Serial.println("Send SWARM Data Packet");
           int err = sendDataPacket();  

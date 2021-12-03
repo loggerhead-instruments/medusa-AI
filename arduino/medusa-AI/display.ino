@@ -24,8 +24,11 @@ void cDisplay(){
   display.print(voltage,1);
   display.print("V");
 
-  display.setCursor(90,9);
-  display.print(rssi);
+  #ifdef SWARM_MODEM
+    display.setCursor(90,9);
+    display.print(rssi);
+  #endif
+  
   display.setCursor(0,0);
   display.display();
 }
