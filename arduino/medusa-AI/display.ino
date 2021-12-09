@@ -1,9 +1,10 @@
+
 /* DISPLAY FUNCTIONS
  *  
  */
 
 void displayOn(){
-  display.begin(SSD1306_SWITCHCAPVCC, 0x3C);  //initialize display
+ display.begin(SSD1306_SWITCHCAPVCC, 0x3C);  //initialize display
 }
 
 void displayOff(){
@@ -30,24 +31,28 @@ void cDisplay(){
   #endif
   
   display.setCursor(0,0);
-  display.display();
 }
 
 void displaySettings(){
   display.setTextSize(1);
   display.setTextColor(WHITE);
-  display.setCursor(0, 0);
+  display.setCursor(0, displayLine1);
   if(mode==0) {
     display.println("SBY");
     display.print(startTime - t);
-    display.println("s");
+    display.print("s  ");
+    display.print(lhi_fsamps[isf]);
+    display.print("Hz");
+    if (NCHAN==2) display.println("  Stereo");
+    else
+      display.println(""); // MONO
   }
-  display.print("Rec ");
+  display.print("R:");
   display.print(rec_dur);
   display.print("s");
-  display.print("  Sleep ");
+  display.print(" S:");
   display.print(rec_int);
-  display.println("s");
+  display.print("s");
 }
 
 void displayClock(int loc, time_t t){
@@ -119,6 +124,15 @@ void printTime(time_t t){
 void readEEPROM(){
   rec_dur = readEEPROMlong(0);
   rec_int = readEEPROMlong(4);
+  isf = EEPROM.read(8);
+  gainSetting = EEPROM.read(9);
+
+  if(rec_dur<1) rec_dur = 30;
+  if(rec_dur>3600) rec_dur = 3600;
+  if(rec_int<30) rec_int = 570;
+  if(rec_int>3600*24) rec_int = 60;
+  if(isf<0 | isf>5) isf=4;
+  if(gainSetting<0 | gainSetting>13) gainSetting = 4;
 }
 
 union {
@@ -145,4 +159,6 @@ void writeEEPROMlong(int address, long val){
 void writeEEPROM(){
   writeEEPROMlong(0, rec_dur);  //long
   writeEEPROMlong(4, rec_int);  //long
+  EEPROM.write(8, isf); //byte
+  EEPROM.write(9, gainSetting); //byte
 }
