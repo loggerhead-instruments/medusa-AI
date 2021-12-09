@@ -26,9 +26,13 @@ boolean readDetections()
   Serial.println(piPayload);
 
   // extract whistle count
-  char signalLabel[2];
-  int detectionCount;
-  sscanf(piPayload, "%s:%d",signalLabel,&detectionCount);
-  if(signalLabel=='w') whistleCount = detectionCount;
+  char signalLabel[1];
+  unsigned int detectionCount;
+  sscanf(piPayload, "%c:%d",signalLabel,&detectionCount);
+  if(signalLabel[0]=='w') {
+    whistleCount = detectionCount;
+    Serial.print("scan whistles:");
+    Serial.println(whistleCount);
+  }
  return 1;  
 }

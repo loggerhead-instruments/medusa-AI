@@ -6,13 +6,14 @@
 // David Mann
 
 // There must be an interval between files to work properly
-// GPS is reacquired during wakeahead time to get lat/lon
-// Sensor data are recorded and stored during wakeahead
 
 // Compile 96 MHz Fastest
 
-// - fix pin assignments
+// To Do:
 // - add accelerometer support
+// - check failure scenarios
+// -     pi doesn't boot
+// -     sd doesn't connect
 
 // Power Consumptions
 // Startup: 200 mA
@@ -60,7 +61,7 @@ static boolean printDiags = 1;  // 1: serial print diagnostics; 0: no diagnostic
 #define I_SAMP 6   // 0 is 8 kHz; 1 is 16 kHz; 2 is 32 kHz; 3 is 44.1 kHz; 4 is 48 kHz; 5 is 96 kHz; 6 is 192 kHz
 boolean imuFlag = 1;
 int moduloSeconds = 10; // round to nearest start time
-#define SENDBINARY 0 // send Iridium message as binary; set to 1
+#define SENDBINARY 1 // send Iridium message as binary; set to 1
 float hydroCalLeft = -180;
 float hydroCalRight = -180;
 #define FFT1024 1024
@@ -85,9 +86,9 @@ char piPayload[200];  // payload to send from Pi/Coral detector
 // EEPROM SETTINGS -- THESE ONLY TAKE EFFECT FOR NEW MEDUSA
 //
 int isf = 2; // index sampling frequency
-long rec_dur = 30; // seconds
-long rec_int = 600 - rec_dur;  // seconds Maximum = 600 s when using watchdog timer
-long msg_int = 600; // send every message
+long rec_dur = 600; // seconds
+long rec_int = 600;  // seconds Maximum = 600 s when using watchdog timer
+long msg_int = rec_dur + rec_int; // send every message
 long analyze_dur; // must be same or less than record duration; default is same as rec_dur
 int gainSetting = 4; // SG in script file
 //
@@ -343,7 +344,7 @@ uint32_t sumOfSquaresCount;
 int16_t posPeak, negPeak; // For peak tracking
 
 int nBins[NBANDS]; // number of FFT bins in each band
-int whistleCount = 0;
+volatile unsigned int whistleCount = 0;
 
 String dataPacket; // data packed for transmission after each file
 
@@ -367,7 +368,7 @@ void setup() {
   digitalWrite(iridiumSleep, LOW); // HIGH = enabled; LOW = sleeping
   pinMode(gpsEnable, OUTPUT);
 
-  digitalWrite(hydroPowPin, LOW);
+  digitalWrite(hydroPowPin, HIGH);
   digitalWrite(gpsEnable, HIGH);  // HIGH = enabled; LOW = Sleep
   for(int i=0; i<NBANDS; i++){
     nBins[i] = bandHigh[i] - bandLow[i];
@@ -441,7 +442,6 @@ void setup() {
   writeEEPROM(); // update settings changed from script
 
   binwidth = audio_srate / fftPoints; //256 point FFT; = 172.3 Hz for 44.1kHz
-  float nyquist = audio_srate / 2.0;
   fftDurationMs = 1000.0 / binwidth;
 
   updatePowerDuration();
@@ -501,17 +501,11 @@ void setup() {
       display.print("Iridium:"); display.println(result);
       display.display();
       modem.getSignalQuality(sigStrength); // update Iridium modem strength
+      modem.sleep();
     }
   #endif
-
   delay(5000);
-
   if(sdGood) logFileHeader();
-
-  if(sendIridium) modem.sleep();
-
-  digitalWrite(hydroPowPin, HIGH);
-
   setSyncProvider(getTeensy3Time); //use Teensy RTC to keep time
   
 // ULONG newtime;
@@ -578,6 +572,20 @@ void loop() {
       delay(10);
       Snooze.sleep(config_teensy32);
       delay(5000); // give time for Swarm to wake up
+      if(File logFile = sd.open("LOG.CSV",  O_CREAT | O_APPEND | O_WRITE)){
+        logFile.print('low power sleep');
+        logFile.print(',');
+        logFile.print(codeVersion);
+        logFile.print(',');  
+        logFile.print(',');
+        logFile.print(readVoltage()); 
+        logFile.print(',');
+        logFile.print(latitude, 4);
+        logFile.print(',');
+        logFile.print(longitude, 4);
+        logFile.println();
+        logFile.close();
+      }
     }
 
     // had been asleep because of low voltage
@@ -712,7 +720,7 @@ void loop() {
           delay(1000);
           Serial.print("Pi Status:"); Serial.println(piStatus);
           t = getTeensy3Time();
-        }while((piStatus<20) | (piStatus>1000) & (t - startPiTime < piTimeout)  & (piTimedOut == 0));
+        }while(((piStatus<20) | (piStatus>1000)) & (t - startPiTime < piTimeout)  & (piTimedOut == 0));
         digitalWrite(POW_5V, LOW); // power off Pi   
         digitalWrite(SD_POW, LOW); // switch off power to microSD (Pi will use SD mode, so card needs to reset)
         digitalWrite(SD_SWITCH, SD_TEENSY); // switch control to Teensy
@@ -721,7 +729,7 @@ void loop() {
         delay(100);
 
         int sdAttempts = 0;
-        if (!(sd.begin(10)) & sdAttempts < 2000) {
+        if (!(sd.begin(10) & sdAttempts < 2000)) {
           digitalWrite(SD_POW, LOW);
           delay(1000);
           digitalWrite(SD_POW, HIGH);
@@ -850,6 +858,7 @@ void loop() {
           
          if(printDiags>0) printTime(getTeensy3Time());
           digitalWrite(hydroPowPin, HIGH); // hydrophone on 
+          delay(100);
           AudioInit(isf);
        }
       if(introPeriod) displayOn();
@@ -1076,19 +1085,8 @@ void calcSensorStats(){
 void FileInit()
 {
    t = getTeensy3Time();
-   
-   if (folderMonth != month(t)){
-    if(printDiags > 0) Serial.println("New Folder");
-    folderMonth = month(t);
-    sprintf(dirname, "%04d-%02d", year(t), folderMonth);
-    SdFile::dateTimeCallback(file_date_time);
-    sd.mkdir(dirname);
-   }
-
-   // only audio save as wav file, otherwise save as AMX file
-   
    // open file 
-   sprintf(filename,"%s/%04d%02d%02dT%02d%02d%02d.wav", dirname, year(t), month(t), day(t), hour(t), minute(t), second(t));  //filename is YYYYMMDDTHHMMSS
+   sprintf(filename,"%04d%02d%02dT%02d%02d%02d.wav", year(t), month(t), day(t), hour(t), minute(t), second(t));  //filename is YYYYMMDDTHHMMSS
 
    // log file
    SdFile::dateTimeCallback(file_date_time);
@@ -1144,7 +1142,6 @@ void FileInit()
      Serial.print(voltage); Serial.println("V");
    }
 
-   
    if (!frec){
     file_count += 1;
     sprintf(filename,"F%06d.wav",file_count); //if can't open just use count

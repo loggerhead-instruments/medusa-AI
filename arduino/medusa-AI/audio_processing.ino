@@ -16,6 +16,7 @@ typedef struct __attribute__((__packed__)){
 }iridiumStruct;
 
 int makeSendBinaryDataPacket(){ 
+  int err = 0;
    union{
      byte b[sizeof(iridiumStruct)];
      iridiumStruct binaryPacket;
@@ -120,8 +121,6 @@ int makeSendBinaryDataPacket(){
       display.display();
     }
     
-
-   int err;
    if(sendIridium){
     err = modem.sendReceiveSBDBinary(iridiumBuffer, iridiumBufferSize, rxBuffer, rxBufferSize);
     if (err != ISBD_SUCCESS){

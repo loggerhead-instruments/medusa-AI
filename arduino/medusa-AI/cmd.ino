@@ -6,14 +6,13 @@ int ProcCmd(char *pCmd)
 {
   short *pCV;
   short n;
-  long lv1, lv2;
-  char s[22];
-        unsigned int tday;
-        unsigned int tmonth;
-        unsigned int tyear;
-        unsigned int thour;
-        unsigned int tmin;
-        unsigned int tsec;
+  long lv1;
+  unsigned int tday;
+  unsigned int tmonth;
+  unsigned int tyear;
+  unsigned int thour;
+  unsigned int tmin;
+  unsigned int tsec;
 
   pCV = (short*)pCmd;
 
