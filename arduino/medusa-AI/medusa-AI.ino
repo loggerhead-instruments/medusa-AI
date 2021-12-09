@@ -5,6 +5,9 @@
 
 // To do:
 // - measure power consumption
+// - long filenames
+// - more frequency bands
+// - binary transmission
 // - measure waves with accelerometer
 // - fail scenarios and reboot contingency
 //    - card fails to initialize: skip recording to card and only send band level data. Reboot after one recording.
@@ -52,7 +55,7 @@ int runMode = 1; // 0 = dev mode (power on Pi and give microSD access); 1 = depl
 boolean sendSatellite = 1;
 boolean useGPS = 1;  // Tile has it's own GPS, this is Ublox or Adafruit separate GPS module
 static boolean printDiags = 1;  // 1: serial print diagnostics; 0: no diagnostics 2=verbose
-long rec_dur = 3000; // 3000 seconds = 50 minutes
+long rec_dur = 1200; // 3000 seconds = 50 minutes
 long rec_int = 600;  // miminum is time needed for audio processing
 
 int moduloSeconds = 10; // round to nearest start time
@@ -298,6 +301,8 @@ void setup() {
   digitalWrite(SD_SWITCH, SD_TEENSY); 
   pinMode(PI_STATUS, INPUT);
   pinMode(PI_STATUS2, INPUT);
+  pinMode(gpsEnable, OUTPUT);
+  digitalWrite(gpsEnable, LOW);
 
   pinMode(TILE_ENABLE, OUTPUT);
   digitalWrite(TILE_ENABLE, HIGH);
@@ -443,13 +448,15 @@ void setup() {
 
   #ifdef IRIDIUM_MODEM
   if(sendSatellite){
-    digitalWrite(POW_5V, HIGH); // power on Pi and Iridium
     delay(1000);
     Serial1.begin(19200, SERIAL_8N1);  //Iridium
     modem.getSignalQuality(sigStrength); // update Iridium modem strength
     modem.setPowerProfile(IridiumSBD::DEFAULT_POWER_PROFILE);
     int result = modem.begin();
-    digitalWrite(POW_5V, LOW); // power down iridium and pi
+    display.print("Iridium:"); display.println(result);
+    display.display();
+    delay(2000);
+    modem.sleep();
   }
   #endif
 
@@ -699,6 +706,8 @@ void loop() {
           Serial.print("Pi Status:"); Serial.println(piStatus);
           t = getTeensy3Time();
         }while((piStatus<20) | (piStatus>1000) & (t - startPiTime < piTimeout)  & (piTimedOut == 0));
+
+        digitalWrite(POW_5V, LOW); // power off Pi
       #endif
 
       digitalWrite(SD_POW, LOW); // switch off power to microSD (Pi will use SD mode, so card needs to reset)
@@ -742,7 +751,6 @@ void loop() {
         //
       #endif
 
-      digitalWrite(POW_5V, LOW); // power off Pi and Iridium
 
       // SWARM
       #ifdef SWARM_MODEM  
