@@ -565,6 +565,7 @@ void loop() {
     // if voltage too low sleep until gets to good voltage
     bool sleepFlag = 0;
     while(readVoltage()<3.4){
+      resetWdt();
       displayOff();
       Serial1.println("$SL S=300*62"); // sleep Swarm 5 minutes
       sleepFlag = 1;
@@ -633,6 +634,7 @@ void loop() {
 
   // Record mode
   if (mode == 1) {
+    resetWdt();
     continueRecording();  // download data  
     //
     // Automated signal processing
@@ -676,6 +678,7 @@ void loop() {
           piStatus = analogRead(PI_STATUS);
           Serial.println(piStatus);
           delay(2000);
+          resetWdt();
         }
         boolean piTimedOut = 0;
         if (t - startPiTime > piTimeout) piTimedOut = 1;
@@ -699,6 +702,7 @@ void loop() {
           piStatus2 = analogRead(PI_STATUS2);
           Serial.println(piStatus2);
           delay(2000);
+          resetWdt();
         }
         if (t - startPiTime > piTimeout) piTimedOut = 1;
   
@@ -720,6 +724,7 @@ void loop() {
           delay(1000);
           Serial.print("Pi Status:"); Serial.println(piStatus);
           t = getTeensy3Time();
+          resetWdt();
         }while(((piStatus<20) | (piStatus>1000)) & (t - startPiTime < piTimeout)  & (piTimedOut == 0));
         digitalWrite(POW_5V, LOW); // power off Pi   
         digitalWrite(SD_POW, LOW); // switch off power to microSD (Pi will use SD mode, so card needs to reset)
@@ -742,7 +747,7 @@ void loop() {
         if(!cardFailed) readDetections();
       #endif
 
-      
+      resetWdt();
 //      // Record motion data
 //      if(imuFlag){
 //        if(introPeriod){
