@@ -1,4 +1,5 @@
 // Loggerhead Instruments
+<<<<<<< Updated upstream
 // c 2021, David Mann
 
 // compile 72 MHz fastest
@@ -33,6 +34,38 @@
 #include <Audio.h>  //this also includes SD.h from lines 89 & 90
 #include <analyze_fft256.h>
 #include <Wire.h>
+=======
+// c 2022
+// David Mann
+
+// There must be an interval between files to work properly
+
+// Compile 96 MHz Fastest
+
+// To Do:
+// - add accelerometer support
+// - sd doesn't connect--count reboot attempts and then give up (change code to not send whistles)
+// - if sd card full, stop saving file and waking Pi
+
+// Power Consumptions
+// Startup: 200 mA
+// Recording: 48 mA 
+// Transmit: 150-280 (timeout at 120 s)
+// Sleep: start at 5.0 mA goes down to 3.9 mA (prob supercapcitor discharging on Iridium)
+
+
+// Hydrophone connector
+// Red: Power
+// Black: GND
+// Yellow: LEFT
+// Green: RIGHT
+
+#define codeVersion 20211209
+#define MQ 100 // to be used with LHI record queue (modified local version)
+
+#include "input_i2s.h"
+#include <i2c_t3.h>  //https://github.com/nox771/i2c_t3; Teensy Audio: control_sgtl5000.cpp needs to have Wire.h commented
+>>>>>>> Stashed changes
 #include <SPI.h>
 #include <SdFat.h>
 #include <Snooze.h>  //using https://github.com/duff2013/Snooze; uncomment line 62 #define USE_HIBERNATE
@@ -528,13 +561,21 @@ void loop() {
     
     // if voltage too low sleep until gets to good voltage
     bool sleepFlag = 0;
+<<<<<<< Updated upstream
     while(readVoltage()<3.4){
+=======
+    while(readVoltage()<3.7){
+      resetWdt();
+>>>>>>> Stashed changes
       displayOff();
-      Serial1.println("$SL S=300*62"); // sleep Swarm 5 minutes
+      #ifdef IRIDIUM_MODEM
+        Serial1.println("$SL S=300*62"); // sleep Swarm 5 minutes
+      #endif
       sleepFlag = 1;
       alarm.setRtcTimer(0, 5, 0); // sleep Teensy 5 minutes
       delay(10);
       Snooze.sleep(config_teensy32);
+      // ... Sleeping ...
       delay(5000); // give time for Swarm to wake up
     }
 
