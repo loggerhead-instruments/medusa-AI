@@ -47,6 +47,23 @@ PrefsVaultGUID=
 PrefsRevisionGUID=
 
 [Document1]
+DocumentPath=medusa-ai-integrated.PcbDoc
+AnnotationEnabled=1
+AnnotateStartValue=1
+AnnotationIndexControlEnabled=0
+AnnotateSuffix=
+AnnotateScope=All
+AnnotateOrder=-1
+DoLibraryUpdate=1
+DoDatabaseUpdate=1
+ClassGenCCAutoEnabled=1
+ClassGenCCAutoRoomEnabled=1
+ClassGenNCAutoScope=None
+DItemRevisionGUID=
+GenerateClassCluster=0
+DocumentUniqueId=WRANLOYP
+
+[Document2]
 DocumentPath=medusa-ai-integrated-charger.SchDoc
 AnnotationEnabled=1
 AnnotateStartValue=1
@@ -63,7 +80,7 @@ DItemRevisionGUID=
 GenerateClassCluster=0
 DocumentUniqueId=RHQBOAYU
 
-[Document2]
+[Document3]
 DocumentPath=medusa-ai-audio.SchDoc
 AnnotationEnabled=1
 AnnotateStartValue=1
@@ -80,7 +97,7 @@ DItemRevisionGUID=
 GenerateClassCluster=0
 DocumentUniqueId=XTANOHZF
 
-[Document3]
+[Document4]
 DocumentPath=medusa-ai-power.SchDoc
 AnnotationEnabled=1
 AnnotateStartValue=1
@@ -97,7 +114,7 @@ DItemRevisionGUID=
 GenerateClassCluster=0
 DocumentUniqueId=INPGOTJX
 
-[Document4]
+[Document5]
 DocumentPath=medusa-charger.SchDoc
 AnnotationEnabled=1
 AnnotateStartValue=1
@@ -114,7 +131,7 @@ DItemRevisionGUID=
 GenerateClassCluster=0
 DocumentUniqueId=BUBPCWZS
 
-[Document5]
+[Document6]
 DocumentPath=..\..\..\altium_library\Loggerhead\Loggerhead.IntLib
 AnnotationEnabled=1
 AnnotateStartValue=1
@@ -131,7 +148,7 @@ DItemRevisionGUID=
 GenerateClassCluster=0
 DocumentUniqueId=
 
-[Document6]
+[Document7]
 DocumentPath=..\..\..\altium_library\Panasonic\Panasonic Resistor.IntLib
 AnnotationEnabled=1
 AnnotateStartValue=1
@@ -148,7 +165,7 @@ DItemRevisionGUID=
 GenerateClassCluster=0
 DocumentUniqueId=
 
-[Document7]
+[Document8]
 DocumentPath=..\..\..\altium_library\KEMET Electronics\KEMET Chip Capacitor.IntLib
 AnnotationEnabled=1
 AnnotateStartValue=1
@@ -165,7 +182,7 @@ DItemRevisionGUID=
 GenerateClassCluster=0
 DocumentUniqueId=
 
-[Document8]
+[Document9]
 DocumentPath=..\..\..\altium_library\National Semiconductor\NSC LDO.IntLib
 AnnotationEnabled=1
 AnnotateStartValue=1
@@ -182,7 +199,7 @@ DItemRevisionGUID=
 GenerateClassCluster=0
 DocumentUniqueId=
 
-[Document9]
+[Document10]
 DocumentPath=..\..\..\altium_library\MAX4996ETG_\MAX4996ETG_.IntLib
 AnnotationEnabled=1
 AnnotateStartValue=1
@@ -199,7 +216,7 @@ DItemRevisionGUID=
 GenerateClassCluster=0
 DocumentUniqueId=
 
-[Document10]
+[Document11]
 DocumentPath=..\..\..\altium_library\Texas_Instruments_Power_Management_Linear_Regulator_Single_Channel_LDO_(0-350mA)\TI Power Management Linear Regulator Single Channel LDO (0-350mA).IntLib
 AnnotationEnabled=1
 AnnotateStartValue=1
@@ -216,7 +233,7 @@ DItemRevisionGUID=
 GenerateClassCluster=0
 DocumentUniqueId=
 
-[Document11]
+[Document12]
 DocumentPath=..\..\..\altium_library\Teensy\Project Outputs for Teensy\Teensy.IntLib
 AnnotationEnabled=1
 AnnotateStartValue=1
@@ -352,7 +369,7 @@ OutputDefault20=0
 [OutputGroup2]
 Name=Simulator Outputs
 Description=
-TargetPrinter=NPID79B7C (HP LaserJet Pro M148dw)
+TargetPrinter=NPI6035D7 (HP LaserJet M1536dnf MFP) Sarasota Home
 PrinterOptions=Record=PrinterOptions|Copies=1|Duplex=1|TrueTypeOptions=3|Collate=1|PrintJobKind=1|PrintWhat=1
 
 [OutputGroup3]
