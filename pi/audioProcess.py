@@ -2,17 +2,44 @@ import time
 import RPi.GPIO as GPIO
 import os
 from subprocess import call
-
 import librosa as lr
+import logging
+from logging.handlers import RotatingFileHandler
 import math
 import numpy as np
 import os
 from pathlib import Path
+import shutil
 import soundfile as sf
 import tflite_runtime.interpreter as tflite
 
-import logging
-from logging.handlers import RotatingFileHandler
+
+def storage_check(mounted_directory, required_gigs=2):
+    """
+    Determines if the specified drive has enough storage.
+
+    Parameters
+    ----------
+    mounted_directory: str or Path
+        The directory to analyze for free space
+    required_gigs: int, optional
+        The amount of gigabytes required on the drive (default is 2)
+    
+    Returns
+    -------
+    bool
+        A flag that determined if the directory has enough storage.
+    """
+    bytes_in_gig = 1073741824
+    total, used, free = shutil.disk_usage(mounted_directory)
+
+    free_gigs = free//bytes_in_gig
+
+    if free_gigs >= required_gigs:
+        return True
+    else:
+        return False
+
 
 cfg = {'inwav_dir': '/mnt/audio',
 #'inwav_dir': '/home/pi/medusa/1hour',
@@ -76,6 +103,9 @@ if __name__ == "__main__":
             exit(0)
         else:
             logging.info(f"Processing {num_wavs} files...")
+            
+            enough_space = storage_check(cfg['inwav_dir'])
+            
             with os.scandir(cfg['inwav_dir']) as directory:
                 for file in directory:
                     if file.is_file() and file.name.endswith('.wav'):
@@ -84,11 +114,12 @@ if __name__ == "__main__":
                         # Check if file has content
                         if os.path.getsize(file.path):
                             data, samplerate = sf.read(file, dtype='float32')
-
-                            first_minute_path = Path(cfg['outwav_dir']+'/'+file.name[:-4]+'~minute'+'.wav')
-                            with sf.SoundFile(first_minute_path, mode='x', samplerate=44100,
-                            channels=1, subtype='PCM_16') as audio_file:
-                                audio_file.write(data[:minute_length])
+                            
+                            if enough_space:
+                                first_minute_path = Path(cfg['outwav_dir']+'/'+file.name[:-4]+'~minute'+'.wav')
+                                with sf.SoundFile(first_minute_path, mode='x', samplerate=44100,
+                                channels=1, subtype='PCM_16') as audio_file:
+                                    audio_file.write(data[:minute_length])
                     
                             number_of_chunks = math.ceil(len(data) / float(chunk_length))
                             my_list = [data[i * chunk_length:(i + 1) * chunk_length] for i in range(int(number_of_chunks))]
@@ -115,11 +146,12 @@ if __name__ == "__main__":
                                         whistle_counter += 1
 
                                         if cfg['save_specs']:
-                                            audio_file_path = Path(cfg['outwav_dir']+'/'+file.name[:-4]+'~'+str(i)+'~'+str(tflite_results[0,0])+'.wav')
+                                            if enough_space:
+                                                audio_file_path = Path(cfg['outwav_dir']+'/'+file.name[:-4]+'~'+str(i)+'~'+str(tflite_results[0,0])+'.wav')
 
-                                            with sf.SoundFile(audio_file_path, mode='x', samplerate=44100,
-                                            channels=1, subtype='PCM_16') as audio_file:
-                                                audio_file.write(chunk)
+                                                with sf.SoundFile(audio_file_path, mode='x', samplerate=44100,
+                                                channels=1, subtype='PCM_16') as audio_file:
+                                                    audio_file.write(chunk)
                             
                             Path(file.path).unlink()
                                 
