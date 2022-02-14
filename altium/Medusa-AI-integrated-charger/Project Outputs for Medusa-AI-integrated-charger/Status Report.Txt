@@ -1,0 +1,12 @@
+Output: NC Drill Files
+Type  : NC Drill
+From  : Project [Medusa-AI-integrated-charger.PrjPcb]
+   Generated File[medusa-ai-integrated.TXT]
+   Generated File[medusa-ai-integrated.LDP]
+   Generated File[medusa-ai-integrated.DRR]
+
+
+Files Generated   : 3
+Documents Printed : 0
+
+Finished Output Generation At 1:28:51 PM On 2/14/2022

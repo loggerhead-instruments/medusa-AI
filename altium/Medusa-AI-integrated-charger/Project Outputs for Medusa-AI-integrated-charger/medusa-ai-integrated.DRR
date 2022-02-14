@@ -1,0 +1,23 @@
+----------------------------------------------------------------------------------------------------------------------------------
+NCDrill File Report For: medusa-ai-integrated.PcbDoc   2/14/2022  1:28:51 PM
+----------------------------------------------------------------------------------------------------------------------------------
+
+Layer Pair : Top Layer to Bottom Layer
+ASCII RoundHoles File : medusa-ai-integrated.TXT
+
+Tool       Hole Size               Hole Tolerance               Hole Type       Hole Count   Plated         Tool Travel
+----------------------------------------------------------------------------------------------------------------------------------
+T1      8mil (0.2mm)                                              Round             4         PTH        0.13inch (3.30mm)
+T2      15mil (0.381mm)                                           Round             61        PTH        7.69inch (195.24mm)
+T3      16mil (0.406mm)                                           Round             7         PTH        0.93inch (23.56mm)
+T4      28mil (0.711mm)                                           Round             85        PTH        34.53inch (877.18mm)
+T5      35mil (0.889mm)                                           Round             2         PTH        0.10inch (2.54mm)
+T6      35mil (0.9mm)                                             Round             89        PTH        25.16inch (639.00mm)
+T7      36mil (0.914mm)                                           Round             34        PTH        4.90inch (124.46mm)
+T8      108mil (2.75mm)                                           Round             4         PTH        6.85inch (173.93mm)
+T9      207mil (5.25mm)                                           Round             2         PTH        0.98inch (24.99mm)
+T10     221mil (5.613mm)                                          Round             11        PTH        11.21inch (284.68mm)
+----------------------------------------------------------------------------------------------------------------------------------
+Totals                                                                              299
+
+Total Processing Time (hh:mm:ss) : 00:00:00
