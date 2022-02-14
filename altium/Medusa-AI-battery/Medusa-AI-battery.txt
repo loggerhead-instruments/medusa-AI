@@ -1,0 +1,10 @@
+Board Information Report
+Filename     : C:\w\medusa-AI\altium\Medusa-AI-battery\Medusa-AI-battery.PcbDoc
+Date         : 2/14/2022
+Time         : 1:34:59 PM
+Time Elapsed : 00:00:00
+
+General
+    Board Size, 7750milsx7750mils
+    Components on board, 9
+count : 2
