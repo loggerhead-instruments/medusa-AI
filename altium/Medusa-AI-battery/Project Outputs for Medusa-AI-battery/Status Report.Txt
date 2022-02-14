@@ -1,0 +1,12 @@
+Output: NC Drill Files
+Type  : NC Drill
+From  : Project [Medusa-AI-battery.PrjPcb]
+   Generated File[Medusa-AI-battery.TXT]
+   Generated File[Medusa-AI-battery.LDP]
+   Generated File[Medusa-AI-battery.DRR]
+
+
+Files Generated   : 3
+Documents Printed : 0
+
+Finished Output Generation At 1:31:43 PM On 2/14/2022
