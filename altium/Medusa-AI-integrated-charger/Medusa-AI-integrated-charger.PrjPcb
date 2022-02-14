@@ -267,6 +267,10 @@ DItemRevisionGUID=
 GenerateClassCluster=0
 DocumentUniqueId=FLPBFUVB
 
+[GeneratedDocument1]
+DocumentPath=Project Outputs for Medusa-AI-integrated-charger\Design Rule Check - medusa-ai-integrated.html
+DItemRevisionGUID=
+
 [Configuration1]
 Name=Sources
 ParameterCount=0
