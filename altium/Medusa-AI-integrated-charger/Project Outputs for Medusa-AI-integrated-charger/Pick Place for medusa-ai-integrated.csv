@@ -1,0 +1,88 @@
+Designator,Comment,Footprint,Center-X(mm),Center-Y(mm),Center-X(mm),Center-Y(mm),Description,,,Center-X(mm),Center-Y(mm),Rotation
+R15,4.7k,3-0603,88.095,-154.46,-88.095,154.46,"Precision Thick Film Chip Resistor, 10 Ohm to 1M Ohm Range, 1% and 0.5% Tolerance, 0603 Size, 0.063 W",,,88.095,-154.46,270
+R5,4.7k,3-0603,,,-91.524,154.46,"Precision Thick Film Chip Resistor, 10 Ohm to 1M Ohm Range, 1% and 0.5% Tolerance, 0603 Size, 0.063 W",,,91.524,-154.46,270
+C33,0402 Ferrite,402,,,-119.21,144.681,Ceramic Chip Capacitor - Standard,,,119.21,-144.681,180
+C32,0402 Ferrite,402,,,-119.21,146.713,Ceramic Chip Capacitor - Standard,,,119.21,-146.713,180
+C31,1uF,Tant0805,,,-109.431,151.412,,,,109.431,-151.412,270
+U11,SAM-M8Q,GPS_SAM-MQ8,,,-129.628,144.676,,,,129.628,-144.676,180
+U13,LT3652EDDPBF,DFN300X300X80-13N,,,-62.927,13.91,Power Tracking 2A Battery Charger for Solar Power,,,62.927,-13.91,0
+FL2,YFF31HC2A105MT000N,FIL_YFF31HC2A105MT000N,,,-80.137,11.43,"1µF Feed Through Capacitor 100V 6A 5mOhm 1206 (3216 Metric), 4 PC Pad",,,80.137,-11.43,90
+FL1,YFF31HC2A105MT000N,FIL_YFF31HC2A105MT000N,,,-29.526,11.624,"1µF Feed Through Capacitor 100V 6A 5mOhm 1206 (3216 Metric), 4 PC Pad",,,29.526,-11.624,90
+D4,BAT46WJ,SOD-323,,,-66.421,17.653,Diode Schottky 100V 250mA (DC) Surface Mount SOD-323F,,,66.421,-17.653,270
+U12,TPS61032,TPS6103x,,,-84.416,44.7,Boost converter,,,84.416,-44.7,270
+U10,LP3985IM5-3.3,MF05A_N,,,-73.315,115.178,"Micropower, 150mA Low-Noise Ultra Low-Dropout CMOS Voltage Regulator",,,73.315,-115.178,0
+U9,LP3985IM5-3.3,MF05A_N,,,-104.964,149.034,"Micropower, 150mA Low-Noise Ultra Low-Dropout CMOS Voltage Regulator",,,104.964,-149.034,270
+U8,TLV70018DCKR,TI-DCK5_V,,,-133.18,55.908,"Single Output LDO, 200 mA, Fixed 1.8 V Output, 2 to 5.5 V Input, with Low IQ, 5-pin SC70 (DCK), -40 to 125 degC, Green (RoHS & no Sb/Br)",,,133.18,-55.908,180
+U7,LIS3MDL,LGA-12,,,-117.321,112.085,magnetometer,,,117.321,-112.085,0
+U6,ADXL343,ADXL345,,,-117.4915,105.369,,,,117.4915,-105.369,0
+U5,LP3985IM5-3.3,MF05A_N,,,-122.744,72.711,"Micropower, 150mA Low-Noise Ultra Low-Dropout CMOS Voltage Regulator",,,122.744,-72.711,90
+U4,LP3985IM5-3.3,MF05A_N,,,-115.934,78.637,"Micropower, 150mA Low-Noise Ultra Low-Dropout CMOS Voltage Regulator",,,115.934,-78.637,90
+U3,SGTL5000,QFN32,,,-125.941,60.861,SGTL5000,,,125.941,-60.861,270
+U2,LP3985IM5-3.3,MF05A_N,,,-124.417,49.8916,"Micropower, 150mA Low-Noise Ultra Low-Dropout CMOS Voltage Regulator",,,124.417,-49.8916,180
+U1,MAX4996ETG+,QFN40P350X350X80-25N,,,-75.554,76.6,3 Circuit IC Switch 2:2 4Ohm 24-TQFN (4x4),,,75.554,-76.6,90
+R14,330K,3-0603,,,-55.753,19.05,"Precision Thick Film Chip Resistor, 10 Ohm to 1M Ohm Range, 1% and 0.5% Tolerance, 0603 Size, 0.063 W",,,55.753,-19.05,90
+13,64K9,3-0603,,,-57.277,19.05,"Precision Thick Film Chip Resistor, 10 Ohm to 1M Ohm Range, 1% and 0.5% Tolerance, 0603 Size, 0.063 W",,,57.277,-19.05,90
+12,205K,3-0603,,,-58.801,19.05,"Precision Thick Film Chip Resistor, 10 Ohm to 1M Ohm Range, 1% and 0.5% Tolerance, 0603 Size, 0.063 W",,,58.801,-19.05,270
+R11,50mOhms,8-1206,,,-62.8,20.006,"Precision Thick Film Chip Resistor, 10 Ohm to 2.2M Ohm Range, 1% Tolerance, 1206 Size, 0.125 W",,,62.8,-20.006,180
+R10,301K,3-0603,,,-59.182,10.033,"Precision Thick Film Chip Resistor, 10 Ohm to 1M Ohm Range, 1% and 0.5% Tolerance, 0603 Size, 0.063 W",,,59.182,-10.033,180
+9,51K,3-0603,,,-58.674,11.684,"Precision Thick Film Chip Resistor, 10 Ohm to 1M Ohm Range, 1% and 0.5% Tolerance, 0603 Size, 0.063 W",,,58.674,-11.684,0
+8,330K,3-0603,,,-58.166,16.383,"Precision Thick Film Chip Resistor, 10 Ohm to 1M Ohm Range, 1% and 0.5% Tolerance, 0603 Size, 0.063 W",,,58.166,-16.383,0
+7,51K,3-0603,,,-58.482,13.148,"Precision Thick Film Chip Resistor, 10 Ohm to 1M Ohm Range, 1% and 0.5% Tolerance, 0603 Size, 0.063 W",,,58.482,-13.148,0
+6,330K,3-0603,,,-58.166,14.859,"Precision Thick Film Chip Resistor, 10 Ohm to 1M Ohm Range, 1% and 0.5% Tolerance, 0603 Size, 0.063 W",,,58.166,-14.859,0
+R4,100k,3-0603,,,-111.168,34.428,"Precision Thick Film Chip Resistor, 10 Ohm to 1M Ohm Range, 1% and 0.5% Tolerance, 0603 Size, 0.063 W",,,111.168,-34.428,90
+R3,100k,3-0603,,,-113.073,34.428,"Precision Thick Film Chip Resistor, 10 Ohm to 1M Ohm Range, 1% and 0.5% Tolerance, 0603 Size, 0.063 W",,,113.073,-34.428,270
+R2,100k,3-0603,,,-91.229,132.687,"Precision Thick Film Chip Resistor, 10 Ohm to 1M Ohm Range, 1% and 0.5% Tolerance, 0603 Size, 0.063 W",,,91.229,-132.687,90
+R1,100k,3-0603,,,-89.07,132.687,"Precision Thick Film Chip Resistor, 10 Ohm to 1M Ohm Range, 1% and 0.5% Tolerance, 0603 Size, 0.063 W",,,89.07,-132.687,270
+P6,Iridiuim9603,Iridium9603,,,-144.067,106.518,,,,144.067,-106.518,180
+P3,Teensy3.x,Teensy3.x,,,-92.921,105.438,,,,92.921,-105.438,180
+P2,microSD-Molex,microSD_Molex_hinged,,,-74.204,101.768,,,,74.204,-101.768,270
+P1,Header 20X2,HDR2X20,,,-58.631,95.278,"Header, 20-Pin, Dual row",,,58.631,-95.278,90
+MP1,MS223-10F,MS223-10F,,,7.304,163.77,RF Shield,,,-7.304,-163.77,180
+L3,10uH,Inductor0630CDMCD,,,-70.866,16.637,,,,70.866,-16.637,270
+L2,Inductor2016,Inductor2016,,,-40.232,10.1,,,,40.232,-10.1,0
+L1,6.8uH,Inductor_-_duplicate,,,-90.076,31.323,Sumida Inductor,,,90.076,-31.323,180
+D3,PMEG3050EP*,Diode_PMEG3050EP,,,-67.564,9.271,,,,67.564,-9.271,0
+D2,26.7V Breakdown,SMBJ24CA,,,-14.794,11.497,,,,14.794,-11.497,270
+D1,PMEG3050EP*,Diode_PMEG3050EP,,,-23.303,10.989,,,,23.303,-10.989,270
+C46,C0805,805,,,-62.292,17.72,Ceramic Chip Capacitor - Standard,,,62.292,-17.72,180
+C45,C0402,402,,,-67.056,13.716,Ceramic Chip Capacitor - Standard,,,67.056,-13.716,90
+C44,C1206,1206,,,-48.957,11.497,Ceramic Chip Capacitor - Standard,,,48.957,-11.497,90
+C43,C0805,805,,,-35.622,3.623,Ceramic Chip Capacitor - Standard,,,35.622,-3.623,270
+C42,C0603,603,,,-19.239,9.719,100V 20%,,,19.239,-9.719,90
+C41,T495X,X,,,-44.512,13.275,"Solid Tantalum Chip Capacitor, Standard T495 Series - 35V 10%",,,44.512,-13.275,270
+C40,T495X,X,,,-35.495,13.148,"Solid Tantalum Chip Capacitor, Standard T495 Series - 35V 10%",,,35.495,-13.148,270
+C39,C1206,1206,,,-58.42,8.128,Ceramic Chip Capacitor - Standard,,,58.42,-8.128,0
+C38,C0603,603,,,-101.535,-0.06,Ceramic Chip Capacitor - Standard,,,101.535,0.06,270
+C37,C0603,603,,,-82.231,38.929,Ceramic Chip Capacitor - Standard,,,82.231,-38.929,0
+C36,2.2uF,402,,,-84.009,51.248,Ceramic Chip Capacitor - Standard,,,84.009,-51.248,180
+C35,T495X227K010ATE050,X,,,-81.596,55.439,"Solid Tantalum Chip Capacitor, Standard T495 Series - Low ESR, Surge Robust",,,81.596,-55.439,180
+C30,10nF,402,,,-77.427,116.106,Ceramic Chip Capacitor - Standard,,,77.427,-116.106,180
+C29,10nF,402,,,-103.948,152.59,Ceramic Chip Capacitor - Standard,,,103.948,-152.59,90
+C28,1.0uF,402,,,-77.554,114.201,Ceramic Chip Capacitor - Standard,,,77.554,-114.201,0
+C27,1.0uF,402,,,-69.299,114.201,Ceramic Chip Capacitor - Standard,,,69.299,-114.201,180
+C26,1.0uF,402,,,-105.98,152.717,Ceramic Chip Capacitor - Standard,,,105.98,-152.717,270
+C25,1.0uF,402,,,-105.98,144.716,Ceramic Chip Capacitor - Standard,,,105.98,-144.716,90
+C24,1.0uF,402,,,-130.64,56.543,Ceramic Chip Capacitor - Standard,,,130.64,-56.543,90
+C23,1.0uF,402,,,-135.7821,56.2157,Ceramic Chip Capacitor - Standard,,,135.7821,-56.2157,90
+C22,100nF,402,,,-117.537,116.018,Ceramic Chip Capacitor - Standard,,,117.537,-116.018,270
+C21,1.0uF,402,,,-119.061,116.018,Ceramic Chip Capacitor - Standard,,,119.061,-116.018,270
+C20,100nF,402,,,-116.013,116.018,Ceramic Chip Capacitor - Standard,,,116.013,-116.018,90
+C19,1.0uF,402,,,-111.209,61.115,Ceramic Chip Capacitor - Standard,,,111.209,-61.115,0
+C18,0.1uF,402,,,-120.988,107.851,Ceramic Chip Capacitor - Standard,,,120.988,-107.851,90
+C17,1.0uF,402,,,-111.717,73.434,Ceramic Chip Capacitor - Standard,,,111.717,-73.434,90
+C16,0.01uF,402,,,-123.782,68.989,Ceramic Chip Capacitor - Standard,,,123.782,-68.989,90
+C15,1uF,402,,,-120.988,76.736,Ceramic Chip Capacitor - Standard,,,120.988,-76.736,270
+C14,0.1uF,402,,,-121.75,68.862,Ceramic Chip Capacitor - Standard,,,121.75,-68.862,90
+C13,0.1uF,402,,,-121.496,58.702,Ceramic Chip Capacitor - Standard,,,121.496,-58.702,90
+C12,0.01uF,402,,,-116.972,74.915,Ceramic Chip Capacitor - Standard,,,116.972,-74.915,90
+C11,0.1uF,402,,,-124.29,65.306,Ceramic Chip Capacitor - Standard,,,124.29,-65.306,180
+C10,1uF,402,,,-115.273,81.689,Ceramic Chip Capacitor - Standard,,,115.273,-81.689,0
+C9,0.1uF,402,,,-114.94,74.788,Ceramic Chip Capacitor - Standard,,,114.94,-74.788,90
+C8,0.1uF,402,,,-125.814,55.781,Ceramic Chip Capacitor - Standard,,,125.814,-55.781,90
+C7,0.01uF,402,,,-120.441,48.9806,Ceramic Chip Capacitor - Standard,,,120.441,-48.9806,180
+C6,1uF,402,,,-128.442,50.8856,Ceramic Chip Capacitor - Standard,,,128.442,-50.8856,0
+C5,0.1uF,402,,,-120.441,50.8856,Ceramic Chip Capacitor - Standard,,,120.441,-50.8856,180
+C4,0.1uF,402,,,-131.021,59.718,Ceramic Chip Capacitor - Standard,,,131.021,-59.718,0
+C3,0.1uF,402,,,-99.017,34.572,Ceramic Chip Capacitor - Standard,,,99.017,-34.572,90
+C2,10uF,Tant0805,,,-101.049,34.572,,,,101.049,-34.572,270
+C1,0.1uF,402,,,-77.173,72.291,Ceramic Chip Capacitor - Standard,,,77.173,-72.291,0
