@@ -2,7 +2,7 @@
 // Medusa AI Drifter
 //
 // Loggerhead Instruments
-// c 2021
+// c 2022
 // David Mann
 
 // There must be an interval between files to work properly
@@ -28,7 +28,7 @@
 // Yellow: LEFT
 // Green: RIGHT
 
-#define codeVersion 20211209
+#define codeVersion 20220311
 #define MQ 100 // to be used with LHI record queue (modified local version)
 
 #include "input_i2s.h"
