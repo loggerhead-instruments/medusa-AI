@@ -88,3 +88,5 @@ sudo pip3 install numpy==1.20.3
 
 modify rc.local to run bash on startup
 ```
+#### Copy files to /home/pi/medusa
+scp -r * pi@192.168.0.XXX:/home/pi/medusa
