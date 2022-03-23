@@ -20,7 +20,6 @@
 #include <TimerOne.h>
 #include <AltSoftSerial.h>
 #include "IridiumSBD.h"
-#include <IRremote.h>
 // 
 // Dev settings
 //
@@ -233,13 +232,6 @@ int bandHigh[NBANDS];
 int nBins[NBANDS]; // number of FFT bins in each band
 String dataPacket; // data packed for transmission after each file
 
-//------------------------------------------------------------
-//Codes for Infrared Remote Control
-//COM-14865 https://www.sparkfun.com/products/14865
-//Note: Comment out this section if you are using this w/ the older remote.
-
-IRrecv irrecv(RECV_PIN);
-decode_results results;
 
 #define POWER 0x00FF629D
 #define A 0x00FF22DD
