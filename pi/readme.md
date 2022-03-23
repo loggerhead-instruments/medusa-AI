@@ -85,8 +85,13 @@ sudo apt-get install libsndfile1
 sudo mkdir /mnt/audio
 sudo pip3 uninstall numpy
 sudo pip3 install numpy==1.20.3
+```
+```
+sudo nano /etc/rc.local
 
-modify rc.local to run bash on startup
+# Execute the startup script...
+/home/pi/medusa/audioProcess.sh
+exit 0
 ```
 #### Copy files to /home/pi/medusa
 scp -r * pi@192.168.0.XXX:/home/pi/medusa
