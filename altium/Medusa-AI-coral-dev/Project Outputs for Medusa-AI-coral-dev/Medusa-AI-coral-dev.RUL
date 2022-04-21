@@ -1,4 +1,4 @@
-DRC Rules Export File for PCB: C:\w\medusa-AI\altium\Medusa-AI-integrated-charger\medusa-ai-integrated.PcbDoc
+DRC Rules Export File for PCB: C:\w\medusa-AI\altium\Medusa-AI-coral-dev\Medusa-AI-coral-dev.PcbDoc
 RuleKind=SolderMaskExpansion|RuleName=SolderMaskExpansion|Scope=Board|Minimum=4.00
 RuleKind=Width|RuleName=Width|Scope=Board|Minimum=6.00
 RuleKind=Clearance|RuleName=Clearance|Scope=Board|Minimum=5.00
