@@ -25,7 +25,7 @@ Need to create a mounting point (https://www.raspberrypi.org/documentation/confi
 
 ### We will do the following in the bash script
 
-`sudo mount /dev/mmcblk1p1 /mnt/audio`
+`sudo mount /dev/mmcblk2p1 /mnt/audio`
 
 ### Setting up automatic mounting (not necessary if using bash script)
 
@@ -76,22 +76,30 @@ sudo apt-get update
 sudo apt-get install python3-tflite-runtime
 sudo apt-get install libedgetpu1-std
 
+nmtui #enter wifi credentials
+sudo apt-get update
+sudo apt-get dist-upgrade
+sudo reboot now
+sudo apt-get update #missed some upgrades due to a signature missing, redo
+sudo apt-get dist-upgrade
+sudo reboot now
+sudo apt-get install python3-scipy #needed for librosa and didn't want to build
 sudo apt-get install llvm
-LLVM_CONFIG=/user/bin/llvm-config sudo pip3 install llvmlite==0.37.0
+sudo apt-get install llvm-7-dev #needed due to cryptic error while install llvmlite
+LLVM_CONFIG=/usr/bin/llvm-config sudo pip3 install llvmlite==0.32.0 #0.37 required llvm11
 sudo apt-get install libatlas3-base
-sudo pip3 install numba==0.54.1
-sudo pip3 install librosa
-sudo apt-get install libsndfile1
-sudo mkdir /mnt/audio
-sudo pip3 uninstall numpy
-sudo pip3 install numpy==1.20.3
+sudo apt-get install python3-dev #Numba was failing to build due to missing python files???
+sudo pip3 install numba==0.49
+sudo apt-get install python3-sklearn #needed for librosa and didn't want to build
+sudo pip3 install librosa==0.8.1 #0.9 requires an upgrade to numpy, which I didn't want to bother with
+
 ```
 ```
 sudo nano /etc/rc.local
 
 # Execute the startup script...
-/home/pi/medusa/audioProcess.sh
+/home/mendel/medusa/audioProcess.sh
 exit 0
 ```
-#### Copy files to /home/pi/medusa
-scp -r * pi@192.168.0.XXX:/home/pi/medusa
+#### Copy files to /home/mendel/medusa
+scp -r * pi@192.168.0.XXX:/home/mendel/medusa
