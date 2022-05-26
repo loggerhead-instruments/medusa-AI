@@ -42,14 +42,14 @@ def storage_check(mounted_directory, required_gigs=2):
 
 
 cfg = {'inwav_dir': '/mnt/audio',
-#'inwav_dir': '/home/pi/medusa/1hour',
-#'inwav_dir': '/media/pi/18F7-2660',
+#'inwav_dir': '/home/mendel/medusa/1hour',
+#'inwav_dir': '/media/mendel/18F7-2660',
 'outwav_dir':'/mnt/audio/outwavs',
-#'outwav_dir':'/media/pi/18F7-2660/outwavs',
-#'outwav_dir':'/home/pi/medusa/outwavs',
-'log_file': '/home/pi/medusa/medusa.log',
+#'outwav_dir':'/media/mendel/18F7-2660/outwavs',
+#'outwav_dir':'/home/mendel/medusa/outwavs',
+'log_file': '/home/mendel/medusa/medusa.log',
 'save_specs': True,
-'MODEL_PATH': '/home/pi/medusa/model/mnv2-singlegpu-epoch200-128batchsmallspec_postquant_float32inout_edgetpu_16.tflite'}
+'MODEL_PATH': '/home/mendel/medusa/model/mnv2-singlegpu-epoch200-128batchsmallspec_postquant_float32inout_edgetpu_16.tflite'}
 
 samplerate = 44100
 chunk_seconds = 1.0
