@@ -93,6 +93,9 @@ sudo pip3 install numba==0.49
 sudo apt-get install python3-sklearn #needed for librosa and didn't want to build
 sudo pip3 install librosa==0.8.1 #0.9 requires an upgrade to numpy, which I didn't want to bother with
 
+sudo apt-get install exfat-fuse
+sudo apt-get install exfat-utils
+
 ```
 ```
 sudo nano /etc/rc.local
