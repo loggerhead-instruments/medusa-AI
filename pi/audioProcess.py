@@ -1,5 +1,4 @@
 import time
-import RPi.GPIO as GPIO
 import os
 from subprocess import call
 import librosa as lr
@@ -71,11 +70,11 @@ if __name__ == "__main__":
         statusPin2 = 26
 
         
-        GPIO.setmode(GPIO.BOARD)
-        GPIO.setup(statusPin, GPIO.OUT)
-        GPIO.setup(statusPin2, GPIO.OUT)
-        GPIO.output(statusPin, 1)
-        GPIO.output(statusPin2, 0)
+        #GPIO.setmode(GPIO.BOARD)
+        #GPIO.setup(statusPin, GPIO.OUT)
+        #GPIO.setup(statusPin2, GPIO.OUT)
+        #GPIO.output(statusPin, 1)
+        #GPIO.output(statusPin2, 0)
 
         Path(cfg['outwav_dir']).mkdir(exist_ok=True)
 
@@ -95,8 +94,8 @@ if __name__ == "__main__":
             logging.info("No files to process.")
             time.sleep(60)
 
-            GPIO.output(statusPin, 0)
-            GPIO.output(statusPin2, 1)
+            #GPIO.output(statusPin, 0)
+            #GPIO.output(statusPin2, 1)
 
             time.sleep(2)
             call("sudo nohup shutdown -h now", shell=True)
@@ -131,7 +130,8 @@ if __name__ == "__main__":
                                     spectrogram = lr.amplitude_to_db(np.abs(lr.stft(chunk, n_fft=256, hop_length=145)))
                                     spectrogram = spectrogram[3:, :]
 
-                                    spectrogram = np.expand_dims(spectrogram, axis=(-1,0))
+                                    spectrogram = np.expand_dims(spectrogram, axis=-1)
+                                    spectrogram = np.expand_dims(spectrogram, axis=0)
 
                                     # Make prediction
                                     interpreter.set_tensor(input_details[0]['index'], spectrogram)
@@ -172,8 +172,8 @@ if __name__ == "__main__":
 
             print("File written")
 
-            GPIO.output(statusPin, 0)
-            GPIO.output(statusPin2, 1)
+            #GPIO.output(statusPin, 0)
+            #GPIO.output(statusPin2, 1)
 
             time.sleep(2)
 
@@ -182,8 +182,8 @@ if __name__ == "__main__":
     except:
         logging.exception('Something went wrong...')
         time.sleep(60)
-        GPIO.output(statusPin, 0)
-        GPIO.output(statusPin2, 1)
+        #GPIO.output(statusPin, 0)
+        #GPIO.output(statusPin2, 1)
 
         call("sudo nohup shutdown -h now", shell=True)
         exit(1)
