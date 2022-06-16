@@ -1,4 +1,8 @@
 #define maxChar 256
+#define SWARM_MODEM
+
+float voltage;
+String dataPacket;
 char gpsStream[maxChar];
 int streamPos;
 volatile int rssi;
@@ -10,46 +14,45 @@ int gpsYear = 19, gpsMonth = 2, gpsDay = 4, gpsHour = 22, gpsMinute = 5, gpsSeco
 int goodGPS = 0;
 long gpsTimeOutThreshold = 120000;
 
+#define TILE_EN 4
+
 void setup() {
   Serial.begin(115200);
+  pinMode(TILE_EN, OUTPUT);
+  digitalWrite(TILE_EN, HIGH);
   delay(1000);
   Serial.println("Swarm Test");
-    Serial1.begin(115200, SERIAL_8N1);
+  Serial1.begin(115200, SERIAL_8N1);
+  pollTile();
+  delay(5000);
+
+//  Serial1.println("$RS dbinit*3D");
+//  delay(1000);
+  pollTile();
+  while(!goodGPS){
+     // most recent Receive Test message
+//    Serial.println("Get RT");
+    Serial1.println("$RT @*66");
+    delay(1000);
     pollTile();
-    delay(2000);
+    delay(4000);
+    // Most recent GPS
+//    Serial.println("Get Most Recent GPS");
+    Serial1.println("$GN @*69");
+    delay(1000);
     pollTile();
-//    Serial1.println("$RS dbinit*3D");// purge for old modem
-//    delay(2000);
-//    pollTile();
-//    // get number of unsent messages
-//    Serial1.println("$MT C=U*12");
-//    delay(2000);
-//    pollTile();
-//
-////    // get most recent receive test message
-//    Serial1.println("$RT @*66");
-//    delay(1000);
-//    pollTile();
-//
-//    // get RSSI every 10 seconds  
-      Serial1.println("$RT 10*27");
-      delay(1000);
-      pollTile();
-    // turn off RSSI
-    //    Serial1.println("$RT 0*16");
-    
-//
-//    Serial1.println("$GN 30*2a"); // GPS message every 30 s
-//    delay(1000);
-//    pollTile();
-//    Serial1.println("$DT 30*33"); // Datetime every 30s
-//    delay(1000);
-//    pollTile();
+    delay(4000);
+  }
+  // test message
+    Serial.println("Send SWARM Data Packet");
+    makeDataPacket();
+    Serial1.println(dataPacket);
+    delay(1000);    
 }
 
 void loop() {
-  // put your main code here, to run repeatedly:
-
+  pollTile();
+  delay(1000);
 }
 
 void pollTile(){
@@ -71,9 +74,9 @@ void parseTile(byte incomingByte){
   // check for start of new message
   // if a $, start it at Pos 0, and continue until next $
   if(incomingByte=='$') {
-    Serial.print("String position:");
-    Serial.println(streamPos);
-    Serial.println(gpsStream);
+//    Serial.print("String position:");
+//    Serial.println(streamPos);
+//    Serial.println(gpsStream);
     //process last message
     if(streamPos > 10){
       float rmcLat; //          
@@ -156,4 +159,57 @@ uint8_t nmeaChecksum(const char *sz, size_t len){
     cs ^=((uint8_t) sz[i]);
   }
   return cs;
+}
+
+// dataPacket should look like this for AWS
+//  String data = '1536368460;300;26.4321;-82.3476;w:12;0:75;1:65;2:52;3:48;z:3.2'
+//                  UNIX time;duration (s);lat;lon;
+void makeDataPacket(){
+  float spectrumLevel;
+  int iSpectrumLevel;
+  //char dateTime[50];
+  //sprintf(dateTime,"%04d%02d%02dT%02d%02d%02d", year(packetTime), month(packetTime), day(packetTime), hour(packetTime), minute(packetTime), second(packetTime));
+  
+  // 31 Bytes:   dateTime,duration,lat,long
+  dataPacket = "";
+  #ifdef SWARM_MODEM
+    dataPacket = "$TD \"";
+  #endif
+  dataPacket += gpsYear;
+  dataPacket += gpsMonth;
+  dataPacket += gpsDay;
+  dataPacket += "T";
+  dataPacket += gpsHour;
+  dataPacket += gpsMinute;
+  dataPacket += gpsSecond;
+  dataPacket += ";";
+  
+  dataPacket += String(latitude, 4);
+  dataPacket += ";";
+  dataPacket += String(longitude, 4);
+  
+  dataPacket += ";";
+
+
+  dataPacket += "v:";
+  dataPacket += String(voltage, 1);
+
+//  dataPacket += ";t:";
+//  dataPacket += String((int) temperature);
+
+  #ifdef PI_PROCESSING
+    dataPacket += ";";
+    dataPacket += String(piPayload);
+    dataPacket.trim(); // remove /n
+  #endif
+  #ifdef SWARM_MODEM
+    dataPacket += "\"";
+    uint8_t checksum = nmeaChecksum(&dataPacket[0], dataPacket.length());
+    dataPacket += "*";
+    if(checksum<17) dataPacket += "0";
+    dataPacket += String(checksum, HEX);
+    Serial.print("Swarm ");
+  #endif
+    
+   Serial.println(dataPacket);
 }
