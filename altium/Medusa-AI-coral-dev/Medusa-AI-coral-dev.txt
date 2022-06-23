@@ -1,7 +1,7 @@
 Board Information Report
 Filename     : C:\w\medusa-AI\altium\Medusa-AI-coral-dev\Medusa-AI-coral-dev.PcbDoc
-Date         : 4/21/2022
-Time         : 11:48:48 AM
+Date         : 6/16/2022
+Time         : 4:29:09 PM
 Time Elapsed : 00:00:00
 
 General
