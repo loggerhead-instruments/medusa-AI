@@ -1,0 +1,13 @@
+[Unit]
+Description=whistlenet boot service
+After=weston.target
+
+[Service]
+PAMName=login
+Type=simple
+User=mendel
+WorkingDirectory=/home/mendel/medusa
+ExecStart=/bin/bash /home/mendel/medusa/audioProcess.sh
+
+[Install]
+WantedBy=multi-user.target
