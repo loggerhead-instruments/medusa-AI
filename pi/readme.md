@@ -14,11 +14,6 @@ Pi uSD
 37 1  
 13 2
 
-`sudo nano /boot/config.txt`
-
-
-`dtoverlay=sdio,poll-once=off`
-
 Need to create a mounting point (https://www.raspberrypi.org/documentation/configuration/external-storage.md)
 
 `sudo mkdir /mnt/audio`
@@ -59,22 +54,8 @@ Now that you have set an entry in fstab, you can start up your Raspberry Pi with
 Steps used in lateset tests:
 
 ```
-sudo nano /boot/config.txt
-dtoverlay=sdio,poll-once=off
 
 sudo mkdir /mnt/audio
-
-sudo apt-get update
-sudo apt-get upgrade
-sudo apt-get install rpi.gpio
-sudo apt-get install python3-numpy python3-scipy
-sudo apt install python3-pip
-sudo pip3 install --upgrade pip
-echo "deb https://packages.cloud.google.com/apt coral-edgetpu-stable main" | sudo tee /etc/apt/sources.list.d/coral-edgetpu.list
-curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add -
-sudo apt-get update
-sudo apt-get install python3-tflite-runtime
-sudo apt-get install libedgetpu1-std
 
 nmtui #enter wifi credentials
 sudo apt-get update
@@ -97,12 +78,11 @@ sudo apt-get install exfat-fuse
 sudo apt-get install exfat-utils
 
 ```
-```
-sudo nano /etc/rc.local
-
-# Execute the startup script...
-/home/mendel/medusa/audioProcess.sh
-exit 0
-```
 #### Copy files to /home/mendel/medusa
 scp -r * pi@192.168.0.XXX:/home/mendel/medusa
+
+```
+sudo chmod u+x audioProcess.sh
+sudo cp whistlenet.service /lib/systemd/system/whistlenet.service
+sudo systemctl enable whistlenet.service
+```
