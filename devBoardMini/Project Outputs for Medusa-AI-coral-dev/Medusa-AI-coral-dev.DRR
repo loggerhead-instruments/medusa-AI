@@ -1,5 +1,5 @@
 ----------------------------------------------------------------------------------------------------------------------------------
-NCDrill File Report For: Medusa-AI-coral-dev.PcbDoc   6/16/2022  4:12:51 PM
+NCDrill File Report For: Medusa-AI-coral-dev.PcbDoc   7/15/2022  2:26:20 PM
 ----------------------------------------------------------------------------------------------------------------------------------
 
 Layer Pair : Top Layer to Bottom Layer
@@ -13,7 +13,7 @@ T3      15mil (0.381mm)                                           Round         
 T4      16mil (0.406mm)                                           Round             7         PTH        0.96inch (24.49mm)
 T5      28mil (0.711mm)                                           Round             100       PTH        38.60inch (980.55mm)
 T6      35mil (0.889mm)                                           Round             2         PTH        0.10inch (2.54mm)
-T7      35mil (0.9mm)                                             Round             106       PTH        33.75inch (857.15mm)
+T7      35mil (0.9mm)                                             Round             106       PTH        33.07inch (840.05mm)
 T8      36mil (0.914mm)                                           Round             34        PTH        4.90inch (124.46mm)
 T9      120mil (3.048mm)                                          Round             7         PTH        15.05inch (382.25mm)
 T10     221mil (5.613mm)                                          Round             1         PTH        0.00inch (0.00mm)
