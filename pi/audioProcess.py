@@ -85,6 +85,9 @@ if __name__ == "__main__":
         if num_wavs == 0:
             logging.info("No files to process.")
             
+            # Teensy crash or debugging
+            time.sleep(180)
+            
             status_pin.write(False)
             status_pin.close()
             
