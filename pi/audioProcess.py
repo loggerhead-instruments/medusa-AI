@@ -8,6 +8,7 @@ import math
 import numpy as np
 import os
 from pathlib import Path
+from periphery import GPIO
 import shutil
 import soundfile as sf
 import tflite_runtime.interpreter as tflite
@@ -50,6 +51,7 @@ cfg = {'inwav_dir': '/mnt/audio',
 'save_specs': True,
 'MODEL_PATH': '/home/mendel/medusa/model/mnv2-singlegpu-epoch200-128batchsmallspec_postquant_float32inout_edgetpu_16.tflite'}
 
+gpio_pin = 39
 samplerate = 44100
 chunk_seconds = 1.0
 chunk_length = int(samplerate*chunk_seconds)
@@ -57,24 +59,14 @@ minute_length = int(44100*60)
 whistle_counter = 0
 
 if __name__ == "__main__":
-    # Sleep for services to load
-    time.sleep(10)
-
     logging.Formatter.converter = time.gmtime
     logging.basicConfig(handlers=[RotatingFileHandler(filename=cfg['log_file'], maxBytes=524288, backupCount=2)], level=logging.INFO, format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
 
     try:
         print("audioProcess")
 
-        statusPin = 24
-        statusPin2 = 26
-
-        
-        #GPIO.setmode(GPIO.BOARD)
-        #GPIO.setup(statusPin, GPIO.OUT)
-        #GPIO.setup(statusPin2, GPIO.OUT)
-        #GPIO.output(statusPin, 1)
-        #GPIO.output(statusPin2, 0)
+        status_pin = GPIO("/dev/gpiochip0", gpio_pin, "out")
+        status_pin.write(True)
 
         Path(cfg['outwav_dir']).mkdir(exist_ok=True)
 
@@ -92,12 +84,10 @@ if __name__ == "__main__":
 
         if num_wavs == 0:
             logging.info("No files to process.")
-            time.sleep(60)
-
-            #GPIO.output(statusPin, 0)
-            #GPIO.output(statusPin2, 1)
-
-            time.sleep(2)
+            
+            status_pin.write(False)
+            status_pin.close()
+            
             call("sudo nohup shutdown -h now", shell=True)
             exit(0)
         else:
@@ -172,18 +162,16 @@ if __name__ == "__main__":
 
             print("File written")
 
-            #GPIO.output(statusPin, 0)
-            #GPIO.output(statusPin2, 1)
-
-            time.sleep(2)
+            status_pin.write(False)
+            status_pin.close()
 
             call("sudo nohup shutdown -h now", shell=True)
             exit(0)
     except:
         logging.exception('Something went wrong...')
-        time.sleep(60)
-        #GPIO.output(statusPin, 0)
-        #GPIO.output(statusPin2, 1)
+        
+        status_pin.write(False)
+        status_pin.close()
 
         call("sudo nohup shutdown -h now", shell=True)
         exit(1)
