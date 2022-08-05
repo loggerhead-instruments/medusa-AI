@@ -74,6 +74,9 @@ sudo pip3 install numba==0.49
 sudo apt-get install python3-sklearn #needed for librosa and didn't want to build
 sudo pip3 install librosa==0.8.1 #0.9 requires an upgrade to numpy, which I didn't want to bother with
 
+sudo pip3 uninstall resampy # Fix for slow import with resampy==0.3.1 (maybe remove in future)
+sudo pip3 install resampy==0.2.2 
+
 sudo apt-get install exfat-fuse
 sudo apt-get install exfat-utils
 
