@@ -89,7 +89,6 @@ if __name__ == "__main__":
             status_pin.close()
             
             call("sudo nohup shutdown -h now", shell=True)
-            exit(0)
         else:
             logging.info(f"Processing {num_wavs} files...")
             
@@ -166,7 +165,6 @@ if __name__ == "__main__":
             status_pin.close()
 
             call("sudo nohup shutdown -h now", shell=True)
-            exit(0)
     except:
         logging.exception('Something went wrong...')
         
@@ -174,4 +172,3 @@ if __name__ == "__main__":
         status_pin.close()
 
         call("sudo nohup shutdown -h now", shell=True)
-        exit(1)
