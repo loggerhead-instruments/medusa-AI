@@ -57,6 +57,7 @@ chunk_seconds = 1.0
 chunk_length = int(samplerate*chunk_seconds)
 minute_length = int(44100*60)
 whistle_counter = 0
+max_file_number = -1
 
 if __name__ == "__main__":
     logging.Formatter.converter = time.gmtime
@@ -88,8 +89,8 @@ if __name__ == "__main__":
             # Teensy crash or debugging
             time.sleep(180)
             
-            status_pin.write(False)
-            status_pin.close()
+            #status_pin.write(False)
+            #status_pin.close()
             
             call("sudo nohup shutdown -h now", shell=True)
         else:
@@ -146,9 +147,29 @@ if __name__ == "__main__":
                                                     audio_file.write(chunk)
                             
                             Path(file.path).unlink()
+                            
+                            # Get file number
+                            file_number = int(file.name.split("_")[0])
+                            
+                            # Check if this is the most recent file
+                            if file_number > max_file_number:
+                                max_file_number = file_number
+                                
+                                # Write results
+                                file1 = open(f"{cfg['inwav_dir']}/detections.txt", "w")
+                                file1.write(f"c:{file_number},iW:{whistle_counter}\n")
+                                file1.close()
+                                
+                                # Reset whistle counter
+                                whistle_counter = 0
                                 
                         else:
                             print("ERROR: FILE SIZE 0 BYTES. SKIPPING...")
+                            try:
+                                Path(file.path).unlink()
+                            except:
+                                pass
+                            
             print("PREDICTIONS COMPLETE")
             print(time.time() - start_time)
 
@@ -158,20 +179,14 @@ if __name__ == "__main__":
             #print("Processing")
             #time.sleep(10)
 
-            file1 = open(f"{cfg['inwav_dir']}/detections.txt", "w")
-            file1.write(f"w:{whistle_counter}\n")
-            file1.close()
-
-            print("File written")
-
-            status_pin.write(False)
-            status_pin.close()
+            #status_pin.write(False)
+            #status_pin.close()
 
             call("sudo nohup shutdown -h now", shell=True)
     except:
         logging.exception('Something went wrong...')
         
-        status_pin.write(False)
-        status_pin.close()
+        #status_pin.write(False)
+        #status_pin.close()
 
         call("sudo nohup shutdown -h now", shell=True)
