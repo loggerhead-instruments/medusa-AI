@@ -69,8 +69,6 @@ if __name__ == "__main__":
         status_pin = GPIO("/dev/gpiochip0", gpio_pin, "out")
         status_pin.write(True)
 
-        Path(cfg['outwav_dir']).mkdir(exist_ok=True)
-
         start_time = time.time()
         # Load TFLite model and allocate tensors.
         interpreter = tflite.Interpreter(model_path=cfg['MODEL_PATH'], 
@@ -94,6 +92,8 @@ if __name__ == "__main__":
             
             call("sudo nohup shutdown -h now", shell=True)
         else:
+            Path(cfg['outwav_dir']).mkdir(exist_ok=True)
+            
             logging.info(f"Processing {num_wavs} files...")
             
             enough_space = storage_check(cfg['inwav_dir'])
@@ -157,7 +157,7 @@ if __name__ == "__main__":
                                 
                                 # Write results
                                 file1 = open(f"{cfg['inwav_dir']}/detections.txt", "w")
-                                file1.write(f"c:{file_number},iW:{whistle_counter}\n")
+                                file1.write(f"{{c:{file_number},iW:{whistle_counter}}}\n")
                                 file1.close()
                                 
                                 # Reset whistle counter
