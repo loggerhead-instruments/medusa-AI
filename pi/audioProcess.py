@@ -157,7 +157,7 @@ if __name__ == "__main__":
                                 
                                 # Write results
                                 file1 = open(f"{cfg['inwav_dir']}/detections.txt", "w")
-                                file1.write(f"{{c:{file_number},iW:{whistle_counter}}}\n")
+                                file1.write(f"{{C:{file_number},iW:{whistle_counter}}}\n")
                                 file1.close()
                                 
                                 # Reset whistle counter
