@@ -1,0 +1,29 @@
+Designator,Comment,Layer,Footprint,Center-X(mm),Center-Y(mm),Rotation,Description
+U1,LT3652EDDPBF,TopLayer,DFN300X300X80-13N,29.2552,-21.532,90,Power Tracking 2A Battery Charger for Solar Power
+R9,330K,TopLayer,3-0603,33.3192,-29.533,180,"Precision Thick Film Chip Resistor, 10 Ohm to 1M Ohm Range, 1% and 0.5% Tolerance, 0603 Size, 0.063 W"
+R8,64K9,TopLayer,3-0603,33.3192,-27.882,180,"Precision Thick Film Chip Resistor, 10 Ohm to 1M Ohm Range, 1% and 0.5% Tolerance, 0603 Size, 0.063 W"
+R7,205K,TopLayer,3-0603,33.3192,-26.358,0,"Precision Thick Film Chip Resistor, 10 Ohm to 1M Ohm Range, 1% and 0.5% Tolerance, 0603 Size, 0.063 W"
+R6,50mOhms,TopLayer,8-1206,34.8432,-21.786,270,"Precision Thick Film Chip Resistor, 10 Ohm to 2.2M Ohm Range, 1% Tolerance, 1206 Size, 0.125 W"
+R5,536K,TopLayer,3-0603,25.4452,-28.517,90,"Precision Thick Film Chip Resistor, 10 Ohm to 1M Ohm Range, 1% and 0.5% Tolerance, 0603 Size, 0.063 W"
+R4,51K,TopLayer,3-0603,27.168,-25.2852,270,"Precision Thick Film Chip Resistor, 10 Ohm to 1M Ohm Range, 1% and 0.5% Tolerance, 0603 Size, 0.063 W"
+R3,330K,TopLayer,3-0603,30.5252,-28.644,90,"Precision Thick Film Chip Resistor, 10 Ohm to 1M Ohm Range, 1% and 0.5% Tolerance, 0603 Size, 0.063 W"
+R2,51K,TopLayer,3-0603,27.2232,-28.644,90,"Precision Thick Film Chip Resistor, 10 Ohm to 1M Ohm Range, 1% and 0.5% Tolerance, 0603 Size, 0.063 W"
+R1,330K,TopLayer,3-0603,29.0012,-28.644,90,"Precision Thick Film Chip Resistor, 10 Ohm to 1M Ohm Range, 1% and 0.5% Tolerance, 0603 Size, 0.063 W"
+MP1,MS223-10F,TopLayer,MS223-10F,29.2926,-31.3321,90,RF Shield
+L2,10uH,TopLayer,Inductor0630CDMCD,31.75,-13.716,0,
+L1,Inductor2016,TopLayer,Inductor2016,14.4342,-29.025,0,
+FL2,YFF31HC2A105MT000N,TopLayer,FIL_YFF31HC2A105MT000N,45.1302,-13.531,0,"1µF Feed Through Capacitor 100V 6A 5mOhm 1206 (3216 Metric), 4 PC Pad"
+FL1,YFF31HC2A105MT000N,TopLayer,FIL_YFF31HC2A105MT000N,5.8872,-29.025,0,"1µF Feed Through Capacitor 100V 6A 5mOhm 1206 (3216 Metric), 4 PC Pad"
+D4,BAT46WJ,TopLayer,SOD-323,31.997,-18.288,0,Diode Schottky 100V 250mA (DC) Surface Mount SOD-323F
+D3,PMEG3050EP*,TopLayer,Diode_PMEG3050EP,24.4292,-17.087,90,
+D2,26.7V Breakdown,TopLayer,SMBJ24CA,3.0932,-9.975,0,
+D1,PMEG3050EP*,TopLayer,Diode_PMEG3050EP,0.4262,-18.865,270,
+C9,C0805,TopLayer,805,32.385,-22.86,270,Ceramic Chip Capacitor - Standard
+C8,C0402,TopLayer,402,28.448,-18.415,180,Ceramic Chip Capacitor - Standard
+C7,C1206,TopLayer,1206,15.2852,-33.724,90,Ceramic Chip Capacitor - Standard
+C6,C0805,TopLayer,805,10.8402,-32.327,90,Ceramic Chip Capacitor - Standard
+C5,C0603,TopLayer,603,4.8712,-17.468,90,100V 20%
+C4,T495X,TopLayer,X,15.9202,-20.389,90,"Solid Tantalum Chip Capacitor, Standard T495 Series - 35V 10%"
+C3,T495X,TopLayer,X,9.6972,-20.389,90,"Solid Tantalum Chip Capacitor, Standard T495 Series - 35V 10%"
+C2,C1206,TopLayer,1206,24.9372,-24.199,90,Ceramic Chip Capacitor - Standard
+C1,C0603,TopLayer,603,54.5282,-12.642,270,Ceramic Chip Capacitor - Standard
