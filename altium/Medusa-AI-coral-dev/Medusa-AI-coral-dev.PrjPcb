@@ -47,13 +47,13 @@ PrefsVaultGUID=
 PrefsRevisionGUID=
 
 [Document1]
-DocumentPath=..\altium\Medusa-AI-coral-dev\medusa-ai-audio.SchDoc
+DocumentPath=medusa-ai-audio.SchDoc
 AnnotationEnabled=1
 AnnotateStartValue=1
 AnnotationIndexControlEnabled=0
 AnnotateSuffix=
 AnnotateScope=All
-AnnotateOrder=1
+AnnotateOrder=-1
 DoLibraryUpdate=1
 DoDatabaseUpdate=1
 ClassGenCCAutoEnabled=1
@@ -61,16 +61,16 @@ ClassGenCCAutoRoomEnabled=1
 ClassGenNCAutoScope=None
 DItemRevisionGUID=
 GenerateClassCluster=0
-DocumentUniqueId=XTANOHZF
+DocumentUniqueId=
 
 [Document2]
-DocumentPath=..\altium\Medusa-AI-coral-dev\medusa-ai-power.SchDoc
+DocumentPath=Medusa-AI-coral-dev.PcbDoc
 AnnotationEnabled=1
 AnnotateStartValue=1
 AnnotationIndexControlEnabled=0
 AnnotateSuffix=
 AnnotateScope=All
-AnnotateOrder=2
+AnnotateOrder=-1
 DoLibraryUpdate=1
 DoDatabaseUpdate=1
 ClassGenCCAutoEnabled=1
@@ -78,16 +78,16 @@ ClassGenCCAutoRoomEnabled=1
 ClassGenNCAutoScope=None
 DItemRevisionGUID=
 GenerateClassCluster=0
-DocumentUniqueId=INPGOTJX
+DocumentUniqueId=
 
 [Document3]
-DocumentPath=..\altium\Medusa-AI-coral-dev\medusa-charger.SchDoc
+DocumentPath=Medusa-AI-coral-dev.SchDoc
 AnnotationEnabled=1
 AnnotateStartValue=1
 AnnotationIndexControlEnabled=0
 AnnotateSuffix=
 AnnotateScope=All
-AnnotateOrder=3
+AnnotateOrder=-1
 DoLibraryUpdate=1
 DoDatabaseUpdate=1
 ClassGenCCAutoEnabled=1
@@ -95,10 +95,10 @@ ClassGenCCAutoRoomEnabled=1
 ClassGenNCAutoScope=None
 DItemRevisionGUID=
 GenerateClassCluster=0
-DocumentUniqueId=BUBPCWZS
+DocumentUniqueId=
 
 [Document4]
-DocumentPath=..\..\altium_library\Loggerhead\Loggerhead.IntLib
+DocumentPath=medusa-ai-power.SchDoc
 AnnotationEnabled=1
 AnnotateStartValue=1
 AnnotationIndexControlEnabled=0
@@ -115,7 +115,7 @@ GenerateClassCluster=0
 DocumentUniqueId=
 
 [Document5]
-DocumentPath=..\..\altium_library\Panasonic\Panasonic Resistor.IntLib
+DocumentPath=medusa-ai-sensors.SchDoc
 AnnotationEnabled=1
 AnnotateStartValue=1
 AnnotationIndexControlEnabled=0
@@ -132,262 +132,7 @@ GenerateClassCluster=0
 DocumentUniqueId=
 
 [Document6]
-DocumentPath=..\..\altium_library\KEMET Electronics\KEMET Chip Capacitor.IntLib
-AnnotationEnabled=1
-AnnotateStartValue=1
-AnnotationIndexControlEnabled=0
-AnnotateSuffix=
-AnnotateScope=All
-AnnotateOrder=-1
-DoLibraryUpdate=1
-DoDatabaseUpdate=1
-ClassGenCCAutoEnabled=1
-ClassGenCCAutoRoomEnabled=1
-ClassGenNCAutoScope=None
-DItemRevisionGUID=
-GenerateClassCluster=0
-DocumentUniqueId=
-
-[Document7]
-DocumentPath=..\..\altium_library\National Semiconductor\NSC LDO.IntLib
-AnnotationEnabled=1
-AnnotateStartValue=1
-AnnotationIndexControlEnabled=0
-AnnotateSuffix=
-AnnotateScope=All
-AnnotateOrder=-1
-DoLibraryUpdate=1
-DoDatabaseUpdate=1
-ClassGenCCAutoEnabled=1
-ClassGenCCAutoRoomEnabled=1
-ClassGenNCAutoScope=None
-DItemRevisionGUID=
-GenerateClassCluster=0
-DocumentUniqueId=
-
-[Document8]
-DocumentPath=..\..\altium_library\MAX4996ETG_\MAX4996ETG_.IntLib
-AnnotationEnabled=1
-AnnotateStartValue=1
-AnnotationIndexControlEnabled=0
-AnnotateSuffix=
-AnnotateScope=All
-AnnotateOrder=-1
-DoLibraryUpdate=1
-DoDatabaseUpdate=1
-ClassGenCCAutoEnabled=1
-ClassGenCCAutoRoomEnabled=1
-ClassGenNCAutoScope=None
-DItemRevisionGUID=
-GenerateClassCluster=0
-DocumentUniqueId=
-
-[Document9]
-DocumentPath=..\..\altium_library\Texas_Instruments_Power_Management_Linear_Regulator_Single_Channel_LDO_(0-350mA)\TI Power Management Linear Regulator Single Channel LDO (0-350mA).IntLib
-AnnotationEnabled=1
-AnnotateStartValue=1
-AnnotationIndexControlEnabled=0
-AnnotateSuffix=
-AnnotateScope=All
-AnnotateOrder=-1
-DoLibraryUpdate=1
-DoDatabaseUpdate=1
-ClassGenCCAutoEnabled=1
-ClassGenCCAutoRoomEnabled=1
-ClassGenNCAutoScope=None
-DItemRevisionGUID=
-GenerateClassCluster=0
-DocumentUniqueId=
-
-[Document10]
-DocumentPath=..\..\altium_library\Teensy\Project Outputs for Teensy\Teensy.IntLib
-AnnotationEnabled=1
-AnnotateStartValue=1
-AnnotationIndexControlEnabled=0
-AnnotateSuffix=
-AnnotateScope=All
-AnnotateOrder=-1
-DoLibraryUpdate=1
-DoDatabaseUpdate=1
-ClassGenCCAutoEnabled=1
-ClassGenCCAutoRoomEnabled=1
-ClassGenNCAutoScope=None
-DItemRevisionGUID=
-GenerateClassCluster=0
-DocumentUniqueId=
-
-[Document11]
-DocumentPath=..\altium\Medusa-AI-coral-dev\medusa-ai-sensors.SchDoc
-AnnotationEnabled=1
-AnnotateStartValue=1
-AnnotationIndexControlEnabled=0
-AnnotateSuffix=
-AnnotateScope=All
-AnnotateOrder=4
-DoLibraryUpdate=1
-DoDatabaseUpdate=1
-ClassGenCCAutoEnabled=1
-ClassGenCCAutoRoomEnabled=1
-ClassGenNCAutoScope=None
-DItemRevisionGUID=
-GenerateClassCluster=0
-DocumentUniqueId=FLPBFUVB
-
-[Document12]
-DocumentPath=..\altium\Medusa-AI-coral-dev\Medusa-AI-coral-dev.PcbDoc
-AnnotationEnabled=1
-AnnotateStartValue=1
-AnnotationIndexControlEnabled=0
-AnnotateSuffix=
-AnnotateScope=All
-AnnotateOrder=-1
-DoLibraryUpdate=1
-DoDatabaseUpdate=1
-ClassGenCCAutoEnabled=1
-ClassGenCCAutoRoomEnabled=1
-ClassGenNCAutoScope=None
-DItemRevisionGUID=
-GenerateClassCluster=0
-DocumentUniqueId=WRANLOYP
-
-[Document13]
-DocumentPath=..\altium\Medusa-AI-coral-dev\Medusa-AI-coral-dev.SchDoc
-AnnotationEnabled=1
-AnnotateStartValue=1
-AnnotationIndexControlEnabled=0
-AnnotateSuffix=
-AnnotateScope=All
-AnnotateOrder=5
-DoLibraryUpdate=1
-DoDatabaseUpdate=1
-ClassGenCCAutoEnabled=1
-ClassGenCCAutoRoomEnabled=1
-ClassGenNCAutoScope=None
-DItemRevisionGUID=
-GenerateClassCluster=0
-DocumentUniqueId=RHQBOAYU
-
-[Document14]
-DocumentPath=..\..\altium_library\Swarm\M138_MODEM.IntLib
-AnnotationEnabled=1
-AnnotateStartValue=1
-AnnotationIndexControlEnabled=0
-AnnotateSuffix=
-AnnotateScope=All
-AnnotateOrder=-1
-DoLibraryUpdate=1
-DoDatabaseUpdate=1
-ClassGenCCAutoEnabled=1
-ClassGenCCAutoRoomEnabled=1
-ClassGenNCAutoScope=None
-DItemRevisionGUID=
-GenerateClassCluster=0
-DocumentUniqueId=
-
-[Document15]
-DocumentPath=..\..\altium_library\Swarm\LD39200PU33R.IntLib
-AnnotationEnabled=1
-AnnotateStartValue=1
-AnnotationIndexControlEnabled=0
-AnnotateSuffix=
-AnnotateScope=All
-AnnotateOrder=-1
-DoLibraryUpdate=1
-DoDatabaseUpdate=1
-ClassGenCCAutoEnabled=1
-ClassGenCCAutoRoomEnabled=1
-ClassGenNCAutoScope=None
-DItemRevisionGUID=
-GenerateClassCluster=0
-DocumentUniqueId=
-
-[Document16]
-DocumentPath=..\..\altium_library\SnapEDA\LT3652IMSEPBF.IntLib
-AnnotationEnabled=1
-AnnotateStartValue=1
-AnnotationIndexControlEnabled=0
-AnnotateSuffix=
-AnnotateScope=All
-AnnotateOrder=-1
-DoLibraryUpdate=1
-DoDatabaseUpdate=1
-ClassGenCCAutoEnabled=1
-ClassGenCCAutoRoomEnabled=1
-ClassGenNCAutoScope=None
-DItemRevisionGUID=
-GenerateClassCluster=0
-DocumentUniqueId=
-
-[Document17]
-DocumentPath=CAMtastic2.Cam
-AnnotationEnabled=1
-AnnotateStartValue=1
-AnnotationIndexControlEnabled=0
-AnnotateSuffix=
-AnnotateScope=All
-AnnotateOrder=-1
-DoLibraryUpdate=1
-DoDatabaseUpdate=1
-ClassGenCCAutoEnabled=1
-ClassGenCCAutoRoomEnabled=1
-ClassGenNCAutoScope=None
-DItemRevisionGUID=
-GenerateClassCluster=0
-DocumentUniqueId=
-
-[Document18]
-DocumentPath=CAMtastic1.Cam
-AnnotationEnabled=1
-AnnotateStartValue=1
-AnnotationIndexControlEnabled=0
-AnnotateSuffix=
-AnnotateScope=All
-AnnotateOrder=-1
-DoLibraryUpdate=1
-DoDatabaseUpdate=1
-ClassGenCCAutoEnabled=1
-ClassGenCCAutoRoomEnabled=1
-ClassGenNCAutoScope=None
-DItemRevisionGUID=
-GenerateClassCluster=0
-DocumentUniqueId=
-
-[Document19]
-DocumentPath=CAMtastic3.Cam
-AnnotationEnabled=1
-AnnotateStartValue=1
-AnnotationIndexControlEnabled=0
-AnnotateSuffix=
-AnnotateScope=All
-AnnotateOrder=-1
-DoLibraryUpdate=1
-DoDatabaseUpdate=1
-ClassGenCCAutoEnabled=1
-ClassGenCCAutoRoomEnabled=1
-ClassGenNCAutoScope=None
-DItemRevisionGUID=
-GenerateClassCluster=0
-DocumentUniqueId=
-
-[Document20]
-DocumentPath=CAMtastic4.Cam
-AnnotationEnabled=1
-AnnotateStartValue=1
-AnnotationIndexControlEnabled=0
-AnnotateSuffix=
-AnnotateScope=All
-AnnotateOrder=-1
-DoLibraryUpdate=1
-DoDatabaseUpdate=1
-ClassGenCCAutoEnabled=1
-ClassGenCCAutoRoomEnabled=1
-ClassGenNCAutoScope=None
-DItemRevisionGUID=
-GenerateClassCluster=0
-DocumentUniqueId=
-
-[Document21]
-DocumentPath=..\altium\Medusa-AI-coral-dev\CAMtastic5.Cam
+DocumentPath=medusa-charger.SchDoc
 AnnotationEnabled=1
 AnnotateStartValue=1
 AnnotationIndexControlEnabled=0
@@ -404,242 +149,90 @@ GenerateClassCluster=0
 DocumentUniqueId=
 
 [GeneratedDocument1]
-DocumentPath=..\altium\Medusa-AI-coral-dev\Project Outputs for Medusa-AI-coral-dev\Design Rule Check - Medusa-AI-coral-dev.html
-DItemRevisionGUID=
-
-[GeneratedDocument2]
 DocumentPath=Project Outputs for Medusa-AI-coral-dev\Design Rule Check - Medusa-AI-coral-dev.html
 DItemRevisionGUID=
 
-[GeneratedDocument3]
-DocumentPath=..\altium\Medusa-AI-coral-dev\Project Outputs for Medusa-AI-coral-dev\Medusa-AI-coral-dev.DRR
-DItemRevisionGUID=
-
-[GeneratedDocument4]
+[GeneratedDocument2]
 DocumentPath=Project Outputs for Medusa-AI-coral-dev\Medusa-AI-coral-dev.DRR
 DItemRevisionGUID=
 
-[GeneratedDocument5]
-DocumentPath=..\altium\devBoardMini\Project Outputs for Medusa-AI-coral-dev\Medusa-AI-coral-dev.EXTREP
-DItemRevisionGUID=
-
-[GeneratedDocument6]
-DocumentPath=..\altium\Medusa-AI-coral-dev\Project Outputs for Medusa-AI-coral-dev\Medusa-AI-coral-dev.EXTREP
-DItemRevisionGUID=
-
-[GeneratedDocument7]
+[GeneratedDocument3]
 DocumentPath=Project Outputs for Medusa-AI-coral-dev\Medusa-AI-coral-dev.EXTREP
 DItemRevisionGUID=
 
-[GeneratedDocument8]
-DocumentPath=..\altium\devBoardMini\Project Outputs for Medusa-AI-coral-dev\Medusa-AI-coral-dev.GBL
-DItemRevisionGUID=
-
-[GeneratedDocument9]
-DocumentPath=..\altium\Medusa-AI-coral-dev\Project Outputs for Medusa-AI-coral-dev\Medusa-AI-coral-dev.GBL
-DItemRevisionGUID=
-
-[GeneratedDocument10]
+[GeneratedDocument4]
 DocumentPath=Project Outputs for Medusa-AI-coral-dev\Medusa-AI-coral-dev.GBL
 DItemRevisionGUID=
 
-[GeneratedDocument11]
-DocumentPath=..\altium\devBoardMini\Project Outputs for Medusa-AI-coral-dev\Medusa-AI-coral-dev.GBO
-DItemRevisionGUID=
-
-[GeneratedDocument12]
-DocumentPath=..\altium\Medusa-AI-coral-dev\Project Outputs for Medusa-AI-coral-dev\Medusa-AI-coral-dev.GBO
-DItemRevisionGUID=
-
-[GeneratedDocument13]
+[GeneratedDocument5]
 DocumentPath=Project Outputs for Medusa-AI-coral-dev\Medusa-AI-coral-dev.GBO
 DItemRevisionGUID=
 
-[GeneratedDocument14]
-DocumentPath=..\altium\devBoardMini\Project Outputs for Medusa-AI-coral-dev\Medusa-AI-coral-dev.GBS
-DItemRevisionGUID=
-
-[GeneratedDocument15]
-DocumentPath=..\altium\Medusa-AI-coral-dev\Project Outputs for Medusa-AI-coral-dev\Medusa-AI-coral-dev.GBS
-DItemRevisionGUID=
-
-[GeneratedDocument16]
+[GeneratedDocument6]
 DocumentPath=Project Outputs for Medusa-AI-coral-dev\Medusa-AI-coral-dev.GBS
 DItemRevisionGUID=
 
-[GeneratedDocument17]
-DocumentPath=..\altium\devBoardMini\Project Outputs for Medusa-AI-coral-dev\Medusa-AI-coral-dev.GM1
-DItemRevisionGUID=
-
-[GeneratedDocument18]
-DocumentPath=..\altium\Medusa-AI-coral-dev\Project Outputs for Medusa-AI-coral-dev\Medusa-AI-coral-dev.GM1
-DItemRevisionGUID=
-
-[GeneratedDocument19]
+[GeneratedDocument7]
 DocumentPath=Project Outputs for Medusa-AI-coral-dev\Medusa-AI-coral-dev.GM1
 DItemRevisionGUID=
 
-[GeneratedDocument20]
-DocumentPath=..\altium\devBoardMini\Project Outputs for Medusa-AI-coral-dev\Medusa-AI-coral-dev.GM13
-DItemRevisionGUID=
-
-[GeneratedDocument21]
-DocumentPath=..\altium\Medusa-AI-coral-dev\Project Outputs for Medusa-AI-coral-dev\Medusa-AI-coral-dev.GM13
-DItemRevisionGUID=
-
-[GeneratedDocument22]
+[GeneratedDocument8]
 DocumentPath=Project Outputs for Medusa-AI-coral-dev\Medusa-AI-coral-dev.GM13
 DItemRevisionGUID=
 
-[GeneratedDocument23]
-DocumentPath=..\altium\devBoardMini\Project Outputs for Medusa-AI-coral-dev\Medusa-AI-coral-dev.GM15
-DItemRevisionGUID=
-
-[GeneratedDocument24]
-DocumentPath=..\altium\Medusa-AI-coral-dev\Project Outputs for Medusa-AI-coral-dev\Medusa-AI-coral-dev.GM15
-DItemRevisionGUID=
-
-[GeneratedDocument25]
+[GeneratedDocument9]
 DocumentPath=Project Outputs for Medusa-AI-coral-dev\Medusa-AI-coral-dev.GM15
 DItemRevisionGUID=
 
-[GeneratedDocument26]
-DocumentPath=..\altium\devBoardMini\Project Outputs for Medusa-AI-coral-dev\Medusa-AI-coral-dev.GP1
-DItemRevisionGUID=
-
-[GeneratedDocument27]
-DocumentPath=..\altium\Medusa-AI-coral-dev\Project Outputs for Medusa-AI-coral-dev\Medusa-AI-coral-dev.GP1
-DItemRevisionGUID=
-
-[GeneratedDocument28]
+[GeneratedDocument10]
 DocumentPath=Project Outputs for Medusa-AI-coral-dev\Medusa-AI-coral-dev.GP1
 DItemRevisionGUID=
 
-[GeneratedDocument29]
-DocumentPath=..\altium\devBoardMini\Project Outputs for Medusa-AI-coral-dev\Medusa-AI-coral-dev.GP2
-DItemRevisionGUID=
-
-[GeneratedDocument30]
-DocumentPath=..\altium\Medusa-AI-coral-dev\Project Outputs for Medusa-AI-coral-dev\Medusa-AI-coral-dev.GP2
-DItemRevisionGUID=
-
-[GeneratedDocument31]
+[GeneratedDocument11]
 DocumentPath=Project Outputs for Medusa-AI-coral-dev\Medusa-AI-coral-dev.GP2
 DItemRevisionGUID=
 
-[GeneratedDocument32]
-DocumentPath=..\altium\devBoardMini\Project Outputs for Medusa-AI-coral-dev\Medusa-AI-coral-dev.GPB
-DItemRevisionGUID=
-
-[GeneratedDocument33]
-DocumentPath=..\altium\Medusa-AI-coral-dev\Project Outputs for Medusa-AI-coral-dev\Medusa-AI-coral-dev.GPB
-DItemRevisionGUID=
-
-[GeneratedDocument34]
+[GeneratedDocument12]
 DocumentPath=Project Outputs for Medusa-AI-coral-dev\Medusa-AI-coral-dev.GPB
 DItemRevisionGUID=
 
-[GeneratedDocument35]
-DocumentPath=..\altium\devBoardMini\Project Outputs for Medusa-AI-coral-dev\Medusa-AI-coral-dev.GPT
-DItemRevisionGUID=
-
-[GeneratedDocument36]
-DocumentPath=..\altium\Medusa-AI-coral-dev\Project Outputs for Medusa-AI-coral-dev\Medusa-AI-coral-dev.GPT
-DItemRevisionGUID=
-
-[GeneratedDocument37]
+[GeneratedDocument13]
 DocumentPath=Project Outputs for Medusa-AI-coral-dev\Medusa-AI-coral-dev.GPT
 DItemRevisionGUID=
 
-[GeneratedDocument38]
-DocumentPath=..\altium\devBoardMini\Project Outputs for Medusa-AI-coral-dev\Medusa-AI-coral-dev.GTL
-DItemRevisionGUID=
-
-[GeneratedDocument39]
-DocumentPath=..\altium\Medusa-AI-coral-dev\Project Outputs for Medusa-AI-coral-dev\Medusa-AI-coral-dev.GTL
-DItemRevisionGUID=
-
-[GeneratedDocument40]
+[GeneratedDocument14]
 DocumentPath=Project Outputs for Medusa-AI-coral-dev\Medusa-AI-coral-dev.GTL
 DItemRevisionGUID=
 
-[GeneratedDocument41]
-DocumentPath=..\altium\devBoardMini\Project Outputs for Medusa-AI-coral-dev\Medusa-AI-coral-dev.GTO
-DItemRevisionGUID=
-
-[GeneratedDocument42]
-DocumentPath=..\altium\Medusa-AI-coral-dev\Project Outputs for Medusa-AI-coral-dev\Medusa-AI-coral-dev.GTO
-DItemRevisionGUID=
-
-[GeneratedDocument43]
+[GeneratedDocument15]
 DocumentPath=Project Outputs for Medusa-AI-coral-dev\Medusa-AI-coral-dev.GTO
 DItemRevisionGUID=
 
-[GeneratedDocument44]
-DocumentPath=..\altium\devBoardMini\Project Outputs for Medusa-AI-coral-dev\Medusa-AI-coral-dev.GTP
-DItemRevisionGUID=
-
-[GeneratedDocument45]
-DocumentPath=..\altium\Medusa-AI-coral-dev\Project Outputs for Medusa-AI-coral-dev\Medusa-AI-coral-dev.GTP
-DItemRevisionGUID=
-
-[GeneratedDocument46]
+[GeneratedDocument16]
 DocumentPath=Project Outputs for Medusa-AI-coral-dev\Medusa-AI-coral-dev.GTP
 DItemRevisionGUID=
 
-[GeneratedDocument47]
-DocumentPath=..\altium\devBoardMini\Project Outputs for Medusa-AI-coral-dev\Medusa-AI-coral-dev.GTS
-DItemRevisionGUID=
-
-[GeneratedDocument48]
-DocumentPath=..\altium\Medusa-AI-coral-dev\Project Outputs for Medusa-AI-coral-dev\Medusa-AI-coral-dev.GTS
-DItemRevisionGUID=
-
-[GeneratedDocument49]
+[GeneratedDocument17]
 DocumentPath=Project Outputs for Medusa-AI-coral-dev\Medusa-AI-coral-dev.GTS
 DItemRevisionGUID=
 
-[GeneratedDocument50]
-DocumentPath=..\altium\Medusa-AI-coral-dev\Project Outputs for Medusa-AI-coral-dev\Medusa-AI-coral-dev.LDP
-DItemRevisionGUID=
-
-[GeneratedDocument51]
+[GeneratedDocument18]
 DocumentPath=Project Outputs for Medusa-AI-coral-dev\Medusa-AI-coral-dev.LDP
 DItemRevisionGUID=
 
-[GeneratedDocument52]
-DocumentPath=..\altium\devBoardMini\Project Outputs for Medusa-AI-coral-dev\Medusa-AI-coral-dev.REP
-DItemRevisionGUID=
-
-[GeneratedDocument53]
-DocumentPath=..\altium\Medusa-AI-coral-dev\Project Outputs for Medusa-AI-coral-dev\Medusa-AI-coral-dev.REP
-DItemRevisionGUID=
-
-[GeneratedDocument54]
+[GeneratedDocument19]
 DocumentPath=Project Outputs for Medusa-AI-coral-dev\Medusa-AI-coral-dev.REP
 DItemRevisionGUID=
 
-[GeneratedDocument55]
-DocumentPath=..\altium\devBoardMini\Project Outputs for Medusa-AI-coral-dev\Medusa-AI-coral-dev.RUL
-DItemRevisionGUID=
-
-[GeneratedDocument56]
-DocumentPath=..\altium\Medusa-AI-coral-dev\Project Outputs for Medusa-AI-coral-dev\Medusa-AI-coral-dev.RUL
-DItemRevisionGUID=
-
-[GeneratedDocument57]
+[GeneratedDocument20]
 DocumentPath=Project Outputs for Medusa-AI-coral-dev\Medusa-AI-coral-dev.RUL
 DItemRevisionGUID=
 
-[GeneratedDocument58]
-DocumentPath=..\altium\Medusa-AI-coral-dev\Project Outputs for Medusa-AI-coral-dev\Medusa-AI-coral-dev.TXT
-DItemRevisionGUID=
-
-[GeneratedDocument59]
+[GeneratedDocument21]
 DocumentPath=Project Outputs for Medusa-AI-coral-dev\Medusa-AI-coral-dev.TXT
 DItemRevisionGUID=
 
-[GeneratedDocument60]
+[GeneratedDocument22]
 DocumentPath=Project Outputs for Medusa-AI-coral-dev\Pick Place for Medusa-AI-coral-dev.csv
 DItemRevisionGUID=
 
