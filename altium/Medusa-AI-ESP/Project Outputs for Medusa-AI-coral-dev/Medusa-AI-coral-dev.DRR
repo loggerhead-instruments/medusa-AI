@@ -1,0 +1,27 @@
+----------------------------------------------------------------------------------------------------------------------------------
+NCDrill File Report For: Medusa-AI-coral-dev.PcbDoc   4/21/2022  11:46:43 AM
+----------------------------------------------------------------------------------------------------------------------------------
+
+Layer Pair : Top Layer to Bottom Layer
+ASCII RoundHoles File : Medusa-AI-coral-dev.TXT
+
+Tool       Hole Size               Hole Tolerance               Hole Type       Hole Count   Plated         Tool Travel
+----------------------------------------------------------------------------------------------------------------------------------
+T1      8mil (0.2mm)                                              Round             4         PTH        0.13inch (3.30mm)
+T2      10mil (0.254mm)                                           Round             60        PTH        19.62inch (498.44mm)
+T3      15mil (0.381mm)                                           Round             61        PTH        7.69inch (195.24mm)
+T4      16mil (0.406mm)                                           Round             7         PTH        0.93inch (23.56mm)
+T5      28mil (0.711mm)                                           Round             101       PTH        39.97inch (1015.33mm)
+T6      35mil (0.889mm)                                           Round             2         PTH        0.10inch (2.54mm)
+T7      35mil (0.9mm)                                             Round             106       PTH        32.81inch (833.27mm)
+T8      36mil (0.914mm)                                           Round             34        PTH        4.90inch (124.46mm)
+T9      120mil (3.048mm)                                          Round             6         PTH        11.57inch (293.98mm)
+T10     221mil (5.613mm)                                          Round             1         PTH        0.00inch (0.00mm)
+T11     43mil (1.08mm)                                            Round             1         NPTH       0.00inch (0.00mm)
+T12     44mil (1.13mm)                                            Round             1         NPTH       0.00inch (0.00mm)
+T13     62mil (1.58mm)                                            Round             1         NPTH       0.00inch (0.00mm)
+T14     64mil (1.63mm)                                            Round             1         NPTH       0.00inch (0.00mm)
+----------------------------------------------------------------------------------------------------------------------------------
+Totals                                                                              386
+
+Total Processing Time (hh:mm:ss) : 00:00:00
