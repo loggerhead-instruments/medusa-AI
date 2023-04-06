@@ -1,0 +1,663 @@
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html">
+<style type="text/css">
+		h1, h2, h3, h4, h5, h6 {
+			font-family : segoe ui;
+			color : black;
+			background-color : #EDE7D9;
+			padding: 0.3em;
+		}
+
+		h1 {
+			font-size: 1.2em;
+		}		
+
+		h2 {
+			font-size: 1.2em;
+		}
+
+		body {
+			font-family : segoe ui;
+		}
+
+		td, th {
+			padding: 0.5em;
+			text-align : left;
+			width: 10em;
+		}
+		th {
+			background-color : #EEEEEE;
+
+		}
+		th.column1, td.column1 {
+			text-align: left;
+			width : auto;
+		}
+		table {
+			width : 100%;
+			font-size: 0.9em;
+		}
+
+		.DRC_summary_header {
+			padding-bottom : 0.1em;
+			border : 0px solid black;
+			width: 100%;
+			align: left;
+		}
+
+		.DRC_summary_header_col1,
+		.DRC_summary_header_col2, 
+		.DRC_summary_header_col3 {
+			color : black;
+			font-size:100%;
+			padding : 0em;
+			padding-top : 0.2em;
+			padding-bottom 0.2em;
+			border : 0px solid black;
+			vertical-align: top;
+			text-align: left;
+		}
+
+		.DRC_summary_header_col1 {
+			font-weight: bold;
+			width: 8em;
+		}
+
+		.DRC_summary_header_col2 {
+			width: 0.1em;
+		
+		}
+
+		.DRC_summary_header_col3 {
+			width : auto;
+		}
+
+		.header_holder {
+		    Width = 100%;
+		    border = 0px solid green;
+		    padding = 0;
+		}
+
+
+		.front_matter, .front_matter_column1, .front_matter_column2, .front_matter_column3
+		{
+			left : 0;
+			top : 0;
+			padding: 0em;
+			padding-top : 0.1em;
+			border : 0px solid black;
+			width : 100%;
+			vertical-align: top;
+			text-align: left;
+		}
+
+		.front_matter_column1 {
+			width : 8em;
+			font-weight: bold;
+		}
+
+		.front_matter_column2 {
+			width: 0.1em;
+		}
+
+		.front_matter_column3 {
+			width : auto;
+		}
+
+		.total_column1, .total_column {
+			font-weight : bold;
+		}
+		.total_column1 {
+			text-align : left;
+		}
+		.warning, .error {
+			color : red;
+			font-weight : bold;
+		}
+		tr.onmouseout_odd {
+			background-color : #white;
+		}
+		tr.onmouseout_even { 
+			background-color : #FAFAFA;
+		}
+		tr.onmouseover_odd, tr.onmouseover_even { 
+			background-color : #EEEEEE;
+		} 
+		a:link, a:visited, .q a:link,.q a:active,.q {
+			color: #21489e; 
+		}
+		a:link.callback, a:visited.callback { 
+			color: #21489e;
+		}
+		a:link.customize, a:visited.customize {
+			color: #C0C0C0;
+			position: absolute; 
+			right: 10px;
+		}	
+		p.contents_level1 {
+			font-weight : bold;
+			font-size : 110%;
+			margin : 0.5em;
+		}
+		p.contents_level2 {
+			position : relative;
+			left : 20px;
+			margin : 0.5em;
+		}
+	</style><script type="text/javascript">
+		function coordToMils(coord) {
+			var number = coord / 10000;
+			
+			if (number != number.toFixed(3))
+				number = number.toFixed(3);
+
+			return number + 'mil'
+		}
+
+		function coordToMM(coord) {
+			var number = 0.0254 * coord / 10000;
+			
+			if (number != number.toFixed(4))
+				number = number.toFixed(4);
+			
+			return number + 'mm'
+		}
+	
+		function convertCoord(coordNode, units) {
+			for (var i = 0; i < coordNode.childNodes.length; i++) {
+				coordNode.removeChild(coordNode.childNodes[i]);
+			}
+
+			var coord = coordNode.getAttribute('value');
+			if (coord != null) {
+				if (units == 'mm') {
+					textNode = document.createTextNode(coordToMM(coord));
+					coordNode.appendChild(textNode);
+				} else if (units == 'mil') {
+					textNode = document.createTextNode(coordToMils(coord));		
+					coordNode.appendChild(textNode);	
+				}
+			}
+		}
+	
+		function convertUnits(unitNode, units) {
+			for (var i = 0; i < unitNode.childNodes.length; i++) {
+				unitNode.removeChild(unitNode.childNodes[i]);		
+			}
+		
+			textNode = document.createTextNode(units); 
+			unitNode.appendChild(textNode);
+		}
+	
+		function changeUnits(radio_input, units) {
+			if (radio_input.checked) {
+			
+				var elements = document.getElementsByName('coordinate');
+				if (elements) {
+					for (var i = 0; i < elements.length; i++) {
+						convertCoord(elements[i], units);
+					}
+				}
+	
+				var elements = document.getElementsByName('units');
+				if (elements) {
+					for (var i = 0; i < elements.length; i++) {
+						convertUnits(elements[i], units);
+					}
+				}
+			}
+		}
+	</script><title>Design Rule Verification Report</title>
+</head>
+<body onload=""><img ALT="Altium" src="
+			file://C:\Users\Public\Documents\Altium\AD21\Templates\AD_logo.png
+		"><h1>Design Rule Verification Report</h1>
+<table class="header_holder">
+<td class="column1">
+<table class="front_matter">
+<tr class="front_matter">
+<td class="front_matter_column1">Date:</td>
+<td class="front_matter_column2"></td>
+<td class="front_matter_column3">4/4/2023</td>
+</tr>
+<tr class="front_matter">
+<td class="front_matter_column1">Time:</td>
+<td class="front_matter_column2"></td>
+<td class="front_matter_column3">4:06:15 PM</td>
+</tr>
+<tr class="front_matter">
+<td class="front_matter_column1">Elapsed Time:</td>
+<td class="front_matter_column2"></td>
+<td class="front_matter_column3">00:00:02</td>
+</tr>
+<tr class="front_matter">
+<td class="front_matter_column1">Filename:</td>
+<td class="front_matter_column2"></td>
+<td class="front_matter_column3"><a href="file:///C:\w\medusa-AI\altium\Medusa-AI-ESP\Medusa-AI-ESP.PcbDoc" class="file"><acronym title="C:\w\medusa-AI\altium\Medusa-AI-ESP\Medusa-AI-ESP.PcbDoc">C:\w\medusa-AI\altium\Medusa-AI-ESP\Medusa-AI-ESP.PcbDoc</acronym></a></td>
+</tr>
+</table>
+</td>
+<td class="column2">
+<table class="DRC_summary_header">
+<tr>
+<td class="DRC_summary_header_col1">Warnings:</td>
+<td class="DRC_summary_header_col2"></td>
+<td class="DRC_summary_header_col3">0</td></tr>
+<tr>
+<td class="DRC_summary_header_col1">Rule Violations:</td>
+<td class="DRC_summary_header_col2"></td>
+<td class="DRC_summary_header_col3" style="color : red">105</td></tr>
+</table>
+</td>
+</table><a name="IDWDCXFAJ0TQPWNRLZUQ10EVVGGIETVJFTCNWCWQEJTAVD3VXUOSBM"><h2>Summary</h2></a><table>
+<tr>
+<th class="column1">Warnings</th>
+<th class="column2">Count</th>
+</tr>
+<tr>
+<td style="font-weight : bold; text-align : right" class="column1">Total</td>
+<td style="font-weight : bold" class="column2">0</td>
+</tr>
+</table><br><table>
+<tr>
+<th class="column1">Rule Violations</th>
+<th class="column2">Count</th>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="#IDMHK5IWKCLTKOF5X3MEHZHOEWHLEWDYPK32WCRCVHNEG4EGHF5XC">Clearance Constraint (Gap=5mil) (All),(All)</a></td>
+<td class="column2">2</td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="#IDCRRS4PX5EEPNLREFDIDELXIR3GB33WPVGOR3U2OWR0CR0TZIZEYD">Short-Circuit Constraint (Allowed=No) (All),(All)</a></td>
+<td class="column2">2</td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="#ID5VV1WCEG0FAMNFOYXQ2FP0O1VKW1GA1ZW35TQYHX1IV0QWEUUSZC">Un-Routed Net Constraint ( (All) )</a></td>
+<td class="column2">2</td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="#ID3HCY0SDJN0INNT4Q0UGHMSGN0LL1LQFL0GMKPEJSPBAS3FKCVUNN">Modified Polygon (Allow modified: No), (Allow shelved: No)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="#IDNNMYQBRF05INJNK2R2MVAVERXO5XCQ2JNQ2DZ0CBMNUC4CCLMRTI">Width Constraint (Min=6mil) (Max=100mil) (Preferred=8mil) (All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="#IDPULVPJTCBLK2K04LKYW4JQAQTDJCOTF3XX0L5OGXBTH0B0KN41SG">Power Plane Connect Rule(Relief Connect )(Expansion=20mil) (Conductor Width=10mil) (Air Gap=10mil) (Entries=4) (All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="#IDR1JOSLVEIOYZDJ3FPPSAWGSHWHZKNXL5WH44R1RRCAFPSQ4D5ZN">Hole Size Constraint (Min=1mil) (Max=300mil) (All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="#ID4WEBEREJZZBKOOJKIGHEFB4DYINYOI44PJUY0XMJCGXF20DWZXGO">Hole To Hole Clearance (Gap=10mil) (All),(All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="#IDCCI1EH4T4ZLQBTC31MQ2KT2UXJJOVFRNLUGDMRJUXFG3TQHJOB5D">Minimum Solder Mask Sliver (Gap=2mil) (All),(All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="#IDR2EHJ0BB5J3YMD1EL4QZZASX5GUQFNKMTELWWQK24CUCZHFFAZBH">Silk To Solder Mask (Clearance=10mil) (IsPad),(All)</a></td>
+<td class="column2">97</td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="#ID0HPEKPAPDRWQO0H01H0QXBXOSJZZY3TRU34ELCFQX15NG1ONOSN">Silk to Silk (Clearance=1mil) (All),(All)</a></td>
+<td class="column2">1</td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="#IDBDXKWBHMDFHTPY1QSY5X53VG0MZ0APT41L0BX0HR5P1TNK4CDYLN">Net Antennae (Tolerance=0mil) (All)</a></td>
+<td class="column2">1</td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="#IDGS13B2EPA2Y3C5BPTKSEOJFPXDYP0UL0JRIZIPGGUU5XIDCT5VEK">Height Constraint (Min=0mil) (Max=1000mil) (Prefered=500mil) (All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr>
+<td style="font-weight : bold; text-align : right" class="column1">Total</td>
+<td style="font-weight : bold" class="column2">105</td>
+</tr>
+</table><br><a name="IDMHK5IWKCLTKOF5X3MEHZHOEWHLEWDYPK32WCRCVHNEG4EGHF5XC"><table>
+<tr>
+<th style="text-align : left" colspan="1" class="rule">Clearance Constraint (Gap=5mil) (All),(All)</th>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\w\medusa-AI\altium\Medusa-AI-ESP\Medusa-AI-ESP.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4000.392mil|Location2.X=4004.725mil|Location1.Y=2350.471mil|Location2.Y=2354.804mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\w\medusa-AI\altium\Medusa-AI-ESP\Medusa-AI-ESP.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4000.392mil|Location2.X=4004.725mil|Location1.Y=2350.471mil|Location2.Y=2354.804mil|Absolute=True">Clearance Constraint: (Collision &lt; 5mil) Between Pad P4-1(-2115mil,-2665mil) on Multi-Layer And Track (-2115mil,-2665mil)(-2010mil,-2665mil) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\w\medusa-AI\altium\Medusa-AI-ESP\Medusa-AI-ESP.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4100.392mil|Location2.X=4104.725mil|Location1.Y=2350.471mil|Location2.Y=2354.804mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\w\medusa-AI\altium\Medusa-AI-ESP\Medusa-AI-ESP.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4100.392mil|Location2.X=4104.725mil|Location1.Y=2350.471mil|Location2.Y=2354.804mil|Absolute=True">Clearance Constraint: (Collision &lt; 5mil) Between Pad P4-2(-2015mil,-2665mil) on Multi-Layer And Track (-2115mil,-2665mil)(-2010mil,-2665mil) on Top Layer </acronym></a><br></td>
+</tr>
+</table></a><hr color="#EEEEEE"><a href="#top" style="font-size: 0.9em">Back to top</a><br><br><a name="IDCRRS4PX5EEPNLREFDIDELXIR3GB33WPVGOR3U2OWR0CR0TZIZEYD"><table>
+<tr>
+<th style="text-align : left" colspan="1" class="rule">Short-Circuit Constraint (Allowed=No) (All),(All)</th>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\w\medusa-AI\altium\Medusa-AI-ESP\Medusa-AI-ESP.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3995.226mil|Location2.X=4034.321mil|Location1.Y=2333.09mil|Location2.Y=2372.186mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\w\medusa-AI\altium\Medusa-AI-ESP\Medusa-AI-ESP.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3995.226mil|Location2.X=4034.321mil|Location1.Y=2333.09mil|Location2.Y=2372.186mil|Absolute=True">Short-Circuit Constraint: Between Pad P4-1(-2115mil,-2665mil) on Multi-Layer And Track (-2115mil,-2665mil)(-2010mil,-2665mil) on Top Layer Location : [X = 4014.773mil][Y = 2352.638mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\w\medusa-AI\altium\Medusa-AI-ESP\Medusa-AI-ESP.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4070.796mil|Location2.X=4114.801mil|Location1.Y=2330.635mil|Location2.Y=2374.64mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\w\medusa-AI\altium\Medusa-AI-ESP\Medusa-AI-ESP.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4070.796mil|Location2.X=4114.801mil|Location1.Y=2330.635mil|Location2.Y=2374.64mil|Absolute=True">Short-Circuit Constraint: Between Pad P4-2(-2015mil,-2665mil) on Multi-Layer And Track (-2115mil,-2665mil)(-2010mil,-2665mil) on Top Layer Location : [X = 4092.798mil][Y = 2352.638mil]</acronym></a><br></td>
+</tr>
+</table></a><hr color="#EEEEEE"><a href="#top" style="font-size: 0.9em">Back to top</a><br><br><a name="ID5VV1WCEG0FAMNFOYXQ2FP0O1VKW1GA1ZW35TQYHX1IV0QWEUUSZC"><table>
+<tr>
+<th style="text-align : left" colspan="1" class="rule">Un-Routed Net Constraint ( (All) )</th>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\w\medusa-AI\altium\Medusa-AI-ESP\Medusa-AI-ESP.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3331.987mil|Location2.X=3346.407mil|Location1.Y=2986.492mil|Location2.Y=3000mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\w\medusa-AI\altium\Medusa-AI-ESP\Medusa-AI-ESP.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3331.987mil|Location2.X=3346.407mil|Location1.Y=2986.492mil|Location2.Y=3000mil|Absolute=True">Isolated copper: Split Plane  (AGND) on Layer 1. Dead copper detected. Copper area is : 103.124 sq. mils</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\w\medusa-AI\altium\Medusa-AI-ESP\Medusa-AI-ESP.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3327.818mil|Location2.X=3350.576mil|Location1.Y=2982.322mil|Location2.Y=3000mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\w\medusa-AI\altium\Medusa-AI-ESP\Medusa-AI-ESP.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3327.818mil|Location2.X=3350.576mil|Location1.Y=2982.322mil|Location2.Y=3000mil|Absolute=True">Isolated copper: Split Plane  (VA) on Layer 2. Dead copper detected. Copper area is : 184.172 sq. mils</acronym></a><br></td>
+</tr>
+</table></a><hr color="#EEEEEE"><a href="#top" style="font-size: 0.9em">Back to top</a><br><br><a name="IDR2EHJ0BB5J3YMD1EL4QZZASX5GUQFNKMTELWWQK24CUCZHFFAZBH"><table>
+<tr>
+<th style="text-align : left" colspan="1" class="rule">Silk To Solder Mask (Clearance=10mil) (IsPad),(All)</th>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\w\medusa-AI\altium\Medusa-AI-ESP\Medusa-AI-ESP.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=494.443mil|Location2.X=505.693mil|Location1.Y=3297.083mil|Location2.Y=3308.333mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\w\medusa-AI\altium\Medusa-AI-ESP\Medusa-AI-ESP.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=494.443mil|Location2.X=505.693mil|Location1.Y=3297.083mil|Location2.Y=3308.333mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (2.682mil &lt; 10mil) Between Arc (-5620mil,-1706.063mil) on Top Overlay And Pad C1-1(-5599.409mil,-1730mil) on Top Layer [Top Overlay] to [Top Solder] clearance [2.682mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\w\medusa-AI\altium\Medusa-AI-ESP\Medusa-AI-ESP.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=482.406mil|Location2.X=493.656mil|Location1.Y=3298.432mil|Location2.Y=3309.682mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\w\medusa-AI\altium\Medusa-AI-ESP\Medusa-AI-ESP.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=482.406mil|Location2.X=493.656mil|Location1.Y=3298.432mil|Location2.Y=3309.682mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (8.525mil &lt; 10mil) Between Arc (-5620mil,-1706.063mil) on Top Overlay And Pad C1-2(-5650.591mil,-1730mil) on Top Layer [Top Overlay] to [Top Solder] clearance [8.525mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\w\medusa-AI\altium\Medusa-AI-ESP\Medusa-AI-ESP.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2704.635mil|Location2.X=2715.885mil|Location1.Y=2037.131mil|Location2.Y=2048.381mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\w\medusa-AI\altium\Medusa-AI-ESP\Medusa-AI-ESP.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2704.635mil|Location2.X=2715.885mil|Location1.Y=2037.131mil|Location2.Y=2048.381mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (7.874mil &lt; 10mil) Between Pad C10-1(-3385.645mil,-2965.039mil) on Top Layer And Track (-3415.173mil,-2974.882mil)(-3415.173mil,-2955.197mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [7.874mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\w\medusa-AI\altium\Medusa-AI-ESP\Medusa-AI-ESP.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=534.178mil|Location2.X=545.428mil|Location1.Y=3272.17mil|Location2.Y=3283.42mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\w\medusa-AI\altium\Medusa-AI-ESP\Medusa-AI-ESP.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=534.178mil|Location2.X=545.428mil|Location1.Y=3272.17mil|Location2.Y=3283.42mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (7.874mil &lt; 10mil) Between Pad C1-1(-5599.409mil,-1730mil) on Top Layer And Track (-5569.882mil,-1739.842mil)(-5569.882mil,-1720.158mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [7.874mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\w\medusa-AI\altium\Medusa-AI-ESP\Medusa-AI-ESP.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3624.178mil|Location2.X=3635.428mil|Location1.Y=3042.17mil|Location2.Y=3053.42mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\w\medusa-AI\altium\Medusa-AI-ESP\Medusa-AI-ESP.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3624.178mil|Location2.X=3635.428mil|Location1.Y=3042.17mil|Location2.Y=3053.42mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (7.874mil &lt; 10mil) Between Pad C11-1(-2509.41mil,-1960mil) on Top Layer And Track (-2479.882mil,-1969.842mil)(-2479.882mil,-1950.158mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [7.874mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\w\medusa-AI\altium\Medusa-AI-ESP\Medusa-AI-ESP.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2808.926mil|Location2.X=2820.176mil|Location1.Y=2266.423mil|Location2.Y=2277.673mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\w\medusa-AI\altium\Medusa-AI-ESP\Medusa-AI-ESP.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2808.926mil|Location2.X=2820.176mil|Location1.Y=2266.423mil|Location2.Y=2277.673mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (7.874mil &lt; 10mil) Between Pad C12-1(-3293.165mil,-2723.937mil) on Top Layer And Track (-3303.008mil,-2753.464mil)(-3283.323mil,-2753.464mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [7.874mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\w\medusa-AI\altium\Medusa-AI-ESP\Medusa-AI-ESP.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3674.623mil|Location2.X=3685.873mil|Location1.Y=2974.808mil|Location2.Y=2986.058mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\w\medusa-AI\altium\Medusa-AI-ESP\Medusa-AI-ESP.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3674.623mil|Location2.X=3685.873mil|Location1.Y=2974.808mil|Location2.Y=2986.058mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (6.851mil &lt; 10mil) Between Pad C13-1(-2444.41mil,-2020mil) on Top Layer And Text "C23" (-2516.675mil,-2079.203mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [6.851mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\w\medusa-AI\altium\Medusa-AI-ESP\Medusa-AI-ESP.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3689.178mil|Location2.X=3700.428mil|Location1.Y=2982.17mil|Location2.Y=2993.42mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\w\medusa-AI\altium\Medusa-AI-ESP\Medusa-AI-ESP.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3689.178mil|Location2.X=3700.428mil|Location1.Y=2982.17mil|Location2.Y=2993.42mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (7.874mil &lt; 10mil) Between Pad C13-1(-2444.41mil,-2020mil) on Top Layer And Track (-2414.882mil,-2029.842mil)(-2414.882mil,-2010.158mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [7.874mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\w\medusa-AI\altium\Medusa-AI-ESP\Medusa-AI-ESP.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3613.351mil|Location2.X=3624.601mil|Location1.Y=2975.057mil|Location2.Y=2986.307mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\w\medusa-AI\altium\Medusa-AI-ESP\Medusa-AI-ESP.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3613.351mil|Location2.X=3624.601mil|Location1.Y=2975.057mil|Location2.Y=2986.307mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (6.351mil &lt; 10mil) Between Pad C13-2(-2495.591mil,-2020mil) on Top Layer And Text "C23" (-2516.675mil,-2079.203mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [6.351mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\w\medusa-AI\altium\Medusa-AI-ESP\Medusa-AI-ESP.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3127.863mil|Location2.X=3139.113mil|Location1.Y=3261.087mil|Location2.Y=3272.337mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\w\medusa-AI\altium\Medusa-AI-ESP\Medusa-AI-ESP.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3127.863mil|Location2.X=3139.113mil|Location1.Y=3261.087mil|Location2.Y=3272.337mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (7.874mil &lt; 10mil) Between Pad C14-1(-2974.228mil,-1772.579mil) on Top Layer And Track (-2984.07mil,-1743.052mil)(-2964.385mil,-1743.052mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [7.874mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\w\medusa-AI\altium\Medusa-AI-ESP\Medusa-AI-ESP.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3167.863mil|Location2.X=3179.113mil|Location1.Y=3476.599mil|Location2.Y=3487.849mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\w\medusa-AI\altium\Medusa-AI-ESP\Medusa-AI-ESP.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3167.863mil|Location2.X=3179.113mil|Location1.Y=3476.599mil|Location2.Y=3487.849mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (7.874mil &lt; 10mil) Between Pad C15-1(-2934.228mil,-1513.76mil) on Top Layer And Track (-2944.07mil,-1543.288mil)(-2924.385mil,-1543.288mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [7.874mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\w\medusa-AI\altium\Medusa-AI-ESP\Medusa-AI-ESP.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3047.863mil|Location2.X=3059.113mil|Location1.Y=3266.087mil|Location2.Y=3277.337mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\w\medusa-AI\altium\Medusa-AI-ESP\Medusa-AI-ESP.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3047.863mil|Location2.X=3059.113mil|Location1.Y=3266.087mil|Location2.Y=3277.337mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (7.874mil &lt; 10mil) Between Pad C16-1(-3054.228mil,-1767.579mil) on Top Layer And Track (-3064.07mil,-1738.052mil)(-3044.385mil,-1738.052mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [7.874mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\w\medusa-AI\altium\Medusa-AI-ESP\Medusa-AI-ESP.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2848.729mil|Location2.X=2859.979mil|Location1.Y=3005.32mil|Location2.Y=3016.57mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\w\medusa-AI\altium\Medusa-AI-ESP\Medusa-AI-ESP.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2848.729mil|Location2.X=2859.979mil|Location1.Y=3005.32mil|Location2.Y=3016.57mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (7.874mil &lt; 10mil) Between Pad C17-1(-3253.362mil,-2028.346mil) on Top Layer And Track (-3263.204mil,-1998.819mil)(-3243.519mil,-1998.819mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [7.874mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\w\medusa-AI\altium\Medusa-AI-ESP\Medusa-AI-ESP.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2792.091mil|Location2.X=2803.341mil|Location1.Y=3564.257mil|Location2.Y=3575.507mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\w\medusa-AI\altium\Medusa-AI-ESP\Medusa-AI-ESP.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2792.091mil|Location2.X=2803.341mil|Location1.Y=3564.257mil|Location2.Y=3575.507mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (7.874mil &lt; 10mil) Between Pad C18-1(-3310mil,-1469.409mil) on Top Layer And Track (-3319.843mil,-1439.882mil)(-3300.157mil,-1439.882mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [7.874mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\w\medusa-AI\altium\Medusa-AI-ESP\Medusa-AI-ESP.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2849.635mil|Location2.X=2860.885mil|Location1.Y=2692.131mil|Location2.Y=2703.381mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\w\medusa-AI\altium\Medusa-AI-ESP\Medusa-AI-ESP.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2849.635mil|Location2.X=2860.885mil|Location1.Y=2692.131mil|Location2.Y=2703.381mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (7.874mil &lt; 10mil) Between Pad C19-1(-3240.645mil,-2310.039mil) on Top Layer And Track (-3270.173mil,-2319.882mil)(-3270.173mil,-2300.197mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [7.874mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\w\medusa-AI\altium\Medusa-AI-ESP\Medusa-AI-ESP.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2734.86mil|Location2.X=2746.11mil|Location1.Y=3452.56mil|Location2.Y=3463.81mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\w\medusa-AI\altium\Medusa-AI-ESP\Medusa-AI-ESP.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2734.86mil|Location2.X=2746.11mil|Location1.Y=3452.56mil|Location2.Y=3463.81mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (9.427mil &lt; 10mil) Between Pad C20-1(-3395mil,-1579.409mil) on Top Layer And Text "C18" (-3335.797mil,-1566.703mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [9.427mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\w\medusa-AI\altium\Medusa-AI-ESP\Medusa-AI-ESP.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2707.091mil|Location2.X=2718.341mil|Location1.Y=3454.257mil|Location2.Y=3465.507mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\w\medusa-AI\altium\Medusa-AI-ESP\Medusa-AI-ESP.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2707.091mil|Location2.X=2718.341mil|Location1.Y=3454.257mil|Location2.Y=3465.507mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (7.874mil &lt; 10mil) Between Pad C20-1(-3395mil,-1579.409mil) on Top Layer And Track (-3404.843mil,-1549.882mil)(-3385.157mil,-1549.882mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [7.874mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\w\medusa-AI\altium\Medusa-AI-ESP\Medusa-AI-ESP.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=414.69mil|Location2.X=425.94mil|Location1.Y=2917.17mil|Location2.Y=2928.42mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\w\medusa-AI\altium\Medusa-AI-ESP\Medusa-AI-ESP.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=414.69mil|Location2.X=425.94mil|Location1.Y=2917.17mil|Location2.Y=2928.42mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (7.874mil &lt; 10mil) Between Pad C21-1(-5675.591mil,-2085mil) on Top Layer And Track (-5705.118mil,-2094.843mil)(-5705.118mil,-2075.157mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [7.874mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\w\medusa-AI\altium\Medusa-AI-ESP\Medusa-AI-ESP.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4285.08mil|Location2.X=4296.33mil|Location1.Y=5033.645mil|Location2.Y=5044.895mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\w\medusa-AI\altium\Medusa-AI-ESP\Medusa-AI-ESP.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4285.08mil|Location2.X=4296.33mil|Location1.Y=5033.645mil|Location2.Y=5044.895mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (1.532mil &lt; 10mil) Between Pad C2-2(-1851.693mil,42.398mil) on Top Layer And Text "+" (-1836.693mil,18.898mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [1.532mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\w\medusa-AI\altium\Medusa-AI-ESP\Medusa-AI-ESP.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=662.091mil|Location2.X=673.341mil|Location1.Y=2824.769mil|Location2.Y=2836.019mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\w\medusa-AI\altium\Medusa-AI-ESP\Medusa-AI-ESP.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=662.091mil|Location2.X=673.341mil|Location1.Y=2824.769mil|Location2.Y=2836.019mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (7.874mil &lt; 10mil) Between Pad C22-1(-5440mil,-2165.59mil) on Top Layer And Track (-5449.842mil,-2195.118mil)(-5430.158mil,-2195.118mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [7.874mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\w\medusa-AI\altium\Medusa-AI-ESP\Medusa-AI-ESP.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3554.178mil|Location2.X=3565.428mil|Location1.Y=2942.17mil|Location2.Y=2953.42mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\w\medusa-AI\altium\Medusa-AI-ESP\Medusa-AI-ESP.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3554.178mil|Location2.X=3565.428mil|Location1.Y=2942.17mil|Location2.Y=2953.42mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (7.874mil &lt; 10mil) Between Pad C23-1(-2579.41mil,-2060mil) on Top Layer And Track (-2549.882mil,-2069.843mil)(-2549.882mil,-2050.157mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [7.874mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\w\medusa-AI\altium\Medusa-AI-ESP\Medusa-AI-ESP.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3554.178mil|Location2.X=3565.428mil|Location1.Y=2892.17mil|Location2.Y=2903.42mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\w\medusa-AI\altium\Medusa-AI-ESP\Medusa-AI-ESP.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3554.178mil|Location2.X=3565.428mil|Location1.Y=2892.17mil|Location2.Y=2903.42mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (7.874mil &lt; 10mil) Between Pad C24-1(-2579.41mil,-2110mil) on Top Layer And Track (-2549.882mil,-2119.843mil)(-2549.882mil,-2100.157mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [7.874mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\w\medusa-AI\altium\Medusa-AI-ESP\Medusa-AI-ESP.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4444.533mil|Location2.X=4455.783mil|Location1.Y=697.288mil|Location2.Y=708.538mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\w\medusa-AI\altium\Medusa-AI-ESP\Medusa-AI-ESP.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4444.533mil|Location2.X=4455.783mil|Location1.Y=697.288mil|Location2.Y=708.538mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (7.874mil &lt; 10mil) Between Pad C25-1(-1657.559mil,-4293.071mil) on Top Layer And Track (-1667.401mil,-4322.598mil)(-1647.716mil,-4322.598mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [7.874mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\w\medusa-AI\altium\Medusa-AI-ESP\Medusa-AI-ESP.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4444.533mil|Location2.X=4455.783mil|Location1.Y=476.776mil|Location2.Y=488.026mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\w\medusa-AI\altium\Medusa-AI-ESP\Medusa-AI-ESP.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4444.533mil|Location2.X=4455.783mil|Location1.Y=476.776mil|Location2.Y=488.026mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (7.874mil &lt; 10mil) Between Pad C26-1(-1657.559mil,-4556.89mil) on Top Layer And Track (-1667.401mil,-4527.362mil)(-1647.716mil,-4527.362mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [7.874mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\w\medusa-AI\altium\Medusa-AI-ESP\Medusa-AI-ESP.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1352.485mil|Location2.X=1363.735mil|Location1.Y=1541.068mil|Location2.Y=1552.318mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\w\medusa-AI\altium\Medusa-AI-ESP\Medusa-AI-ESP.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1352.485mil|Location2.X=1363.735mil|Location1.Y=1541.068mil|Location2.Y=1552.318mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (7.874mil &lt; 10mil) Between Pad C27-1(-4781.102mil,-3461.102mil) on Top Layer And Track (-4751.575mil,-3470.945mil)(-4751.575mil,-3451.26mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [7.874mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\w\medusa-AI\altium\Medusa-AI-ESP\Medusa-AI-ESP.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1582.997mil|Location2.X=1594.247mil|Location1.Y=1541.068mil|Location2.Y=1552.318mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\w\medusa-AI\altium\Medusa-AI-ESP\Medusa-AI-ESP.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1582.997mil|Location2.X=1594.247mil|Location1.Y=1541.068mil|Location2.Y=1552.318mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (7.874mil &lt; 10mil) Between Pad C28-1(-4507.283mil,-3461.102mil) on Top Layer And Track (-4536.811mil,-3470.945mil)(-4536.811mil,-3451.26mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [7.874mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\w\medusa-AI\altium\Medusa-AI-ESP\Medusa-AI-ESP.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4364.533mil|Location2.X=4375.783mil|Location1.Y=387.288mil|Location2.Y=398.538mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\w\medusa-AI\altium\Medusa-AI-ESP\Medusa-AI-ESP.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4364.533mil|Location2.X=4375.783mil|Location1.Y=387.288mil|Location2.Y=398.538mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (7.874mil &lt; 10mil) Between Pad C29-1(-1737.559mil,-4603.071mil) on Top Layer And Track (-1747.401mil,-4632.598mil)(-1727.716mil,-4632.598mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [7.874mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\w\medusa-AI\altium\Medusa-AI-ESP\Medusa-AI-ESP.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1672.485mil|Location2.X=1683.735mil|Location1.Y=1466.068mil|Location2.Y=1477.318mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\w\medusa-AI\altium\Medusa-AI-ESP\Medusa-AI-ESP.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1672.485mil|Location2.X=1683.735mil|Location1.Y=1466.068mil|Location2.Y=1477.318mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (7.874mil &lt; 10mil) Between Pad C30-1(-4461.102mil,-3536.102mil) on Top Layer And Track (-4431.575mil,-3545.945mil)(-4431.575mil,-3526.26mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [7.874mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\w\medusa-AI\altium\Medusa-AI-ESP\Medusa-AI-ESP.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4170.398mil|Location2.X=4181.648mil|Location1.Y=5033.666mil|Location2.Y=5044.916mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\w\medusa-AI\altium\Medusa-AI-ESP\Medusa-AI-ESP.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4170.398mil|Location2.X=4181.648mil|Location1.Y=5033.666mil|Location2.Y=5044.916mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (7.874mil &lt; 10mil) Between Pad C3-1(-1931.693mil,43.307mil) on Top Layer And Track (-1941.535mil,13.78mil)(-1921.85mil,13.78mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [7.874mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\w\medusa-AI\altium\Medusa-AI-ESP\Medusa-AI-ESP.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4615.08mil|Location2.X=4626.33mil|Location1.Y=433.645mil|Location2.Y=444.895mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\w\medusa-AI\altium\Medusa-AI-ESP\Medusa-AI-ESP.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4615.08mil|Location2.X=4626.33mil|Location1.Y=433.645mil|Location2.Y=444.895mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (1.532mil &lt; 10mil) Between Pad C31-2(-1521.693mil,-4557.602mil) on Top Layer And Text "+" (-1506.693mil,-4581.102mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [1.532mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\w\medusa-AI\altium\Medusa-AI-ESP\Medusa-AI-ESP.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5022.485mil|Location2.X=5033.735mil|Location1.Y=656.068mil|Location2.Y=667.318mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\w\medusa-AI\altium\Medusa-AI-ESP\Medusa-AI-ESP.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5022.485mil|Location2.X=5033.735mil|Location1.Y=656.068mil|Location2.Y=667.318mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (7.874mil &lt; 10mil) Between Pad C32-1(-1111.102mil,-4346.102mil) on Top Layer And Track (-1081.575mil,-4355.945mil)(-1081.575mil,-4336.26mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [7.874mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\w\medusa-AI\altium\Medusa-AI-ESP\Medusa-AI-ESP.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5022.485mil|Location2.X=5033.735mil|Location1.Y=736.068mil|Location2.Y=747.318mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\w\medusa-AI\altium\Medusa-AI-ESP\Medusa-AI-ESP.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5022.485mil|Location2.X=5033.735mil|Location1.Y=736.068mil|Location2.Y=747.318mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (7.874mil &lt; 10mil) Between Pad C33-1(-1111.102mil,-4266.102mil) on Top Layer And Track (-1081.575mil,-4275.945mil)(-1081.575mil,-4256.26mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [7.874mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\w\medusa-AI\altium\Medusa-AI-ESP\Medusa-AI-ESP.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7113.627mil|Location2.X=7124.877mil|Location1.Y=1759.965mil|Location2.Y=1771.215mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\w\medusa-AI\altium\Medusa-AI-ESP\Medusa-AI-ESP.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7113.627mil|Location2.X=7124.877mil|Location1.Y=1759.965mil|Location2.Y=1771.215mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (7.874mil &lt; 10mil) Between Pad C34-1(1017.441mil,-3277.638mil) on Top Layer And Track (1001.693mil,-3244.173mil)(1033.189mil,-3244.173mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [7.874mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\w\medusa-AI\altium\Medusa-AI-ESP\Medusa-AI-ESP.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=269.69mil|Location2.X=280.94mil|Location1.Y=3002.17mil|Location2.Y=3013.42mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\w\medusa-AI\altium\Medusa-AI-ESP\Medusa-AI-ESP.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=269.69mil|Location2.X=280.94mil|Location1.Y=3002.17mil|Location2.Y=3013.42mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (7.874mil &lt; 10mil) Between Pad C35-1(-5820.591mil,-2000mil) on Top Layer And Track (-5850.118mil,-2009.842mil)(-5850.118mil,-1990.158mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [7.874mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\w\medusa-AI\altium\Medusa-AI-ESP\Medusa-AI-ESP.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3209.178mil|Location2.X=3220.428mil|Location1.Y=2887.17mil|Location2.Y=2898.42mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\w\medusa-AI\altium\Medusa-AI-ESP\Medusa-AI-ESP.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3209.178mil|Location2.X=3220.428mil|Location1.Y=2887.17mil|Location2.Y=2898.42mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (7.874mil &lt; 10mil) Between Pad C36-1(-2924.41mil,-2115mil) on Top Layer And Track (-2894.882mil,-2124.843mil)(-2894.882mil,-2105.157mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [7.874mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\w\medusa-AI\altium\Medusa-AI-ESP\Medusa-AI-ESP.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3554.178mil|Location2.X=3565.428mil|Location1.Y=2837.17mil|Location2.Y=2848.42mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\w\medusa-AI\altium\Medusa-AI-ESP\Medusa-AI-ESP.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3554.178mil|Location2.X=3565.428mil|Location1.Y=2837.17mil|Location2.Y=2848.42mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (7.874mil &lt; 10mil) Between Pad C37-1(-2579.41mil,-2165mil) on Top Layer And Track (-2549.882mil,-2174.843mil)(-2549.882mil,-2155.157mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [7.874mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\w\medusa-AI\altium\Medusa-AI-ESP\Medusa-AI-ESP.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4263.627mil|Location2.X=4274.877mil|Location1.Y=6503.43mil|Location2.Y=6514.68mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\w\medusa-AI\altium\Medusa-AI-ESP\Medusa-AI-ESP.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4263.627mil|Location2.X=4274.877mil|Location1.Y=6503.43mil|Location2.Y=6514.68mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (7.874mil &lt; 10mil) Between Pad C38-1(-1832.559mil,1465.827mil) on Top Layer And Track (-1848.307mil,1499.291mil)(-1816.811mil,1499.291mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [7.874mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\w\medusa-AI\altium\Medusa-AI-ESP\Medusa-AI-ESP.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2562.249mil|Location2.X=2573.499mil|Location1.Y=6095.517mil|Location2.Y=6106.767mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\w\medusa-AI\altium\Medusa-AI-ESP\Medusa-AI-ESP.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2562.249mil|Location2.X=2573.499mil|Location1.Y=6095.517mil|Location2.Y=6106.767mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (7.874mil &lt; 10mil) Between Pad C39-1(-3585.118mil,1115mil) on Top Layer And Track (-3541.811mil,1083.504mil)(-3518.189mil,1083.504mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [7.874mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\w\medusa-AI\altium\Medusa-AI-ESP\Medusa-AI-ESP.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2562.249mil|Location2.X=2573.499mil|Location1.Y=6095.517mil|Location2.Y=6106.767mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\w\medusa-AI\altium\Medusa-AI-ESP\Medusa-AI-ESP.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2562.249mil|Location2.X=2573.499mil|Location1.Y=6095.517mil|Location2.Y=6106.767mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (7.874mil &lt; 10mil) Between Pad C39-1(-3585.118mil,1115mil) on Top Layer And Track (-3541.811mil,1083.504mil)(-3541.811mil,1146.496mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [7.874mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\w\medusa-AI\altium\Medusa-AI-ESP\Medusa-AI-ESP.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2562.249mil|Location2.X=2573.499mil|Location1.Y=6158.509mil|Location2.Y=6169.759mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\w\medusa-AI\altium\Medusa-AI-ESP\Medusa-AI-ESP.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2562.249mil|Location2.X=2573.499mil|Location1.Y=6158.509mil|Location2.Y=6169.759mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (7.874mil &lt; 10mil) Between Pad C39-1(-3585.118mil,1115mil) on Top Layer And Track (-3541.811mil,1146.496mil)(-3518.189mil,1146.496mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [7.874mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\w\medusa-AI\altium\Medusa-AI-ESP\Medusa-AI-ESP.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2601.619mil|Location2.X=2612.869mil|Location1.Y=6095.517mil|Location2.Y=6106.767mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\w\medusa-AI\altium\Medusa-AI-ESP\Medusa-AI-ESP.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2601.619mil|Location2.X=2612.869mil|Location1.Y=6095.517mil|Location2.Y=6106.767mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (7.874mil &lt; 10mil) Between Pad C39-2(-3474.882mil,1115mil) on Top Layer And Track (-3541.811mil,1083.504mil)(-3518.189mil,1083.504mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [7.874mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\w\medusa-AI\altium\Medusa-AI-ESP\Medusa-AI-ESP.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2601.619mil|Location2.X=2612.869mil|Location1.Y=6158.509mil|Location2.Y=6169.759mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\w\medusa-AI\altium\Medusa-AI-ESP\Medusa-AI-ESP.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2601.619mil|Location2.X=2612.869mil|Location1.Y=6158.509mil|Location2.Y=6169.759mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (7.874mil &lt; 10mil) Between Pad C39-2(-3474.882mil,1115mil) on Top Layer And Track (-3541.811mil,1146.496mil)(-3518.189mil,1146.496mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [7.874mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\w\medusa-AI\altium\Medusa-AI-ESP\Medusa-AI-ESP.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3279.979mil|Location2.X=3291.229mil|Location1.Y=3210.027mil|Location2.Y=3221.277mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\w\medusa-AI\altium\Medusa-AI-ESP\Medusa-AI-ESP.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3279.979mil|Location2.X=3291.229mil|Location1.Y=3210.027mil|Location2.Y=3221.277mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (6.351mil &lt; 10mil) Between Pad C4-1(-2815mil,-1809.409mil) on Top Layer And Text "C4" (-2874.203mil,-1783.337mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [6.351mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\w\medusa-AI\altium\Medusa-AI-ESP\Medusa-AI-ESP.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3287.091mil|Location2.X=3298.341mil|Location1.Y=3224.257mil|Location2.Y=3235.507mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\w\medusa-AI\altium\Medusa-AI-ESP\Medusa-AI-ESP.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3287.091mil|Location2.X=3298.341mil|Location1.Y=3224.257mil|Location2.Y=3235.507mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (7.874mil &lt; 10mil) Between Pad C4-1(-2815mil,-1809.409mil) on Top Layer And Track (-2824.843mil,-1779.882mil)(-2805.157mil,-1779.882mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [7.874mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\w\medusa-AI\altium\Medusa-AI-ESP\Medusa-AI-ESP.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3279.646mil|Location2.X=3290.896mil|Location1.Y=3169.853mil|Location2.Y=3181.103mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\w\medusa-AI\altium\Medusa-AI-ESP\Medusa-AI-ESP.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3279.646mil|Location2.X=3290.896mil|Location1.Y=3169.853mil|Location2.Y=3181.103mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (7.161mil &lt; 10mil) Between Pad C4-2(-2815mil,-1860.591mil) on Top Layer And Text "C4" (-2874.203mil,-1783.337mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [7.161mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\w\medusa-AI\altium\Medusa-AI-ESP\Medusa-AI-ESP.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1023.627mil|Location2.X=1034.877mil|Location1.Y=6000.32mil|Location2.Y=6011.57mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\w\medusa-AI\altium\Medusa-AI-ESP\Medusa-AI-ESP.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1023.627mil|Location2.X=1034.877mil|Location1.Y=6000.32mil|Location2.Y=6011.57mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (7.874mil &lt; 10mil) Between Pad C42-1(-5072.559mil,1013.898mil) on Top Layer And Track (-5088.307mil,980.433mil)(-5056.811mil,980.433mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [7.874mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\w\medusa-AI\altium\Medusa-AI-ESP\Medusa-AI-ESP.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1658.784mil|Location2.X=1670.034mil|Location1.Y=6366.304mil|Location2.Y=6377.554mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\w\medusa-AI\altium\Medusa-AI-ESP\Medusa-AI-ESP.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1658.784mil|Location2.X=1670.034mil|Location1.Y=6366.304mil|Location2.Y=6377.554mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (7.874mil &lt; 10mil) Between Pad C43-1(-4427.559mil,1324.764mil) on Top Layer And Track (-4453.149mil,1362.165mil)(-4401.968mil,1362.165mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [7.874mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\w\medusa-AI\altium\Medusa-AI-ESP\Medusa-AI-ESP.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2240.871mil|Location2.X=2252.121mil|Location1.Y=5969.69mil|Location2.Y=5980.94mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\w\medusa-AI\altium\Medusa-AI-ESP\Medusa-AI-ESP.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2240.871mil|Location2.X=2252.121mil|Location1.Y=5969.69mil|Location2.Y=5980.94mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (7.874mil &lt; 10mil) Between Pad C44-1(-3902.559mil,922.244mil) on Top Layer And Track (-3871.063mil,965.551mil)(-3871.063mil,989.173mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [7.874mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\w\medusa-AI\altium\Medusa-AI-ESP\Medusa-AI-ESP.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2177.879mil|Location2.X=2189.129mil|Location1.Y=5969.69mil|Location2.Y=5980.94mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\w\medusa-AI\altium\Medusa-AI-ESP\Medusa-AI-ESP.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2177.879mil|Location2.X=2189.129mil|Location1.Y=5969.69mil|Location2.Y=5980.94mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (7.874mil &lt; 10mil) Between Pad C44-1(-3902.559mil,922.244mil) on Top Layer And Track (-3934.055mil,965.551mil)(-3871.063mil,965.551mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [7.874mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\w\medusa-AI\altium\Medusa-AI-ESP\Medusa-AI-ESP.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2177.879mil|Location2.X=2189.129mil|Location1.Y=5969.69mil|Location2.Y=5980.94mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\w\medusa-AI\altium\Medusa-AI-ESP\Medusa-AI-ESP.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2177.879mil|Location2.X=2189.129mil|Location1.Y=5969.69mil|Location2.Y=5980.94mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (7.874mil &lt; 10mil) Between Pad C44-1(-3902.559mil,922.244mil) on Top Layer And Track (-3934.055mil,965.551mil)(-3934.055mil,989.173mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [7.874mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\w\medusa-AI\altium\Medusa-AI-ESP\Medusa-AI-ESP.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2240.871mil|Location2.X=2252.121mil|Location1.Y=6009.06mil|Location2.Y=6020.31mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\w\medusa-AI\altium\Medusa-AI-ESP\Medusa-AI-ESP.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2240.871mil|Location2.X=2252.121mil|Location1.Y=6009.06mil|Location2.Y=6020.31mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (7.874mil &lt; 10mil) Between Pad C44-2(-3902.559mil,1032.48mil) on Top Layer And Track (-3871.063mil,965.551mil)(-3871.063mil,989.173mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [7.874mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\w\medusa-AI\altium\Medusa-AI-ESP\Medusa-AI-ESP.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2177.879mil|Location2.X=2189.129mil|Location1.Y=6009.06mil|Location2.Y=6020.31mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\w\medusa-AI\altium\Medusa-AI-ESP\Medusa-AI-ESP.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2177.879mil|Location2.X=2189.129mil|Location1.Y=6009.06mil|Location2.Y=6020.31mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (7.874mil &lt; 10mil) Between Pad C44-2(-3902.559mil,1032.48mil) on Top Layer And Track (-3934.055mil,965.551mil)(-3934.055mil,989.173mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [7.874mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\w\medusa-AI\altium\Medusa-AI-ESP\Medusa-AI-ESP.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3132.091mil|Location2.X=3143.341mil|Location1.Y=5999.769mil|Location2.Y=6011.019mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\w\medusa-AI\altium\Medusa-AI-ESP\Medusa-AI-ESP.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3132.091mil|Location2.X=3143.341mil|Location1.Y=5999.769mil|Location2.Y=6011.019mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (7.874mil &lt; 10mil) Between Pad C45-1(-2970mil,1009.409mil) on Top Layer And Track (-2979.843mil,979.882mil)(-2960.157mil,979.882mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [7.874mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\w\medusa-AI\altium\Medusa-AI-ESP\Medusa-AI-ESP.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2801.304mil|Location2.X=2812.554mil|Location1.Y=5718.784mil|Location2.Y=5730.034mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\w\medusa-AI\altium\Medusa-AI-ESP\Medusa-AI-ESP.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2801.304mil|Location2.X=2812.554mil|Location1.Y=5718.784mil|Location2.Y=5730.034mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (7.874mil &lt; 10mil) Between Pad C46-1(-3340.157mil,732.362mil) on Top Layer And Track (-3302.756mil,706.772mil)(-3302.756mil,757.953mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [7.874mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\w\medusa-AI\altium\Medusa-AI-ESP\Medusa-AI-ESP.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2668.281mil|Location2.X=2679.531mil|Location1.Y=5717.514mil|Location2.Y=5728.764mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\w\medusa-AI\altium\Medusa-AI-ESP\Medusa-AI-ESP.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2668.281mil|Location2.X=2679.531mil|Location1.Y=5717.514mil|Location2.Y=5728.764mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (6.203mil &lt; 10mil) Between Pad C46-2(-3414.96mil,732.362mil) on Top Layer And Text "C46" (-3447.198mil,693.883mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [6.203mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\w\medusa-AI\altium\Medusa-AI-ESP\Medusa-AI-ESP.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7049.533mil|Location2.X=7060.783mil|Location1.Y=1653.666mil|Location2.Y=1664.916mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\w\medusa-AI\altium\Medusa-AI-ESP\Medusa-AI-ESP.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7049.533mil|Location2.X=7060.783mil|Location1.Y=1653.666mil|Location2.Y=1664.916mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (7.874mil &lt; 10mil) Between Pad C47-1(947.441mil,-3336.693mil) on Top Layer And Track (937.599mil,-3366.22mil)(957.284mil,-3366.22mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [7.874mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\w\medusa-AI\altium\Medusa-AI-ESP\Medusa-AI-ESP.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6655.32mil|Location2.X=6666.57mil|Location1.Y=1665.162mil|Location2.Y=1676.412mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\w\medusa-AI\altium\Medusa-AI-ESP\Medusa-AI-ESP.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6655.32mil|Location2.X=6666.57mil|Location1.Y=1665.162mil|Location2.Y=1676.412mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (7.874mil &lt; 10mil) Between Pad C48-1(568.977mil,-3331.102mil) on Top Layer And Track (535.512mil,-3346.85mil)(535.512mil,-3315.354mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [7.874mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\w\medusa-AI\altium\Medusa-AI-ESP\Medusa-AI-ESP.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6771.619mil|Location2.X=6782.869mil|Location1.Y=1616.068mil|Location2.Y=1627.318mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\w\medusa-AI\altium\Medusa-AI-ESP\Medusa-AI-ESP.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6771.619mil|Location2.X=6782.869mil|Location1.Y=1616.068mil|Location2.Y=1627.318mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (7.874mil &lt; 10mil) Between Pad C49-1(638.032mil,-3386.102mil) on Top Layer And Track (667.559mil,-3395.945mil)(667.559mil,-3376.26mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [7.874mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\w\medusa-AI\altium\Medusa-AI-ESP\Medusa-AI-ESP.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3345.359mil|Location2.X=3356.609mil|Location1.Y=2559.06mil|Location2.Y=2570.31mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\w\medusa-AI\altium\Medusa-AI-ESP\Medusa-AI-ESP.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3345.359mil|Location2.X=3356.609mil|Location1.Y=2559.06mil|Location2.Y=2570.31mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (7.874mil &lt; 10mil) Between Pad C5-1(-2756.733mil,-2431.299mil) on Top Layer And Track (-2766.575mil,-2460.827mil)(-2746.89mil,-2460.827mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [7.874mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\w\medusa-AI\altium\Medusa-AI-ESP\Medusa-AI-ESP.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3429.178mil|Location2.X=3440.428mil|Location1.Y=2842.17mil|Location2.Y=2853.42mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\w\medusa-AI\altium\Medusa-AI-ESP\Medusa-AI-ESP.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3429.178mil|Location2.X=3440.428mil|Location1.Y=2842.17mil|Location2.Y=2853.42mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (7.874mil &lt; 10mil) Between Pad C51-1(-2704.41mil,-2160mil) on Top Layer And Track (-2674.882mil,-2169.843mil)(-2674.882mil,-2150.157mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [7.874mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\w\medusa-AI\altium\Medusa-AI-ESP\Medusa-AI-ESP.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3159.69mil|Location2.X=3170.94mil|Location1.Y=2837.17mil|Location2.Y=2848.42mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\w\medusa-AI\altium\Medusa-AI-ESP\Medusa-AI-ESP.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3159.69mil|Location2.X=3170.94mil|Location1.Y=2837.17mil|Location2.Y=2848.42mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (7.874mil &lt; 10mil) Between Pad C52-1(-2930.59mil,-2165mil) on Top Layer And Track (-2960.118mil,-2174.843mil)(-2960.118mil,-2155.157mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [7.874mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\w\medusa-AI\altium\Medusa-AI-ESP\Medusa-AI-ESP.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3633.729mil|Location2.X=3644.979mil|Location1.Y=3200.32mil|Location2.Y=3211.57mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\w\medusa-AI\altium\Medusa-AI-ESP\Medusa-AI-ESP.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3633.729mil|Location2.X=3644.979mil|Location1.Y=3200.32mil|Location2.Y=3211.57mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (7.874mil &lt; 10mil) Between Pad C53-1(-2468.362mil,-1833.346mil) on Top Layer And Track (-2478.204mil,-1803.819mil)(-2458.519mil,-1803.819mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [7.874mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\w\medusa-AI\altium\Medusa-AI-ESP\Medusa-AI-ESP.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3627.342mil|Location2.X=3638.592mil|Location1.Y=3109.769mil|Location2.Y=3121.019mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\w\medusa-AI\altium\Medusa-AI-ESP\Medusa-AI-ESP.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3627.342mil|Location2.X=3638.592mil|Location1.Y=3109.769mil|Location2.Y=3121.019mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (4.902mil &lt; 10mil) Between Pad C53-2(-2468.362mil,-1884.527mil) on Top Layer And Text "C11" (-2572.957mil,-1934.203mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [4.902mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\w\medusa-AI\altium\Medusa-AI-ESP\Medusa-AI-ESP.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3623.729mil|Location2.X=3634.979mil|Location1.Y=2655.832mil|Location2.Y=2667.082mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\w\medusa-AI\altium\Medusa-AI-ESP\Medusa-AI-ESP.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3623.729mil|Location2.X=3634.979mil|Location1.Y=2655.832mil|Location2.Y=2667.082mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (7.874mil &lt; 10mil) Between Pad C54-1(-2478.362mil,-2334.527mil) on Top Layer And Track (-2488.204mil,-2364.055mil)(-2468.519mil,-2364.055mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [7.874mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\w\medusa-AI\altium\Medusa-AI-ESP\Medusa-AI-ESP.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3345.359mil|Location2.X=3356.609mil|Location1.Y=2338.548mil|Location2.Y=2349.798mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\w\medusa-AI\altium\Medusa-AI-ESP\Medusa-AI-ESP.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3345.359mil|Location2.X=3356.609mil|Location1.Y=2338.548mil|Location2.Y=2349.798mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (7.874mil &lt; 10mil) Between Pad C6-1(-2756.733mil,-2695.118mil) on Top Layer And Track (-2766.575mil,-2665.591mil)(-2746.89mil,-2665.591mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [7.874mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\w\medusa-AI\altium\Medusa-AI-ESP\Medusa-AI-ESP.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3420.359mil|Location2.X=3431.609mil|Location1.Y=2559.06mil|Location2.Y=2570.31mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\w\medusa-AI\altium\Medusa-AI-ESP\Medusa-AI-ESP.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3420.359mil|Location2.X=3431.609mil|Location1.Y=2559.06mil|Location2.Y=2570.31mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (7.874mil &lt; 10mil) Between Pad C7-1(-2681.733mil,-2431.299mil) on Top Layer And Track (-2691.575mil,-2460.827mil)(-2671.89mil,-2460.827mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [7.874mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\w\medusa-AI\altium\Medusa-AI-ESP\Medusa-AI-ESP.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2922.091mil|Location2.X=2933.341mil|Location1.Y=3534.769mil|Location2.Y=3546.019mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\w\medusa-AI\altium\Medusa-AI-ESP\Medusa-AI-ESP.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2922.091mil|Location2.X=2933.341mil|Location1.Y=3534.769mil|Location2.Y=3546.019mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (7.874mil &lt; 10mil) Between Pad C8-1(-3180mil,-1455.591mil) on Top Layer And Track (-3189.843mil,-1485.118mil)(-3170.157mil,-1485.118mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [7.874mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\w\medusa-AI\altium\Medusa-AI-ESP\Medusa-AI-ESP.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2728.926mil|Location2.X=2740.176mil|Location1.Y=2271.423mil|Location2.Y=2282.673mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\w\medusa-AI\altium\Medusa-AI-ESP\Medusa-AI-ESP.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2728.926mil|Location2.X=2740.176mil|Location1.Y=2271.423mil|Location2.Y=2282.673mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (7.874mil &lt; 10mil) Between Pad C9-1(-3373.165mil,-2718.937mil) on Top Layer And Track (-3383.008mil,-2748.464mil)(-3363.323mil,-2748.464mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [7.874mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\w\medusa-AI\altium\Medusa-AI-ESP\Medusa-AI-ESP.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2920.898mil|Location2.X=2932.148mil|Location1.Y=5689.414mil|Location2.Y=5700.664mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\w\medusa-AI\altium\Medusa-AI-ESP\Medusa-AI-ESP.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2920.898mil|Location2.X=2932.148mil|Location1.Y=5689.414mil|Location2.Y=5700.664mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (5.252mil &lt; 10mil) Between Pad D4-A(-3210mil,665mil) on Top Layer And Track (-3184.409mil,674.842mil)(-3184.409mil,729.961mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [5.252mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\w\medusa-AI\altium\Medusa-AI-ESP\Medusa-AI-ESP.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2882.969mil|Location2.X=2894.219mil|Location1.Y=5689.414mil|Location2.Y=5700.664mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\w\medusa-AI\altium\Medusa-AI-ESP\Medusa-AI-ESP.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2882.969mil|Location2.X=2894.219mil|Location1.Y=5689.414mil|Location2.Y=5700.664mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (5.252mil &lt; 10mil) Between Pad D4-A(-3210mil,665mil) on Top Layer And Track (-3235.591mil,674.842mil)(-3235.591mil,729.961mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [5.252mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\w\medusa-AI\altium\Medusa-AI-ESP\Medusa-AI-ESP.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2920.898mil|Location2.X=2932.148mil|Location1.Y=5755.163mil|Location2.Y=5766.413mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\w\medusa-AI\altium\Medusa-AI-ESP\Medusa-AI-ESP.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2920.898mil|Location2.X=2932.148mil|Location1.Y=5755.163mil|Location2.Y=5766.413mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (5.252mil &lt; 10mil) Between Pad D4-C(-3210mil,755.551mil) on Top Layer And Track (-3184.409mil,729.961mil)(-3184.409mil,745.709mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [5.252mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\w\medusa-AI\altium\Medusa-AI-ESP\Medusa-AI-ESP.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2918.272mil|Location2.X=2929.522mil|Location1.Y=5750.568mil|Location2.Y=5761.818mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\w\medusa-AI\altium\Medusa-AI-ESP\Medusa-AI-ESP.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2918.272mil|Location2.X=2929.522mil|Location1.Y=5750.568mil|Location2.Y=5761.818mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (9.189mil &lt; 10mil) Between Pad D4-C(-3210mil,755.551mil) on Top Layer And Track (-3235.591mil,729.961mil)(-3184.409mil,729.961mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [9.189mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\w\medusa-AI\altium\Medusa-AI-ESP\Medusa-AI-ESP.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2882.969mil|Location2.X=2894.219mil|Location1.Y=5755.163mil|Location2.Y=5766.413mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\w\medusa-AI\altium\Medusa-AI-ESP\Medusa-AI-ESP.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2882.969mil|Location2.X=2894.219mil|Location1.Y=5755.163mil|Location2.Y=5766.413mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (5.252mil &lt; 10mil) Between Pad D4-C(-3210mil,755.551mil) on Top Layer And Track (-3235.591mil,729.961mil)(-3235.591mil,745.709mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [5.252mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\w\medusa-AI\altium\Medusa-AI-ESP\Medusa-AI-ESP.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2252.072mil|Location2.X=2263.322mil|Location1.Y=2227.013mil|Location2.Y=2238.263mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\w\medusa-AI\altium\Medusa-AI-ESP\Medusa-AI-ESP.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2252.072mil|Location2.X=2263.322mil|Location1.Y=2227.013mil|Location2.Y=2238.263mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (1.85mil &lt; 10mil) Between Pad P2-0(-3910mil,-2790.472mil) on Top Layer And Track (-3855mil,-2785mil)(-3845mil,-2785mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [1.85mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\w\medusa-AI\altium\Medusa-AI-ESP\Medusa-AI-ESP.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2149.296mil|Location2.X=2160.546mil|Location1.Y=2227.013mil|Location2.Y=2238.263mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\w\medusa-AI\altium\Medusa-AI-ESP\Medusa-AI-ESP.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2149.296mil|Location2.X=2160.546mil|Location1.Y=2227.013mil|Location2.Y=2238.263mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (6.85mil &lt; 10mil) Between Pad P2-0(-3910mil,-2790.472mil) on Top Layer And Track (-4185mil,-2785mil)(-3970mil,-2785mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [6.85mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\w\medusa-AI\altium\Medusa-AI-ESP\Medusa-AI-ESP.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2151.796mil|Location2.X=2163.046mil|Location1.Y=1692.013mil|Location2.Y=1703.263mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\w\medusa-AI\altium\Medusa-AI-ESP\Medusa-AI-ESP.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2151.796mil|Location2.X=2163.046mil|Location1.Y=1692.013mil|Location2.Y=1703.263mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (1.85mil &lt; 10mil) Between Pad P2-0(-3910mil,-3340mil) on Top Layer And Track (-4180mil,-3320mil)(-3965mil,-3320mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [1.85mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\w\medusa-AI\altium\Medusa-AI-ESP\Medusa-AI-ESP.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1922.072mil|Location2.X=1933.322mil|Location1.Y=2227.013mil|Location2.Y=2238.263mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\w\medusa-AI\altium\Medusa-AI-ESP\Medusa-AI-ESP.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1922.072mil|Location2.X=1933.322mil|Location1.Y=2227.013mil|Location2.Y=2238.263mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (1.85mil &lt; 10mil) Between Pad P2-0(-4240mil,-2790mil) on Top Layer And Track (-4185mil,-2785mil)(-3970mil,-2785mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [1.85mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\w\medusa-AI\altium\Medusa-AI-ESP\Medusa-AI-ESP.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1924.572mil|Location2.X=1935.822mil|Location1.Y=1692.013mil|Location2.Y=1703.263mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\w\medusa-AI\altium\Medusa-AI-ESP\Medusa-AI-ESP.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1924.572mil|Location2.X=1935.822mil|Location1.Y=1692.013mil|Location2.Y=1703.263mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (6.85mil &lt; 10mil) Between Pad P2-0(-4240mil,-3335mil) on Top Layer And Track (-4180mil,-3320mil)(-3965mil,-3320mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [6.85mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\w\medusa-AI\altium\Medusa-AI-ESP\Medusa-AI-ESP.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1818.607mil|Location2.X=1829.857mil|Location1.Y=1687.013mil|Location2.Y=1698.263mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\w\medusa-AI\altium\Medusa-AI-ESP\Medusa-AI-ESP.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1818.607mil|Location2.X=1829.857mil|Location1.Y=1687.013mil|Location2.Y=1698.263mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (8.228mil &lt; 10mil) Between Pad P2-0(-4240mil,-3335mil) on Top Layer And Track (-4370mil,-3325mil)(-4301.378mil,-3325mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [8.228mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\w\medusa-AI\altium\Medusa-AI-ESP\Medusa-AI-ESP.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=559.375mil|Location2.X=570.625mil|Location1.Y=5701.961mil|Location2.Y=5713.211mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\w\medusa-AI\altium\Medusa-AI-ESP\Medusa-AI-ESP.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=559.375mil|Location2.X=570.625mil|Location1.Y=5701.961mil|Location2.Y=5713.211mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (6.089mil &lt; 10mil) Between Pad P24-1(-5552.559mil,657.362mil) on Multi-Layer And Track (-5597.559mil,697.992mil)(-5507.559mil,697.992mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [6.089mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\w\medusa-AI\altium\Medusa-AI-ESP\Medusa-AI-ESP.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=559.375mil|Location2.X=570.625mil|Location1.Y=5558.364mil|Location2.Y=5569.614mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\w\medusa-AI\altium\Medusa-AI-ESP\Medusa-AI-ESP.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=559.375mil|Location2.X=570.625mil|Location1.Y=5558.364mil|Location2.Y=5569.614mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (6.719mil &lt; 10mil) Between Pad P24-2(-5552.559mil,579.252mil) on Multi-Layer And Track (-5597.559mil,537.992mil)(-5507.559mil,537.992mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [6.719mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\w\medusa-AI\altium\Medusa-AI-ESP\Medusa-AI-ESP.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=569.375mil|Location2.X=580.625mil|Location1.Y=6135.071mil|Location2.Y=6146.321mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\w\medusa-AI\altium\Medusa-AI-ESP\Medusa-AI-ESP.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=569.375mil|Location2.X=580.625mil|Location1.Y=6135.071mil|Location2.Y=6146.321mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (6.089mil &lt; 10mil) Between Pad P25-1(-5542.559mil,1090.472mil) on Multi-Layer And Track (-5587.559mil,1131.102mil)(-5497.559mil,1131.102mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [6.089mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\w\medusa-AI\altium\Medusa-AI-ESP\Medusa-AI-ESP.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=569.375mil|Location2.X=580.625mil|Location1.Y=5991.475mil|Location2.Y=6002.725mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\w\medusa-AI\altium\Medusa-AI-ESP\Medusa-AI-ESP.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=569.375mil|Location2.X=580.625mil|Location1.Y=5991.475mil|Location2.Y=6002.725mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (6.719mil &lt; 10mil) Between Pad P25-2(-5542.559mil,1012.362mil) on Multi-Layer And Track (-5587.559mil,971.102mil)(-5497.559mil,971.102mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [6.719mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\w\medusa-AI\altium\Medusa-AI-ESP\Medusa-AI-ESP.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3769.375mil|Location2.X=3780.625mil|Location1.Y=6405.215mil|Location2.Y=6416.465mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\w\medusa-AI\altium\Medusa-AI-ESP\Medusa-AI-ESP.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3769.375mil|Location2.X=3780.625mil|Location1.Y=6405.215mil|Location2.Y=6416.465mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (6.089mil &lt; 10mil) Between Pad P33-1(-2342.559mil,1425.787mil) on Multi-Layer And Track (-2387.559mil,1385.157mil)(-2297.559mil,1385.157mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [6.089mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\w\medusa-AI\altium\Medusa-AI-ESP\Medusa-AI-ESP.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3769.375mil|Location2.X=3780.625mil|Location1.Y=6548.811mil|Location2.Y=6560.061mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\w\medusa-AI\altium\Medusa-AI-ESP\Medusa-AI-ESP.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3769.375mil|Location2.X=3780.625mil|Location1.Y=6548.811mil|Location2.Y=6560.061mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (6.719mil &lt; 10mil) Between Pad P33-2(-2342.559mil,1503.898mil) on Multi-Layer And Track (-2387.559mil,1545.157mil)(-2297.559mil,1545.157mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [6.719mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\w\medusa-AI\altium\Medusa-AI-ESP\Medusa-AI-ESP.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4039.375mil|Location2.X=4050.625mil|Location1.Y=6405.057mil|Location2.Y=6416.307mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\w\medusa-AI\altium\Medusa-AI-ESP\Medusa-AI-ESP.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4039.375mil|Location2.X=4050.625mil|Location1.Y=6405.057mil|Location2.Y=6416.307mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (6.089mil &lt; 10mil) Between Pad P6-1(-2072.559mil,1425.63mil) on Multi-Layer And Track (-2117.559mil,1385mil)(-2027.559mil,1385mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [6.089mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\w\medusa-AI\altium\Medusa-AI-ESP\Medusa-AI-ESP.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4039.375mil|Location2.X=4050.625mil|Location1.Y=6548.653mil|Location2.Y=6559.903mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\w\medusa-AI\altium\Medusa-AI-ESP\Medusa-AI-ESP.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4039.375mil|Location2.X=4050.625mil|Location1.Y=6548.653mil|Location2.Y=6559.903mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (6.719mil &lt; 10mil) Between Pad P6-2(-2072.559mil,1503.74mil) on Multi-Layer And Track (-2117.559mil,1545mil)(-2027.559mil,1545mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [6.719mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\w\medusa-AI\altium\Medusa-AI-ESP\Medusa-AI-ESP.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2774.06mil|Location2.X=2785.31mil|Location1.Y=5622.879mil|Location2.Y=5634.129mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\w\medusa-AI\altium\Medusa-AI-ESP\Medusa-AI-ESP.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2774.06mil|Location2.X=2785.31mil|Location1.Y=5622.879mil|Location2.Y=5634.129mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (7.874mil &lt; 10mil) Between Pad R11-1(-3302.441mil,642.362mil) on Top Layer And Track (-3369.37mil,610.866mil)(-3345.748mil,610.866mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [7.874mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\w\medusa-AI\altium\Medusa-AI-ESP\Medusa-AI-ESP.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2774.06mil|Location2.X=2785.31mil|Location1.Y=5685.871mil|Location2.Y=5697.121mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\w\medusa-AI\altium\Medusa-AI-ESP\Medusa-AI-ESP.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2774.06mil|Location2.X=2785.31mil|Location1.Y=5685.871mil|Location2.Y=5697.121mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (7.874mil &lt; 10mil) Between Pad R11-1(-3302.441mil,642.362mil) on Top Layer And Track (-3369.37mil,673.858mil)(-3345.748mil,673.858mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [7.874mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\w\medusa-AI\altium\Medusa-AI-ESP\Medusa-AI-ESP.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2734.69mil|Location2.X=2745.94mil|Location1.Y=5622.879mil|Location2.Y=5634.129mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\w\medusa-AI\altium\Medusa-AI-ESP\Medusa-AI-ESP.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2734.69mil|Location2.X=2745.94mil|Location1.Y=5622.879mil|Location2.Y=5634.129mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (7.874mil &lt; 10mil) Between Pad R11-2(-3412.677mil,642.362mil) on Top Layer And Track (-3369.37mil,610.866mil)(-3345.748mil,610.866mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [7.874mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\w\medusa-AI\altium\Medusa-AI-ESP\Medusa-AI-ESP.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2734.69mil|Location2.X=2745.94mil|Location1.Y=5685.871mil|Location2.Y=5697.121mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\w\medusa-AI\altium\Medusa-AI-ESP\Medusa-AI-ESP.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2734.69mil|Location2.X=2745.94mil|Location1.Y=5685.871mil|Location2.Y=5697.121mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (7.874mil &lt; 10mil) Between Pad R11-2(-3412.677mil,642.362mil) on Top Layer And Track (-3369.37mil,673.858mil)(-3345.748mil,673.858mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [7.874mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\w\medusa-AI\altium\Medusa-AI-ESP\Medusa-AI-ESP.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6897.288mil|Location2.X=6908.538mil|Location1.Y=1682.515mil|Location2.Y=1693.765mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\w\medusa-AI\altium\Medusa-AI-ESP\Medusa-AI-ESP.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6897.288mil|Location2.X=6908.538mil|Location1.Y=1682.515mil|Location2.Y=1693.765mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (9.902mil &lt; 10mil) Between Pad U15-7(817.441mil,-3381.102mil) on Top Layer And Track (758.386mil,-3322.047mil)(876.496mil,-3322.047mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [9.902mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\w\medusa-AI\altium\Medusa-AI-ESP\Medusa-AI-ESP.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6961.462mil|Location2.X=6972.712mil|Location1.Y=1579.306mil|Location2.Y=1590.556mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\w\medusa-AI\altium\Medusa-AI-ESP\Medusa-AI-ESP.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6961.462mil|Location2.X=6972.712mil|Location1.Y=1579.306mil|Location2.Y=1590.556mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (9.902mil &lt; 10mil) Between Pad U15-7(817.441mil,-3381.102mil) on Top Layer And Track (758.386mil,-3440.157mil)(876.496mil,-3440.157mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [9.902mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\w\medusa-AI\altium\Medusa-AI-ESP\Medusa-AI-ESP.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=468.617mil|Location2.X=479.867mil|Location1.Y=2730.792mil|Location2.Y=2742.042mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\w\medusa-AI\altium\Medusa-AI-ESP\Medusa-AI-ESP.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=468.617mil|Location2.X=479.867mil|Location1.Y=2730.792mil|Location2.Y=2742.042mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (9.862mil &lt; 10mil) Between Pad U6-1(-5625mil,-2295mil) on Top Layer And Track (-5656.496mil,-2281.22mil)(-5650.748mil,-2281.22mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [9.862mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\w\medusa-AI\altium\Medusa-AI-ESP\Medusa-AI-ESP.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=623.361mil|Location2.X=634.611mil|Location1.Y=2730.792mil|Location2.Y=2742.042mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\w\medusa-AI\altium\Medusa-AI-ESP\Medusa-AI-ESP.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=623.361mil|Location2.X=634.611mil|Location1.Y=2730.792mil|Location2.Y=2742.042mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (9.862mil &lt; 10mil) Between Pad U6-3(-5506.89mil,-2295mil) on Top Layer And Track (-5481.142mil,-2281.22mil)(-5475.394mil,-2281.22mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [9.862mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\w\medusa-AI\altium\Medusa-AI-ESP\Medusa-AI-ESP.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=623.361mil|Location2.X=634.611mil|Location1.Y=2833.155mil|Location2.Y=2844.405mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\w\medusa-AI\altium\Medusa-AI-ESP\Medusa-AI-ESP.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=623.361mil|Location2.X=634.611mil|Location1.Y=2833.155mil|Location2.Y=2844.405mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (9.862mil &lt; 10mil) Between Pad U6-4(-5506.89mil,-2165.079mil) on Top Layer And Track (-5481.142mil,-2178.858mil)(-5475.394mil,-2178.858mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [9.862mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\w\medusa-AI\altium\Medusa-AI-ESP\Medusa-AI-ESP.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=468.617mil|Location2.X=479.867mil|Location1.Y=2833.155mil|Location2.Y=2844.405mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\w\medusa-AI\altium\Medusa-AI-ESP\Medusa-AI-ESP.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=468.617mil|Location2.X=479.867mil|Location1.Y=2833.155mil|Location2.Y=2844.405mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (9.862mil &lt; 10mil) Between Pad U6-5(-5625mil,-2165.079mil) on Top Layer And Track (-5656.496mil,-2178.858mil)(-5650.748mil,-2178.858mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [9.862mil]</acronym></a><br></td>
+</tr>
+</table></a><hr color="#EEEEEE"><a href="#top" style="font-size: 0.9em">Back to top</a><br><br><a name="ID0HPEKPAPDRWQO0H01H0QXBXOSJZZY3TRU34ELCFQX15NG1ONOSN"><table>
+<tr>
+<th style="text-align : left" colspan="1" class="rule">Silk to Silk (Clearance=1mil) (All),(All)</th>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\w\medusa-AI\altium\Medusa-AI-ESP\Medusa-AI-ESP.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2861.131mil|Location2.X=2862.797mil|Location1.Y=5987.805mil|Location2.Y=5989.471mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\w\medusa-AI\altium\Medusa-AI-ESP\Medusa-AI-ESP.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2861.131mil|Location2.X=2862.797mil|Location1.Y=5987.805mil|Location2.Y=5989.471mil|Absolute=True">Silk To Silk Clearance Constraint: (Collision &lt; 1mil) Between Text "U13" (-3268.207mil,974.223mil) on Top Overlay And Track (-3381mil,971mil)(-3249mil,971mil) on Top Overlay Silk Text to Silk Clearance [0mil]</acronym></a><br></td>
+</tr>
+</table></a><hr color="#EEEEEE"><a href="#top" style="font-size: 0.9em">Back to top</a><br><br><a name="IDBDXKWBHMDFHTPY1QSY5X53VG0MZ0APT41L0BX0HR5P1TNK4CDYLN"><table>
+<tr>
+<th style="text-align : left" colspan="1" class="rule">Net Antennae (Tolerance=0mil) (All)</th>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\w\medusa-AI\altium\Medusa-AI-ESP\Medusa-AI-ESP.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2535.059mil|Location2.X=2556.47mil|Location1.Y=395.138mil|Location2.Y=425.747mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\w\medusa-AI\altium\Medusa-AI-ESP\Medusa-AI-ESP.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2535.059mil|Location2.X=2556.47mil|Location1.Y=395.138mil|Location2.Y=425.747mil|Absolute=True">Net Antennae: Track (-3620mil,-4615mil)(-3575mil,-4615mil) on Bottom Layer </acronym></a><br></td>
+</tr>
+</table></a><hr color="#EEEEEE"><a href="#top" style="font-size: 0.9em">Back to top</a><br><br></body>
+</html>

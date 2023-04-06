@@ -1,0 +1,29 @@
+Board Information Report
+Filename     : C:\w\medusa-AI\altium\Medusa-AI-ESP\Medusa-AI-ESP.PcbDoc
+Date         : 4/4/2023
+Time         : 4:20:59 PM
+Time Elapsed : 00:00:00
+
+General
+    Board Size, 7750milsx7750mils
+    Components on board, 124
+count : 2
+
+Non-Plated Hole Size, Pads, Vias
+    42.52mils, 1, 0
+    44.488mils, 1, 0
+    62.205mils, 1, 0
+    64.173mils, 1, 0
+count : 4
+
+Plated Hole Size, Pads, Vias
+    0mils, 426, 0
+    7.874mils, 12, 4
+    10mils, 0, 59
+    15mils, 0, 61
+    16mils, 0, 7
+    28mils, 0, 80
+    35.433mils, 105, 0
+    120mils, 2, 0
+    221mils, 1, 0
+count : 9
