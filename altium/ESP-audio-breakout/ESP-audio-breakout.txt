@@ -1,0 +1,19 @@
+Board Information Report
+Filename     : C:\w\medusa-AI\altium\ESP-audio-breakout\ESP-audio-breakout.PcbDoc
+Date         : 4/26/2023
+Time         : 12:37:10 PM
+Time Elapsed : 00:00:00
+
+General
+    Board Size, 5085milsx2545mils
+    Components on board, 85
+count : 2
+
+Non-Plated Hole Size, Pads, Vias
+count : 0
+
+Plated Hole Size, Pads, Vias
+    0mils, 267, 0
+    7.874mils, 12, 4
+    35.433mils, 103, 0
+count : 3
