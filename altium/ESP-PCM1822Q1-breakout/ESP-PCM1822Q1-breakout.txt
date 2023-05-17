@@ -1,0 +1,22 @@
+Board Information Report
+Filename     : C:\w\medusa-AI\altium\ESP-PCM1822Q1-breakout\ESP-PCM1822Q1-breakout.PcbDoc
+Date         : 5/17/2023
+Time         : 5:30:49 PM
+Time Elapsed : 00:00:00
+
+General
+    Board Size, 5095.03milsx2865.03mils
+    Components on board, 78
+count : 2
+
+Non-Plated Hole Size, Pads, Vias
+count : 0
+
+Plated Hole Size, Pads, Vias
+    0mils, 251, 0
+    7.874mils, 12, 4
+    10mils, 0, 831
+    28mils, 0, 37
+    35.433mils, 82, 0
+    125mils, 4, 0
+count : 6

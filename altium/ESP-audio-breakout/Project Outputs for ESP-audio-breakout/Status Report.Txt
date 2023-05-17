@@ -1,12 +1,10 @@
-Output: NC Drill Files
-Type  : NC Drill
-From  : Project [ESP-audio-breakout.PrjPcb]
-   Generated File[ESP-audio-breakout.TXT]
-   Generated File[ESP-audio-breakout.LDP]
-   Generated File[ESP-audio-breakout.DRR]
+Output: Generates pick and place files
+Type  : Pick Place
+From  : Variant [[No Variations]] of Project [ESP-audio-breakout.PrjPcb]
+   Generated File[Pick Place for ESP-audio-breakout.csv]
 
 
-Files Generated   : 3
+Files Generated   : 1
 Documents Printed : 0
 
-Finished Output Generation At 3:46:17 PM On 4/26/2023
+Finished Output Generation At 9:25:18 AM On 5/8/2023

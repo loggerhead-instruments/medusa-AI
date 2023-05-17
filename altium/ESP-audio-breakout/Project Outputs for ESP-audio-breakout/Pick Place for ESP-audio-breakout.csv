@@ -1,0 +1,69 @@
+Designator,Comment,Layer,Footprint,Center-X(mm),Center-Y(mm),Rotation,Description
+C1,0.1uF,TopLayer,402,6.096,-47.625,180,Ceramic Chip Capacitor - Standard
+C10,1uF,TopLayer,402,106.934,-49.911,180,Ceramic Chip Capacitor - Standard
+C11,2.2uF,TopLayer,402,72.771,-51.689,90,Ceramic Chip Capacitor - Standard
+C12,10nF,TopLayer,402,114.808,-51.943,0,Ceramic Chip Capacitor - Standard
+C13,10nF,TopLayer,402,74.676,-51.816,270,Ceramic Chip Capacitor - Standard
+C14,2.2uF,TopLayer,402,77.47,-38.227,90,Ceramic Chip Capacitor - Standard
+C15,1uF,TopLayer,402,77.978,-45.72,0,Ceramic Chip Capacitor - Standard
+C16,10nF,TopLayer,402,79.502,-38.227,90,Ceramic Chip Capacitor - Standard
+C17,1.0uF,TopLayer,402,110.363,-42.037,180,Ceramic Chip Capacitor - Standard
+C18,4.7uF,TopLayer,402,3.048,-52.197,180,Ceramic Chip Capacitor - Standard
+C19,1.0uF,TopLayer,402,111.506,-26.162,180,Ceramic Chip Capacitor - Standard
+C2,10uF,TopLayer,Tant0805,31.242,-62.6999,90,
+C20,4.7uF,TopLayer,402,2.906,-58.801,0,Ceramic Chip Capacitor - Standard
+C21,1.0uF,TopLayer,402,103.647,-34.29,180,Ceramic Chip Capacitor - Standard
+C22,1.0uF,TopLayer,402,97.155,-14.224,270,Ceramic Chip Capacitor - Standard
+C23,22pF,TopLayer,402,82.931,-40.086,90,Ceramic Chip Capacitor - Standard
+C24,1.0uF,TopLayer,402,103.632,-32.258,180,Ceramic Chip Capacitor - Standard
+C25,1.0uF,TopLayer,402,95.123,-14.224,270,Ceramic Chip Capacitor - Standard
+C26,22pF,TopLayer,402,76.708,-24.384,0,Ceramic Chip Capacitor - Standard
+C27,1.0uF,TopLayer,402,93.091,-14.224,270,Ceramic Chip Capacitor - Standard
+C28,22pF,TopLayer,402,85.09,-40.086,90,Ceramic Chip Capacitor - Standard
+C29,1.0uF,TopLayer,402,91.059,-14.224,270,Ceramic Chip Capacitor - Standard
+C3,0.1uF,TopLayer,402,29.337,-62.738,270,Ceramic Chip Capacitor - Standard
+C30,22pF,TopLayer,402,76.708,-26.416,0,Ceramic Chip Capacitor - Standard
+C31,1.0uF,TopLayer,402,103.774,-28.194,180,Ceramic Chip Capacitor - Standard
+C32,1.0uF,TopLayer,402,89.027,-14.224,270,Ceramic Chip Capacitor - Standard
+C33,22pF,TopLayer,402,76.708,-28.448,0,Ceramic Chip Capacitor - Standard
+C34,1.0uF,TopLayer,402,87.122,-14.224,270,Ceramic Chip Capacitor - Standard
+C35,1.0uF,TopLayer,402,94.996,-40.086,90,Ceramic Chip Capacitor - Standard
+C36,1.0uF,TopLayer,402,85.09,-14.224,270,Ceramic Chip Capacitor - Standard
+C37,1.0uF,TopLayer,402,103.505,-24.257,180,Ceramic Chip Capacitor - Standard
+C38,1.0uF,TopLayer,402,83.058,-14.224,270,Ceramic Chip Capacitor - Standard
+C39,1.0uF,TopLayer,402,103.505,-22.352,180,Ceramic Chip Capacitor - Standard
+C4,1uF,TopLayer,402,17.526,-17.653,180,Ceramic Chip Capacitor - Standard
+C40,1.0uF,TopLayer,402,103.505,-20.193,180,Ceramic Chip Capacitor - Standard
+C5,2.2uF,TopLayer,402,105.791,-16.383,270,Ceramic Chip Capacitor - Standard
+C6,1uF,TopLayer,402,105.791,-8.255,90,Ceramic Chip Capacitor - Standard
+C7,10nF,TopLayer,402,103.759,-16.383,270,Ceramic Chip Capacitor - Standard
+C8,1.0uF,TopLayer,402,71.882,-59.055,180,Ceramic Chip Capacitor - Standard
+C9,2.2uF,TopLayer,402,114.808,-49.911,0,Ceramic Chip Capacitor - Standard
+P14,factory reset,TopLayer,SOP4,37.951,-10.886,180,
+P15,microSD-Molex,TopLayer,microSD_Molex_hinged,60.965,-51.549,90,
+R1,10k,TopLayer,3-0603,65.913,-12.446,0,"Precision Thick Film Chip Resistor, 10 Ohm to 1M Ohm Range, 1% and 0.5% Tolerance, 0603 Size, 0.063 W"
+R10,10k,TopLayer,2-0402,45.974,-8.636,0,"Precision Thick Film Chip Resistor, 10 Ohm to 1M Ohm Range, 1% and 0.5% Tolerance, 0402 Size, 0.063 W"
+R11,10K,TopLayer,3-0603,10.16,-53.34,0,"Precision Thick Film Chip Resistor, 10 Ohm to 1M Ohm Range, 1% and 0.5% Tolerance, 0603 Size, 0.063 W"
+R12,10K,TopLayer,3-0603,42.926,-57.531,90,"Precision Thick Film Chip Resistor, 10 Ohm to 1M Ohm Range, 1% and 0.5% Tolerance, 0603 Size, 0.063 W"
+R13,10K,TopLayer,3-0603,15.621,-54.864,0,"Precision Thick Film Chip Resistor, 10 Ohm to 1M Ohm Range, 1% and 0.5% Tolerance, 0603 Size, 0.063 W"
+R14,10K,TopLayer,3-0603,52.705,-58.674,0,"Precision Thick Film Chip Resistor, 10 Ohm to 1M Ohm Range, 1% and 0.5% Tolerance, 0603 Size, 0.063 W"
+R15,10k,TopLayer,3-0603,76.2,-20.447,180,"Precision Thick Film Chip Resistor, 10 Ohm to 1M Ohm Range, 1% and 0.5% Tolerance, 0603 Size, 0.063 W"
+R16,10k,TopLayer,3-0603,76.2,-22.479,180,"Precision Thick Film Chip Resistor, 10 Ohm to 1M Ohm Range, 1% and 0.5% Tolerance, 0603 Size, 0.063 W"
+R17,51,TopLayer,3-0603,86.995,-40.386,270,"Precision Thick Film Chip Resistor, 10 Ohm to 1M Ohm Range, 1% and 0.5% Tolerance, 0603 Size, 0.063 W"
+R18,10K-DNP,TopLayer,3-0603,91.059,-40.386,270,"Precision Thick Film Chip Resistor, 10 Ohm to 1M Ohm Range, 1% and 0.5% Tolerance, 0603 Size, 0.063 W"
+R2,10k,TopLayer,3-0603,65.913,-10.033,180,"Precision Thick Film Chip Resistor, 10 Ohm to 1M Ohm Range, 1% and 0.5% Tolerance, 0603 Size, 0.063 W"
+R3,100Ohm,TopLayer,2-0402,46.482,-27.94,0,"Precision Thick Film Chip Resistor, 10 Ohm to 1M Ohm Range, 1% and 0.5% Tolerance, 0402 Size, 0.063 W"
+R4,100Ohm,TopLayer,2-0402,46.482,-26.035,0,"Precision Thick Film Chip Resistor, 10 Ohm to 1M Ohm Range, 1% and 0.5% Tolerance, 0402 Size, 0.063 W"
+R5,100k,TopLayer,3-0603,1.397,-62.738,0,"Precision Thick Film Chip Resistor, 10 Ohm to 1M Ohm Range, 1% and 0.5% Tolerance, 0603 Size, 0.063 W"
+R6,100k,TopLayer,3-0603,1.397,-61.214,180,"Precision Thick Film Chip Resistor, 10 Ohm to 1M Ohm Range, 1% and 0.5% Tolerance, 0603 Size, 0.063 W"
+R7,4.7k,TopLayer,3-0603,22.733,-54.229,270,"Precision Thick Film Chip Resistor, 10 Ohm to 1M Ohm Range, 1% and 0.5% Tolerance, 0603 Size, 0.063 W"
+R8,4.7k,TopLayer,3-0603,25.273,-54.229,270,"Precision Thick Film Chip Resistor, 10 Ohm to 1M Ohm Range, 1% and 0.5% Tolerance, 0603 Size, 0.063 W"
+R9,10k,TopLayer,2-0402,17.526,-16.129,0,"Precision Thick Film Chip Resistor, 10 Ohm to 1M Ohm Range, 1% and 0.5% Tolerance, 0402 Size, 0.063 W"
+U1,SAM-M8Q,TopLayer,GPS_SAM-MQ8,56.774,-26.031,180,
+U2,ADP1712,TopLayer,MF05A_N,104.775,-12.446,270,"Micropower, 150mA Low-Noise Ultra Low-Dropout CMOS Voltage Regulator"
+U3,ESP32-S3-WROOM-1-N16R8,TopLayer,XCVR_ESP32-S3-WROOM-1-N16R2,14.361,-36.322,90,"Bluetooth, WiFi 802.11b/g/n, Bluetooth v5.0 Transceiver Module 2.4GHz PCB Trace Surface Mount"
+U4,ADP1712,TopLayer,MF05A_N,110.871,-50.927,0,"Micropower, 150mA Low-Noise Ultra Low-Dropout CMOS Voltage Regulator"
+U5,ADP1712,TopLayer,MF05A_N,78.486,-42.037,90,"Micropower, 150mA Low-Noise Ultra Low-Dropout CMOS Voltage Regulator"
+U6,ADP1712,TopLayer,MF05A_N,73.66,-55.626,90,"Micropower, 150mA Low-Noise Ultra Low-Dropout CMOS Voltage Regulator"
+U7,3.3V LDO,TopLayer,AP7361C-33Y5-13,3.834,-55.5,90,
+U8,ES7210,TopLayer,ES7210,89.662,-26.67,0,Audio CODEC
