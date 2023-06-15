@@ -1,5 +1,5 @@
 ----------------------------------------------------------------------------------------------------------------------------------
-NCDrill File Report For: ESP-PCM1822Q1-breakout.PcbDoc   5/17/2023  5:29:55 PM
+NCDrill File Report For: ESP-PCM1822Q1-breakout.PcbDoc   6/14/2023  11:38:00 PM
 ----------------------------------------------------------------------------------------------------------------------------------
 
 Layer Pair : Top Layer to Bottom Layer
@@ -7,12 +7,12 @@ ASCII RoundHoles File : ESP-PCM1822Q1-breakout.TXT
 
 Tool       Hole Size               Hole Tolerance               Hole Type       Hole Count   Plated         Tool Travel
 ----------------------------------------------------------------------------------------------------------------------------------
-T1      8mil (0.2mm)                                              Round             16        PTH        3.72inch (94.53mm)
-T2      10mil (0.254mm)                                           Round             831       PTH        95.86inch (2434.77mm)
-T3      28mil (0.711mm)                                           Round             37        PTH        19.20inch (487.75mm)
-T4      35mil (0.9mm)                                             Round             82        PTH        20.03inch (508.72mm)
-T5      125mil (3.175mm)                                          Round             4         PTH        12.61inch (320.18mm)
+T1      8mil (0.2mm)                                              Round             14        PTH        3.76inch (95.61mm)
+T2      10mil (0.254mm)                                           Round             97        PTH        10.82inch (274.90mm)
+T3      28mil (0.711mm)                                           Round             62        PTH        30.79inch (782.04mm)
+T4      35mil (0.9mm)                                             Round             72        PTH        25.04inch (636.06mm)
+T5      120mil (3.048mm)                                          Round             2         PTH        1.52inch (38.70mm)
 ----------------------------------------------------------------------------------------------------------------------------------
-Totals                                                                              970
+Totals                                                                              247
 
 Total Processing Time (hh:mm:ss) : 00:00:00

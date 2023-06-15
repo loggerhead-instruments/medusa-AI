@@ -1,5 +1,5 @@
 ------------------------------------------------------------------------------------------
-Gerber File Extension Report For: ESP-PCM1822Q1-breakout.GBR   5/17/2023  5:29:36 PM
+Gerber File Extension Report For: ESP-PCM1822Q1-breakout.GBR   6/14/2023  11:37:44 PM
 ------------------------------------------------------------------------------------------
 
 
@@ -10,8 +10,11 @@ Layer Extension     Layer Description
 .GTP                Top Paste                               
 .GTS                Top Solder                              
 .GTL                Top Layer                               
+.GP1                Layer 1                                 
+.GP2                Layer 2                                 
 .GBL                Bottom Layer                            
 .GBS                Bottom Solder                           
+.GBO                Bottom Overlay                          
 .GM1                Mechanical 1                            
 .GM13               Mechanical 13                           
 .GM15               Mechanical 15                           
