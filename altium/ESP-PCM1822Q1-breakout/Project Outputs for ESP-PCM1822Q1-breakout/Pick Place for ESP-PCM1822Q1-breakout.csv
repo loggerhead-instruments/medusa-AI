@@ -1,0 +1,79 @@
+Designator,Comment,Footprint,Center-X(mm),Center-Y(mm),Rotation,Description
+C1,0.1uF,402,6.096,-47.625,180,Ceramic Chip Capacitor - Standard
+C10,1uF,402,106.934,-49.911,180,Ceramic Chip Capacitor - Standard
+C11,2.2uF,402,72.771,-51.689,90,Ceramic Chip Capacitor - Standard
+C12,10nF,402,114.808,-51.943,0,Ceramic Chip Capacitor - Standard
+C13,10nF,402,74.676,-51.816,270,Ceramic Chip Capacitor - Standard
+C14,2.2uF,402,77.47,-38.227,90,Ceramic Chip Capacitor - Standard
+C15,1uF,402,77.978,-45.72,0,Ceramic Chip Capacitor - Standard
+C16,10nF,402,79.502,-38.227,90,Ceramic Chip Capacitor - Standard
+C17,1.0uF,402,110.363,-42.037,180,Ceramic Chip Capacitor - Standard
+C18,4.7uF,402,3.048,-52.197,180,Ceramic Chip Capacitor - Standard
+C19,1.0uF,402,111.252,-26.162,180,Ceramic Chip Capacitor - Standard
+C2,10uF,Tant0805,31.242,-62.6999,90,
+C20,4.7uF,402,2.906,-58.801,0,Ceramic Chip Capacitor - Standard
+C21,10uF,Tant0805,88.773,-19.939,270,
+C22,0.1uF,402,87.249,-20.193,270,Ceramic Chip Capacitor - Standard
+C23,22pF,402,93.853,-20.193,270,Ceramic Chip Capacitor - Standard
+C24,1.0uF,402,110.363,-39.497,180,Ceramic Chip Capacitor - Standard
+C25,10uF,Tant0805,81.407,-33.02,270,
+C26,0.1uF,402,83.185,-33.02,270,Ceramic Chip Capacitor - Standard
+C27,1.0uF,402,111.125,-23.622,180,Ceramic Chip Capacitor - Standard
+C28,22pF,402,91.313,-20.32,270,Ceramic Chip Capacitor - Standard
+C29,1uF,Tant0805,87.884,-39.751,0,
+C3,0.1uF,402,29.337,-62.738,270,Ceramic Chip Capacitor - Standard
+C30,0.1uF,402,88.011,-38.227,0,Ceramic Chip Capacitor - Standard
+C31,10uF,Tant0805,90.932,-40.132,0,
+C32,0.1uF,402,90.932,-38.608,0,Ceramic Chip Capacitor - Standard
+C4,1uF,402,17.526,-17.653,180,Ceramic Chip Capacitor - Standard
+C40,1.0uF,402,93.98,-39.116,90,Ceramic Chip Capacitor - Standard
+C5,2.2uF,402,85.979,-45.593,180,Ceramic Chip Capacitor - Standard
+C6,1uF,402,94.107,-45.72,0,Ceramic Chip Capacitor - Standard
+C7,10nF,402,85.979,-43.688,180,Ceramic Chip Capacitor - Standard
+C8,1.0uF,402,71.882,-59.055,180,Ceramic Chip Capacitor - Standard
+C9,2.2uF,402,114.808,-49.911,0,Ceramic Chip Capacitor - Standard
+P1,Header 14,HDR1X14,16.383,-50.038,0,"Header, 14-Pin"
+P10,Jumper PPS to Audio R,HDR1X2,114.808,-14.986,270,"Header, 2-Pin"
+P11,10129380-908001BLF,Header_8_SMT,14.478,-8.8265,0,Surface mount header
+P12,BAT,HDR_2x1_2mm,5.207,-62.587,0,
+P13,switch,HDR1X3,20.828,-62.103,0,"Header, 3-Pin"
+P14,factory reset,SOP4,37.951,-10.886,180,
+P15,microSD-Molex,microSD_Molex_hinged,60.965,-51.549,90,
+P16,Header 4,HDR1X4,99.06,-29.591,90,"Header, 4-Pin"
+P17,Header 4,HDR1X4,92.583,-23.241,180,"Header, 4-Pin"
+P18,Header 4,HDR1X4,86.106,-29.718,270,"Header, 4-Pin"
+P19,Header 4,HDR1X4,92.583,-36.068,0,"Header, 4-Pin"
+P2,Iridium,HDR1X7,58.166,-5.715,0,"Header, 7-Pin"
+P3,Display,HDR1X4,81.788,-56.007,90,"Header, 4-Pin"
+P4,GND Tie,HDR1X2,74.041,-14.097,180,"Header, 2-Pin"
+P5,HYDROPHONE L,HDR1X3,114.808,-42.037,90,"Header, 3-Pin"
+P7,HYDROPHONE R,HDR1X3,114.808,-26.162,90,"Header, 3-Pin"
+P8,Header 12,HDR1X12,37.465,-35.941,90,"Header, 12-Pin"
+P9,Header 14,HDR1X14,16.383,-21.971,180,"Header, 14-Pin"
+R1,10k,3-0603,65.913,-12.446,0,"Precision Thick Film Chip Resistor, 10 Ohm to 1M Ohm Range, 1% and 0.5% Tolerance, 0603 Size, 0.063 W"
+R10,10k,2-0402,45.974,-8.636,0,"Precision Thick Film Chip Resistor, 10 Ohm to 1M Ohm Range, 1% and 0.5% Tolerance, 0402 Size, 0.063 W"
+R11,10K,3-0603,10.16,-53.34,0,"Precision Thick Film Chip Resistor, 10 Ohm to 1M Ohm Range, 1% and 0.5% Tolerance, 0603 Size, 0.063 W"
+R12,10K,3-0603,42.926,-57.531,90,"Precision Thick Film Chip Resistor, 10 Ohm to 1M Ohm Range, 1% and 0.5% Tolerance, 0603 Size, 0.063 W"
+R13,10K,3-0603,15.621,-54.864,0,"Precision Thick Film Chip Resistor, 10 Ohm to 1M Ohm Range, 1% and 0.5% Tolerance, 0603 Size, 0.063 W"
+R14,10K,3-0603,52.705,-58.674,0,"Precision Thick Film Chip Resistor, 10 Ohm to 1M Ohm Range, 1% and 0.5% Tolerance, 0603 Size, 0.063 W"
+R15,10k,3-0603,82.804,-28.448,180,"Precision Thick Film Chip Resistor, 10 Ohm to 1M Ohm Range, 1% and 0.5% Tolerance, 0603 Size, 0.063 W"
+R16,10k,3-0603,96.393,-39.37,270,"Precision Thick Film Chip Resistor, 10 Ohm to 1M Ohm Range, 1% and 0.5% Tolerance, 0603 Size, 0.063 W"
+R17,51,3-0603,96.393,-19.939,90,"Precision Thick Film Chip Resistor, 10 Ohm to 1M Ohm Range, 1% and 0.5% Tolerance, 0603 Size, 0.063 W"
+R18,10k,3-0603,82.804,-25.908,180,"Precision Thick Film Chip Resistor, 10 Ohm to 1M Ohm Range, 1% and 0.5% Tolerance, 0603 Size, 0.063 W"
+R19,10k,3-0603,82.804,-30.353,180,"Precision Thick Film Chip Resistor, 10 Ohm to 1M Ohm Range, 1% and 0.5% Tolerance, 0603 Size, 0.063 W"
+R2,10k,3-0603,65.913,-10.033,180,"Precision Thick Film Chip Resistor, 10 Ohm to 1M Ohm Range, 1% and 0.5% Tolerance, 0603 Size, 0.063 W"
+R3,100Ohm,2-0402,46.482,-27.94,0,"Precision Thick Film Chip Resistor, 10 Ohm to 1M Ohm Range, 1% and 0.5% Tolerance, 0402 Size, 0.063 W"
+R4,100Ohm,2-0402,46.482,-26.035,0,"Precision Thick Film Chip Resistor, 10 Ohm to 1M Ohm Range, 1% and 0.5% Tolerance, 0402 Size, 0.063 W"
+R5,100k,3-0603,1.397,-62.738,0,"Precision Thick Film Chip Resistor, 10 Ohm to 1M Ohm Range, 1% and 0.5% Tolerance, 0603 Size, 0.063 W"
+R6,100k,3-0603,1.397,-61.214,180,"Precision Thick Film Chip Resistor, 10 Ohm to 1M Ohm Range, 1% and 0.5% Tolerance, 0603 Size, 0.063 W"
+R7,4.7k,3-0603,22.733,-54.229,270,"Precision Thick Film Chip Resistor, 10 Ohm to 1M Ohm Range, 1% and 0.5% Tolerance, 0603 Size, 0.063 W"
+R8,4.7k,3-0603,25.273,-54.229,270,"Precision Thick Film Chip Resistor, 10 Ohm to 1M Ohm Range, 1% and 0.5% Tolerance, 0603 Size, 0.063 W"
+R9,10k,2-0402,17.526,-16.129,0,"Precision Thick Film Chip Resistor, 10 Ohm to 1M Ohm Range, 1% and 0.5% Tolerance, 0402 Size, 0.063 W"
+U1,SAM-M8Q,GPS_SAM-MQ8,56.774,-26.031,180,
+U2,ADP1712,MF05A_N,89.916,-44.704,180,"Micropower, 150mA Low-Noise Ultra Low-Dropout CMOS Voltage Regulator"
+U3,ESP32-S3-WROOM-1-N16R8,XCVR_ESP32-S3-WROOM-1-N16R2,14.361,-36.322,90,"Bluetooth, WiFi 802.11b/g/n, Bluetooth v5.0 Transceiver Module 2.4GHz PCB Trace Surface Mount"
+U4,ADP1712,MF05A_N,110.871,-50.927,0,"Micropower, 150mA Low-Noise Ultra Low-Dropout CMOS Voltage Regulator"
+U5,ADP1712,MF05A_N,78.486,-42.037,90,"Micropower, 150mA Low-Noise Ultra Low-Dropout CMOS Voltage Regulator"
+U6,ADP1712,MF05A_N,73.66,-55.626,90,"Micropower, 150mA Low-Noise Ultra Low-Dropout CMOS Voltage Regulator"
+U7,3.3V LDO,AP7361C-33Y5-13,3.834,-55.5,90,
+U8,PCM1822-Q1,PCM1822-Q1,92.583,-29.4707,180,"TI PCM1822-Q1 Stereo Channel, 32-Bit, 192-kHz, Burr-Brown Audio ADC"

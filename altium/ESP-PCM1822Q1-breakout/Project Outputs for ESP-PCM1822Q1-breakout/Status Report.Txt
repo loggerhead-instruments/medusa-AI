@@ -1,12 +1,10 @@
-Output: NC Drill Files
-Type  : NC Drill
-From  : Project [ESP-PCM1822Q1-breakout.PrjPcb]
-   Generated File[ESP-PCM1822Q1-breakout.TXT]
-   Generated File[ESP-PCM1822Q1-breakout.LDP]
-   Generated File[ESP-PCM1822Q1-breakout.DRR]
+Output: Generates pick and place files
+Type  : Pick Place
+From  : Variant [[No Variations]] of Project [ESP-PCM1822Q1-breakout.PrjPcb]
+   Generated File[Pick Place for ESP-PCM1822Q1-breakout.csv]
 
 
-Files Generated   : 3
+Files Generated   : 1
 Documents Printed : 0
 
-Finished Output Generation At 5:29:55 PM On 5/17/2023
+Finished Output Generation At 3:28:19 PM On 5/24/2023
